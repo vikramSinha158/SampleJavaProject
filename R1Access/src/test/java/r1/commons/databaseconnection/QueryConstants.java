@@ -15,7 +15,7 @@ public class QueryConstants {
 	return "Select top 1 encounterid ,SSN ,Admitdate from Registrations where GuarantorID is not null and encounterid is not NULL and SSN is not null and SSN <> '000000200' and SSN <> '000000000' and Phone is not null and ID not in (select RecordKey from RecordCheckOut) order by id desc ";
 	}
 	
-	public static String neccessityRegistrationID = "Select top 1 * from NecessityServices where NecessityStatusID in (2,3)";
+	public static String neccessityRegistrationID = "Select top 1 * from NecessityServices where NecessityStatusID in (2,3) order by NEWID()";
 	public static String getNeccessityEncounterID(String registrationID) {
 		return "select * from registrations where id='"+registrationID+"'";
 	}

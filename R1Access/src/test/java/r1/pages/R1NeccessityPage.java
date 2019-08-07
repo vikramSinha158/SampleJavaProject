@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.junit.Assert;
 
+import cucumber.api.DataTable;
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -58,11 +59,14 @@ public class R1NeccessityPage extends BasePage{
 	@FindBy(xpath = "//table[contains(@id,'grdHCPCSearchResults')]//table//tr[last()]//td[1]//a")
 	private List<WebElementFacade> serviceGridCode;
 	
-	@FindBy(xpath = "//table[contains(@id,'grdICD9SearchResults')]//tr[@class='PanelTitle']/following-sibling::tr/td[1]")
-	private List<WebElementFacade> diagonisCode;
+	@FindBy(xpath = "(//a[contains(@id,'btnSelectICD')])[1]")
+	private WebElementFacade diagonisCode;
 	
 	@FindBy(xpath = "//a[@class='StandardButton']")
 	private List<WebElementFacade> accountButtons;
+	
+	@FindBy(xpath = "//a[contains(@id,'lnkViewMode')]")
+	private List<WebElementFacade> admittingLink;
 	
 	@FindBy(xpath = "//input[@class='txtSearch']")
 	private WebElementFacade searchTextBox;
@@ -94,9 +98,22 @@ public class R1NeccessityPage extends BasePage{
 	@FindBy(xpath = "//span[contains(@id,'accTaskAction_lblStatus')]")
 	private WebElementFacade necessityAccountStatus;
 	
+	@FindBy(xpath = "//table[contains(@class,'alert-warning')]//tr[1]/td")
+	private WebElementFacade exceptionsPanel;
+
+	@FindBy(xpath = "//a[contains(text(),'R1 Necessity')]/ancestor::li")
+	private WebElementFacade r1NecessityTabColor;
 	
-
-
+	@FindBy(xpath = "//a[contains(text(),'Services')]/ancestor::li")
+	private WebElementFacade servicesTabColor;
+	
+	@FindBy(xpath = "//tr[@class='colorBG']//td")
+	private WebElementFacade criticalError;
+	
+	@FindBy(xpath = "//input[contains(@name,'txtNextFollowUpDate')]")
+	private WebElementFacade followUpDate;
+	
+	
 	
 	
 	public void verifyWorkListTitle(String worklist) {
@@ -184,6 +201,21 @@ public class R1NeccessityPage extends BasePage{
 		}
 	}
 	
+	public void verifyReleaseButton() {
+		for(int i=0;i<accountButtons.size();i++) {
+			if(accountButtons.get(i).getText().equalsIgnoreCase("Release")) {
+				withAction().moveToElement(accountButtons.get(i)).click().build().perform();
+			}
+		
+		}
+	}
+	
+	public void verifyAdmittingLink() {
+		if(admittingLink.size()>0) {
+			clickOn(admittingLink.get(0));
+		}
+	}
+	
 	public void verifyAccountsDisplayed() {
 		Assert.assertTrue("There is no accounts for Necessity Required",necessityRequiredAccounts.size()>1);
 	}
@@ -206,8 +238,7 @@ public class R1NeccessityPage extends BasePage{
 	
 	
 	public void clickDiagnosisLink() {
-		int random = 1+(int)(Math.random() * diagonisCode.size());
-		clickOn(diagonisCode.get(random-1));
+		clickOn(diagonisCode);
 	}
 	
 	public void selectActivity(String menu) {
@@ -291,9 +322,46 @@ public class R1NeccessityPage extends BasePage{
 		clickOn(necessityAccountUI.get(0));
 	}
 	
-	
 	public void verifyNecessityAccountStatus() {
 		Assert.assertTrue(necessityAccountStatus.getText().contains("Incomplete") || necessityAccountStatus.getText().contains("Redo") || necessityAccountStatus.getText().contains("Assigned"));
 	}
+	
+	public void verifyExceptions(DataTable exceptions) {
+	@SuppressWarnings("unused")
+	List<List<String>> exceptionList = exceptions.raw();
+	for(int i=0;i<2;i++) {
+		 if(exceptionsPanel.getText().contains(exceptionList.get(i).get(0)) && exceptionsPanel.getText().contains(exceptionList.get(i).get(1))) {
+		}
+		 else {
+			Assert.assertTrue("Exception-"+exceptionList.get(i).get(0)+"-is not matching", false);
+		 }
+		 
+	 }
+	}
+	
+	public void verifyNecessityColor() {
+		Assert.assertEquals("Necessity Tab color is not appearing in RED color",r1NecessityTabColor.getAttribute("class"), "TabBGSelI");
+	}
+	
+	public void verifyServiceColor() {
+		Assert.assertEquals("Service Tab color is not appearing in BLUE color",servicesTabColor.getAttribute("class"), "TabBGC");
+	}
+	
+	public void verifyNecessityColorBlue() {
+		Assert.assertEquals("Necessity Tab color is not appearing in BLUE color",r1NecessityTabColor.getAttribute("class"), "TabBGC");
+	}
+	
+	public void verifyCriticalException(String exception) {
+		Assert.assertEquals("Critical Exception is not matching for R1Necessity Complete action", exception, criticalError.getText().trim());
+	}
+	
+	public void verifyExceptionsNecessityService(String exception) {
+		Assert.assertFalse(exception+"-is visible in the exception panel for R1Necessity",exceptionsPanel.getText().contains(exception));
+	}
+	
+	public void verifyExceptionsEnabled(String exception) {
+		Assert.assertTrue(exception+"-is visible in the exception panel for R1Necessity",exceptionsPanel.getText().contains(exception));
+	}
+	
 	
 }

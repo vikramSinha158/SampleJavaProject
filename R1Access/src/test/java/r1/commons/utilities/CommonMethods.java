@@ -73,7 +73,8 @@ public class CommonMethods extends BasePage {
 		public void DefaultWindow() {
 			getDriver().switchTo().defaultContent();
 		}
-
+		
+		
 		// Switch to frame using frame name
 		public void FrameSwitchUsingName(WebElementFacade frameName) {
 			try {
@@ -127,4 +128,5 @@ public class CommonMethods extends BasePage {
 		Random rnd = new Random();
 		return rnd.nextInt(all);
 	}
+	
 }
