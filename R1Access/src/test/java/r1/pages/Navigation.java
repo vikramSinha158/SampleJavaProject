@@ -31,7 +31,11 @@ public class Navigation extends BasePage {
 	@FindBy(xpath = "//span[@class='txt'][text()='FacilitySetting Configuration']")
 	private WebElementFacade facilitySettingConfiguration;
 	
+	@FindBy(xpath = "//span[@class='txt'][text()='Zero Touch Residual Configuration']")
+	private WebElementFacade zeroTouchResidualConfiguration;
 	
+	@FindBy(xpath = "//span[@class='txt'][text()='Service Bus Monitor']")
+	private WebElementFacade serviceBusMonitor;
 	
 	
 	
@@ -71,5 +75,31 @@ public class Navigation extends BasePage {
 	
 	public void clickFacilitySettingConfiguration() {
 		withAction().moveToElement(facilitySettingConfiguration).click().build().perform();
+	}	
+	public void clickZeroTouchResidualConfiguration() {
+		withAction().moveToElement(zeroTouchResidualConfiguration).click().build().perform();
 	}
+		
+	public void clickServiceBusMonitor() {
+		withAction().moveToElement(serviceBusMonitor).click().build().perform();
+		}	
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
 }
