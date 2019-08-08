@@ -12,7 +12,8 @@ Feature: Verify the Service Automation Rule functionality
   Scenario: Verify create a new Service Automation Rule and Services get added on the account having matching rule
     Given User is on Zero-Touch-Residual-Configuration Page
     When user add service automation rule by click on add button
-    Then user enters rule name "SARTesting" ,Patient Type "O" ,Facility Patient Type "O" ,and Rule Accuracy "100"
+    And user enters rule name "SARTesting" ,Patient Type "O" ,Facility Patient Type "O"
+    And user should able to view rule Accuracy is "100"
     And enter CPT Code "99283"
     And user click on check boxes for Is Enabled and Complete Service Task  
     And user click on save button
@@ -29,3 +30,10 @@ Feature: Verify the Service Automation Rule functionality
     And user select a value "Outpatient Diagnostic" from patient type dropdown
     And user clicked Unassigned Account
     Then verify Service associated with automation rule should get added to account and service tab should get completed 
+    
+   @396633 @ServiceAutomationRule
+   Scenario: Verify that newly created Service Automation rules has accuracy as 100% and accuracy can't be edited while editing a Service Automation rule
+   Given User is on Zero-Touch-Residual-Configuration Page 
+   When user select any service automation rule and clicks on edit button
+   Then user enters rule name "TestAccuracy" ,Patient Type "O" ,Facility Patient Type "O"
+   And user should not able to edit accuracy value

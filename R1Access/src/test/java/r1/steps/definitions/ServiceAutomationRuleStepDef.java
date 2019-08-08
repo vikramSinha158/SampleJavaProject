@@ -32,9 +32,9 @@ public class ServiceAutomationRuleStepDef extends BasePage {
     }
 
 	
-	@Then("^user enters rule name \"([^\"]*)\" ,Patient Type \"([^\"]*)\" ,Facility Patient Type \"([^\"]*)\" ,and Rule Accuracy \"([^\"]*)\"$")
-	public void user_enters_rule_name_Patient_Type_Facility_Patient_Type_and_Rule_Accuracy(String ruleName, String patientType, String facilityPatientType, String ruleAccuracy) {
-		serviceAutomationRulePage.addServiceAutomationRule(ruleName, patientType, facilityPatientType, ruleAccuracy);
+	@Then("^user enters rule name \"([^\"]*)\" ,Patient Type \"([^\"]*)\" ,Facility Patient Type \"([^\"]*)\"$")
+	public void user_enters_rule_name_Patient_Type_Facility_Patient_Type(String ruleName, String patientType, String facilityPatientType) {
+		serviceAutomationRulePage.addServiceAutomationRule(ruleName, patientType, facilityPatientType);
 	}
 
 	@Then("^enter CPT Code \"([^\"]*)\"$")
@@ -87,9 +87,27 @@ public class ServiceAutomationRuleStepDef extends BasePage {
 
 	@Then("^verify Service associated with automation rule should get added to account and service tab should get completed$")
 	public void verify_Service_associated_with_automation_rule_should_get_added_to_account_and_service_tab_should_get_completed() {
+		serviceAutomationRulePage.clickServiceAutomationRule();
+		serviceAutomationRulePage.verifyMatchingRule();
+		serviceAutomationRulePage.clickServiceAutomationRule();
+	}
+	
+	@When("^user select any service automation rule and clicks on edit button$")
+	public void user_select_any_service_automation_rule_and_clicks_on_edit_button() {
+		serviceAutomationRulePage.verifyAccuracy();
 	   
+	}
+
+	@Then("^user should be able to edit service automation rule like change rule name \"([^\"]*)\"$")
+	public void user_should_be_able_to_edit_service_automation_rule_like_change_rule_name(String arg1) {
+	  
+	}
+
+	@Then("^user should not able to edit accuracy value$")
+	public void user_should_not_able_to_edit_accuracy_value() {
 	    
 	}
+
 
 
 	

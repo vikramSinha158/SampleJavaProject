@@ -1,6 +1,7 @@
 package r1.pages;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Assert;
 import org.openqa.selenium.support.FindBy;
@@ -33,8 +34,8 @@ public class ServiceAutomationRulePage extends BasePage{
 	@FindBy(xpath = "//input[contains(@id,'txtFacilityPatientType')]")
 	private WebElementFacade txtFacilityPatientType;
 	
-	@FindBy(xpath = "//input[contains(@id,'txtRuleAccuracy')]")
-	private WebElementFacade txtRuleAccuracy;
+//	@FindBy(xpath = "//input[contains(@id,'txtRuleAccuracy')]")
+//	private WebElementFacade txtRuleAccuracy;
 	
 	@FindBy(xpath = "//textarea[contains(@id,'txtServicesCPTCodes')]")
 	private WebElementFacade txtServicesCPTCodes;
@@ -61,7 +62,19 @@ public class ServiceAutomationRulePage extends BasePage{
 	private WebElementFacade txtFacilityCode;
 	
 	@FindBy(xpath = "//a[contains(text(),'Show All')]")
-	private WebElementFacade btnShowAll;
+	private List<WebElementFacade> btnShowAll;
+	
+	@FindBy(xpath = "//input[contains(@id,'dshServiceAutomation_imgIcon')]")
+	private WebElementFacade ImgIcon;
+	
+	@FindBy(xpath = "//table[contains(@id,'_gvServiceAutomation')]//td")
+	private WebElementFacade selectId;
+	
+	@FindBy(xpath = "//input[contains(@id,'_btnEdit')]")
+	private WebElementFacade btnEdit;
+	
+	public String matchingRuletableRow = "//table[contains(@id,'ctl05_dgDataSourceRuleMatches')]//tr";
+	public String matchingRuleRowHeader= "//table[contains(@id,'ctl05_dgDataSourceRuleMatches')]//tr[1]/td";
 	
 	
 	/***************************************************************************************************************************************************/
@@ -87,18 +100,38 @@ public class ServiceAutomationRulePage extends BasePage{
 			clickOn(btnPublish);
 		}
 	 
+	 public void verifyAccuracy() {
+			clickOn(selectId);
+			clickOn(btnEdit);
+	    }
+	 
+	 public void verifyRuleAccuracy() {
+		 
+		 
+	 }
+	 
 	 public void clickShowAllButton() {
-		 //boolean clickShowAll = btnShowAll.isDisplayed();
-		 if(btnShowAll.isDisplayed()){
-		 clickOn(btnShowAll);
+		 count=btnShowAll.size();
+		 if(count > 0){
+		 clickOn(btnShowAll.get(0));
 		}
 	 }
 	 
-	 public void addServiceAutomationRule(String ruleName, String patientType, String facilityPatientType, String ruleAccuracy) {
+	 public void clickServiceAutomationRule() {
+		 //clickOn(ImgIcon); 
+		 withAction().moveToElement(ImgIcon).click().build().perform();
+      }
+	 
+	 public void verifyGrdDRGSelected() {
+			count=btnShowAll.size();
+			Assert.assertTrue("Service selected grid does not exist" , count > 1);
+	    }
+	 
+	 public void addServiceAutomationRule(String ruleName, String patientType, String facilityPatientType) {
 			typeInto(txtRuleName, ruleName);
 			typeInto(txtPatientType, patientType);
 			typeInto(txtFacilityPatientType, facilityPatientType);
-			typeInto(txtRuleAccuracy, ruleAccuracy);
+			
 			textRuleName= ruleName;
 	    }
 	 
@@ -138,6 +171,18 @@ public class ServiceAutomationRulePage extends BasePage{
 			}
 				
 		}
+	
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	public void verifyMatchingRule() {
+		String id= "26521";
+		getColValue= commonMethodsR1Access.getTableColValue(matchingRuletableRow, matchingRuleRowHeader, "Rule Id") ;
+		System.out.println(getColValue);
+		Assert.assertTrue("Service Automation Rule does not exist in matching rule table", getColValue.contains(id));
+			
+       }
 	
 	
 	
