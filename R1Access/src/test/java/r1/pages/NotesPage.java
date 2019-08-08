@@ -145,14 +145,8 @@ public class NotesPage extends BasePage {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
 	public void verifyNotesDateTime() throws IOException {
-		Assert.assertTrue("Note's date and time stamped is not matching",notesDateTime.getText().contains(new SimpleDateFormat("M/dd/yyyy").format(new Date()).toString()));
+		Assert.assertTrue("Note's date and time stamped is not matching",notesDateTime.getText().contains(new SimpleDateFormat("M/d/yyyy").format(new Date()).toString()));
 		Assert.assertTrue("Note's user name is not verified",notesUser.getText().equalsIgnoreCase(CommonMethods.LoadProperties("username")));
 	}
 	
