@@ -74,9 +74,7 @@ public class Service2Page extends BasePage
 	
 	public void verifySingleMultipleRadioBtn()
 	{
-		Assert.assertTrue("Single Multiple Radio Not Coming ",singleMultipleRadioBtn.size()==2 );	
-		
-		System.out.print(singleMultipleRadioBtn.size());
+		Assert.assertTrue("Single Multiple Radio Not Coming ",singleMultipleRadioBtn.size()==2 );					
 	}
 	
 	
@@ -121,7 +119,5 @@ public class Service2Page extends BasePage
 		}
 		Assert.assertTrue("Service don't get added", flag);						
 	}
-	
-	
-	
+			
 }
