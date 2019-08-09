@@ -144,15 +144,8 @@ public class NotesPage extends BasePage {
 		common.switchWindow();
 	}
 	
-	
-	
-	
-	
-	
-	
-	
 	public void verifyNotesDateTime() throws IOException {
-		Assert.assertTrue("Note's date and time stamped is not matching",notesDateTime.getText().contains(new SimpleDateFormat("M/dd/yyyy").format(new Date()).toString()));
+		Assert.assertTrue("Note's date and time stamped is not matching",notesDateTime.getText().contains(new SimpleDateFormat("M/d/yyyy").format(new Date()).toString()));
 		Assert.assertTrue("Note's user name is not verified",notesUser.getText().equalsIgnoreCase(CommonMethods.LoadProperties("username")));
 	}
 	
@@ -171,14 +164,6 @@ public class NotesPage extends BasePage {
 	public void verifyNoteDB(String column) throws ClassNotFoundException, IOException, SQLException, InterruptedException {
 		Assert.assertTrue("Note is not matching with database",noteText.getText().contains(NotesSteps.verifyNewCreatedScope(encounterID.getText(), column)));
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	public void verifyWorkListTitle(String worklist) {
 		Assert.assertEquals("Worklist title is not matching", workListTitle.getText(), worklist);

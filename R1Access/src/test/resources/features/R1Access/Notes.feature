@@ -3,7 +3,7 @@ Feature: Verify the workflow of Notes tab
   Background: user navigates to account detail page
     Given user is on R1 hub page
     When user clicks on facility list
-    And user select the facility "WPWI - Wheaton Franciscan Medical Group, Inc."
+    And user select the facility "SJMA - St. John Macomb-Oakland Hospital"
     And user clicks on "Patient Access" link
     And user clicks on "Pre-Registration" link
     Then user should be able to view the "Pre-Registration" label on worklist page

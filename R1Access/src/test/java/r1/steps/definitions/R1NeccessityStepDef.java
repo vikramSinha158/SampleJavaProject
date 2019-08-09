@@ -3,6 +3,7 @@ package r1.steps.definitions;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -85,8 +86,18 @@ public class R1NeccessityStepDef extends BasePage{
 	
 	@And("^user clicks on \"([^\"]*)\" button$")
 	public void user_clicks_on_Checkout_button(String menu) throws InterruptedException{
+		if(menu.contains("Check Out")) {
+		neccessityPage.verifyReleaseButton();
 		neccessityPage.clickAccountButton(menu);
 		neccessityPage.verifyRedoButton();
+		neccessityPage.verifyAdmittingLink();
+		}
+		else if(menu.contains("Complete")) {
+			neccessityPage.verifyRedoButton();
+			neccessityPage.clickAccountButton(menu);
+		}
+		else
+			neccessityPage.clickAccountButton(menu);
 	}
 	
 	@And("^user search the service \"([^\"]*)\"$")
@@ -100,7 +111,7 @@ public class R1NeccessityStepDef extends BasePage{
 	}
 	
 	@And("^user clicks on any diagnosis link$")
-	public void user_clicks_on_any_diagnosis_link(){
+	public void user_clicks_on_any_diagnosis_link() throws InterruptedException{
 		neccessityPage.clickDiagnosisLink();
 	}
 	
@@ -174,5 +185,82 @@ public class R1NeccessityStepDef extends BasePage{
 	public void user_should_be_able_to_view_the_status() {
 		neccessityPage.verifyNecessityAccountStatus();
 	}
+	
+	@Then("^user should be able to view the exceptions$")
+	public void user_should_be_able_to_view_the_exceptions(DataTable exceptions) {
+		neccessityPage.verifyExceptions(exceptions);	
+	}
+	
+	@And("^user should be able to view Necessity tab color in RED$")
+	public void user_should_be_able_to_view_Necessity_tab_color_in_RED() {
+		neccessityPage.verifyNecessityColor();
+	}
+	
+	@And("^user should be able to view Service tab color in BLUE$")
+	public void user_should_be_able_to_view_Service_tab_color_in_BLUE() {
+		neccessityPage.verifyServiceColor();
+	}
+	
+	@Then("^user should be able to view the critical exception \"([^\"]*)\"$")
+	public void user_should_be_able_to_view_the_critical_exception(String exception) {
+		neccessityPage.verifyCriticalException(exception);
+	}
+	
+	@And("^user should be able to view the exception \"([^\"]*)\"$")
+	public void user_should_be_able_to_view_the_exception(String exception) {
+		neccessityPage.verifyExceptionsEnabled(exception);
+	}
+	
+	@And("^user should be not able to view the exception \"([^\"]*)\"$")
+	public void user_should_be_not_able_to_view_the_exception(String exception) {
+		neccessityPage.verifyExceptionsNecessityService(exception);
+	}
+	
+	
+	@And("^user should be able to view Necessity tab color in BLUE$")
+	public void user_should_be_able_to_view_Necessity_tab_color_in_BLUE() {
+		neccessityPage.verifyNecessityColorBlue();
+	}
+	
+	@Then("^user run the query and fetch the outpatient \"([^\"]*)\"$")
+	public void user_run_the_query_and_fetch_the_outpatient_encounterID(String column) throws ClassNotFoundException, IOException, SQLException {
+		encounterID = neccessitySteps.getPatientEncounterID(column);
+	}
+	
+	@Then("^Necessity tab should not be visible$")
+	public void Necessity_tab_should_not_be_visible() {
+		neccessityPage.necissityTabDisable();
+	}
+	
+	@When("^user add \"([^\"]*)\" coverage$")
+	public void user_add_coverage(String coverage) {
+		neccessityPage.addMedicalCoverage(coverage);
+	}
+	
+	@Then("^user should be able to view COB as 1$")
+	public void user_should_be_able_to_view_COB() {
+		neccessityPage.verifyCOB();
+	}
+	
+	@Then("^user should be able to view Coverage tab color in BLUE$")
+	public void user_should_be_able_to_view_Coverage_tab_color_in_BLUE() {
+		neccessityPage.verifyCoverageColor();
+	}
+	
+	@Then("^user should be able to view Patient tab color in BLUE$")
+	public void user_should_be_able_to_view_Patient_tab_color_in_BLUE() {
+		neccessityPage.verifyPatientColor();
+	}
+	
+	@And("^Necessity tab should be visible$")
+	public void Necessity_tab_should_be_visible() {
+		neccessityPage.necissityTabEnabled();
+	}
+	
+	@Then("^user should be able to view the patient type as O on demographic details panel$")
+	public void user_should_be_able_to_view_the_patient_type_as_O_on_demographic_details_panel() {
+		neccessityPage.patientTypeDemographic();
+	}
+	
 	
 }

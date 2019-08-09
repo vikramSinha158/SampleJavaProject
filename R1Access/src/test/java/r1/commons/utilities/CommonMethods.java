@@ -18,6 +18,16 @@ public class CommonMethods extends BasePage {
 		Select drp = new Select(we);
 		drp.selectByVisibleText(s);
 	}
+	
+	public static int dropDownSize(WebElementFacade list) {
+		Select drpList = new Select(list);
+		return drpList.getOptions().size();
+	}
+	
+	public static List<WebElement> dropDownValues(WebElementFacade list) {
+		Select drpList = new Select(list);
+		return drpList.getOptions();
+	}
 
 	public static void DrpVal(WebElementFacade we, String s) {
 		Select drp = new Select(we);
@@ -73,7 +83,8 @@ public class CommonMethods extends BasePage {
 		public void DefaultWindow() {
 			getDriver().switchTo().defaultContent();
 		}
-
+		
+		
 		// Switch to frame using frame name
 		public void FrameSwitchUsingName(WebElementFacade frameName) {
 			try {
@@ -127,4 +138,5 @@ public class CommonMethods extends BasePage {
 		Random rnd = new Random();
 		return rnd.nextInt(all);
 	}
+	
 }
