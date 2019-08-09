@@ -1,17 +1,13 @@
 package r1.pages;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
 import org.junit.Assert;
-
 import cucumber.api.DataTable;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.utilities.CommonMethods;
-import r1.commons.utilities.CommonMethods.common;
 
 public class FCCPage extends BasePage{
 	
@@ -127,7 +123,6 @@ public class FCCPage extends BasePage{
 		Assert.assertTrue("Next Account FCC is not display",!patientPagevisitNumber.equals(patientVisit.getText()) && fccWorkListAccounts.contains(patientVisit.getText()) && fccTab.getText().equals("FCC"));
 	}
 	
-	
 	public void verifySelectedFacility(String facility) {
 	Assert.assertTrue("Selected Facility is not matching",facility.contains(facilityList.getText()));
 	}
@@ -164,8 +159,11 @@ public class FCCPage extends BasePage{
 		clickOn(filterButton);
 	}
 	
-	public void verifyWorkListSize() {
+	public void verifyWorkListSize(String text) {
 		Assert.assertTrue(workListSize.size()>0);
+		for(int i=0;i<fccWorkListAccountsList.size();i++) {
+			Assert.assertTrue("There is no searched Account with-"+text,fccWorkListAccountsList.get(i).getText().contains(text));
+		}
 	}
 	
 	public void clickClearButton() {
@@ -187,7 +185,6 @@ public class FCCPage extends BasePage{
 	public void selectPatientType(String patient) {
 		selectFromDropdown(patientTypeDropDown,patient);
 	}
-	
 	
 	public void verifyFilterPatientType() {
 		for(int i=0;i<workListPatientType.size();i++) {

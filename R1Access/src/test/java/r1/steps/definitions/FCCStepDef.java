@@ -33,7 +33,7 @@ public class FCCStepDef {
 		fccPage.clickRightVCRButton();
 	}
 	
-	@And("^user should be able to view the selected facility$")
+	@And("^user should be able to view the selected facility \"([^\"]*)\"$")
 	public void user_should_be_able_to_view_the_selected_facility(String facility){
 		fccPage.verifySelectedFacility(facility);
 	}
@@ -63,9 +63,9 @@ public class FCCStepDef {
 		fccPage.clickFilterButton();
 	}
 	
-	@Then("^user should be able to view the worklist$")
-	public void user_should_be_able_to_view_the_worklist() {
-		fccPage.verifyWorkListSize();
+	@Then("^user should be able to view the worklist with account containing \"([^\"]*)\"$")
+	public void user_should_be_able_to_view_the_worklist(String text) {
+		fccPage.verifyWorkListSize(text);
 	}
 	
 	@When("^user clicks on the Clear button$")

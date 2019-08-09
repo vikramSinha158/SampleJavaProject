@@ -221,4 +221,46 @@ public class R1NeccessityStepDef extends BasePage{
 	public void user_should_be_able_to_view_Necessity_tab_color_in_BLUE() {
 		neccessityPage.verifyNecessityColorBlue();
 	}
+	
+	@Then("^user run the query and fetch the outpatient \"([^\"]*)\"$")
+	public void user_run_the_query_and_fetch_the_outpatient_encounterID(String column) throws ClassNotFoundException, IOException, SQLException {
+		encounterID = neccessitySteps.getPatientEncounterID(column);
+	}
+	
+	@Then("^Necessity tab should not be visible$")
+	public void Necessity_tab_should_not_be_visible() {
+		neccessityPage.necissityTabDisable();
+	}
+	
+	@When("^user add \"([^\"]*)\" coverage$")
+	public void user_add_coverage(String coverage) {
+		neccessityPage.addMedicalCoverage(coverage);
+	}
+	
+	@Then("^user should be able to view COB as 1$")
+	public void user_should_be_able_to_view_COB() {
+		neccessityPage.verifyCOB();
+	}
+	
+	@Then("^user should be able to view Coverage tab color in BLUE$")
+	public void user_should_be_able_to_view_Coverage_tab_color_in_BLUE() {
+		neccessityPage.verifyCoverageColor();
+	}
+	
+	@Then("^user should be able to view Patient tab color in BLUE$")
+	public void user_should_be_able_to_view_Patient_tab_color_in_BLUE() {
+		neccessityPage.verifyPatientColor();
+	}
+	
+	@And("^Necessity tab should be visible$")
+	public void Necessity_tab_should_be_visible() {
+		neccessityPage.necissityTabEnabled();
+	}
+	
+	@Then("^user should be able to view the patient type as O on demographic details panel$")
+	public void user_should_be_able_to_view_the_patient_type_as_O_on_demographic_details_panel() {
+		neccessityPage.patientTypeDemographic();
+	}
+	
+	
 }

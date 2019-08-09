@@ -54,4 +54,12 @@ public class R1NeccessitySteps extends BasePage{
 		return necessityEncounterID;
 	}
 	
+	@Step
+	public String getPatientEncounterID(String column) throws IOException, ClassNotFoundException, SQLException{
+		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
+		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstants.queryPatientTypeEncounterID);
+		DatabaseConn.resultSet.next();
+		return DatabaseConn.resultSet.getString(column);
+	}
+	
 }
