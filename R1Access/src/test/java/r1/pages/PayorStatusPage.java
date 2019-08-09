@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 import org.junit.Assert;
 import org.openqa.selenium.support.FindBy;
+
+import cucumber.api.DataTable;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
@@ -39,10 +41,18 @@ public class PayorStatusPage extends BasePage {
 		Assert.assertTrue("user is not in payor status worklist page", payorStatusworkListColTitle.getText().contains("Payor Name"));
 	}
 
-	public void verifyColHeader(String colName)
+	public void verifyPassedColHeader(String colName)
 	{
-		
 		Assert.assertTrue("Payor Status worklist column header not found", payorStatusworkListColTitle.getText().contains(colName));
+	}
+
+	public void verifyColHeader(DataTable dt)
+	{
+		List<String> list = dt.asList(String.class);
+		for(int i = 0; i < list.size(); i++)
+		{
+			verifyPassedColHeader(list.get(i).toString());
+		}
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -22,11 +22,7 @@ public class PayorStatusStepDef extends BasePage{
 	@Then("^user should able to view column header name$")
 	public void user_should_able_to_view_column_header_name(DataTable dt) 
 	{
-		List<String> list = dt.asList(String.class);
-		for(int i = 0; i < list.size(); i++)
-		{
-			payorStatusPage.verifyColHeader(list.get(i).toString());
-		}
+		payorStatusPage.verifyColHeader(dt);
 	}
 
 	@Then("^user should able to view all values under Status column as \"([^\"]*)\" or \"([^\"]*)\"$")

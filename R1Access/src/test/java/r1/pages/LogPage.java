@@ -5,7 +5,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.openqa.selenium.support.FindBy;
 
-
+import cucumber.api.DataTable;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
@@ -55,12 +55,30 @@ public class LogPage extends BasePage {
 	@FindBy(xpath = "//*[contains(@class,'PanelDetail actionLog')]//tr[contains(@class,'PanelDetail')][1]/td[4]")
 	private WebElementFacade lastStatusLog;
 	
-	public void verifyLabel(String label)
+	public void passLabel(String label)
 	{
 		Assert.assertTrue("Action log label not found", actionLogHeader.getText().contains(label));
 	}
 	
-	public void verifyColClick(String column)
+	public void verifyLabel(DataTable dt)
+	{
+		List<String> list = dt.asList(String.class);
+		for(int i = 0; i < list.size(); i++)
+		{
+			passLabel(list.get(i).toString());
+		}
+	}
+	
+	public void verifyColClick(DataTable dt)
+	{
+		List<String> list = dt.asList(String.class);
+		for(int i = 0; i < list.size(); i++)
+		{
+			passColClick(list.get(i).toString());
+		}
+	}
+	
+	public void passColClick(String column)
 	{
 		for(int i = 0 ; i< actionLogColName.size() ; i++)
 		{

@@ -13,22 +13,13 @@ public class LogStepDef extends BasePage {
 	LogPage logPage;
 	
 	@Then("^user should able to view label column$")
-	public void user_should_able_to_view_label_column(DataTable dt) 
-	{
-		List<String> list = dt.asList(String.class);
-		for(int i = 0; i < list.size(); i++)
-		{
-			logPage.verifyLabel(list.get(i).toString());
-		}
+	public void user_should_able_to_view_label_column(DataTable dt) {
+		logPage.verifyLabel(dt);
 	}
 
 	@Then("^user should able to view triangle icon with column value sorted on clicking column header$")
 	public void user_should_able_to_view_triangle_icon_with_column_value_sorted_on_clicking_column_header(DataTable dt) {
-		List<String> list = dt.asList(String.class);
-		for(int i = 0; i < list.size(); i++)
-		{
-			logPage.verifyColClick(list.get(i).toString());
-		}
+		logPage.verifyColClick(dt);
 	}
 
 	@When("^user clicks on \"([^\"]*)\" radio button$")
