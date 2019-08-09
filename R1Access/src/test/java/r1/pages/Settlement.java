@@ -88,9 +88,6 @@ public class Settlement extends BasePage {
 		colmnList.add("Tran Type");
 		colmnList.add("Tran Date");
 		colmnList.add("Amount");
-		System.out.println(lst);
-		System.out.println(colmnList);
-		System.out.println(colmnList.equals(lst));
 		Assert.assertTrue("Columns label verified", colmnList.equals(lst));
 	}
 	
@@ -102,9 +99,7 @@ public class Settlement extends BasePage {
 		for(int i=1 ; i< totalPaymentsAmountVal.size() ; i++)
 		{
 			totalAmount = totalAmount + Double.parseDouble(totalPaymentsAmountVal.get(i).getText().substring(2, index2));
-		}
-		System.out.println("total payment" + totalPaymentVal);
-		System.out.println("total amount" + totalAmount);	
+		}	
 		if(totalPaymentVal == totalAmount)
 		{
 			Assert.assertTrue(true);
