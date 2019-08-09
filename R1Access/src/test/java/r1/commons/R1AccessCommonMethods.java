@@ -19,6 +19,8 @@ public class R1AccessCommonMethods extends BasePage {
 	String value="";
 	public ArrayList colValues;
 	public ArrayList columnValue;
+	static int count=0;
+	boolean flag=false;
 	
 	
 	/*------------------------- SELECT FACILITY AND CLICK   XPath ---------------------------------------------------*/	
@@ -533,6 +535,60 @@ public String clickOnAccountReturnEncounterID(String colName){
 				}
 			}
 		}
+		 
+		
+		 public void verifyActionStatusAfterCheckout() 
+		 {			 
+				for(int i=0;i<actionsStatusTab.size();i++)
+				{	
+					if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Phone"))
+					{						
+						count++;						
+					}
+					else if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Schedule"))
+					{						
+						count++;						
+					}
+					else if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Assign"))
+					{						
+						count++;					
+					}	
+					else if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Complete"))
+					{						
+						count++;						
+					}	
+					else if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Release"))
+					{						
+						count++;						
+					}	
+					else if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Exceptions"))
+					{						
+						count++;					
+					}																
+					}					
+		} 
+		 
+		
+		 
+		 public void verifyActionStatusTabBeforeCheckout() 
+		 {			
+				for(int i=0;i<actionsStatusTab.size();i++)
+				{
+					if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Phone"))
+					{													
+						count++;						
+					}
+					else if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Check Out"))
+					{							
+						count++;						
+					}
+					else if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Exceptions"))
+					{							
+						count++;						
+					}									
+				}																			
+		} 
+		 
 		 	
  /*----------------------------CHECK TAB COLOR RED..BLUE..YELLOW------------------------------------*/		 
 		 
