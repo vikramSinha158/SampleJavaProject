@@ -20,6 +20,7 @@ public class R1AccessCommonMethods extends BasePage {
 	public ArrayList colValues;
 	public ArrayList columnValue;
 	static int count=0;
+	static int count2=0;
 	boolean flag=false;
 	
 	
@@ -543,29 +544,30 @@ public String clickOnAccountReturnEncounterID(String colName){
 				{	
 					if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Phone"))
 					{						
-						count++;						
+						count2++;						
 					}
 					else if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Schedule"))
 					{						
-						count++;						
+						count2++;						
 					}
 					else if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Assign"))
 					{						
-						count++;					
+						count2++;					
 					}	
 					else if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Complete"))
 					{						
-						count++;						
+						count2++;						
 					}	
 					else if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Release"))
 					{						
-						count++;						
+						count2++;						
 					}	
 					else if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Exceptions"))
 					{						
-						count++;					
+						count2++;					
 					}																
-					}					
+					}	
+				Assert.assertTrue("After Checkout Tab Are Not Coming", count2==6);				
 		} 
 		 
 		
@@ -586,7 +588,8 @@ public String clickOnAccountReturnEncounterID(String colName){
 					{							
 						count++;						
 					}									
-				}																			
+				}				
+				Assert.assertTrue("After Checkout Tab Are Not Coming", count==3);
 		} 
 		 
 		 	

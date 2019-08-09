@@ -14,7 +14,8 @@ public class Service2Page extends BasePage
 {
 	Random random = new Random(); 
 	R1AccessCommonMethods r1AccessCommonMethod;
-	
+	static String abc="";
+	boolean flag=false;
 	
 	@FindBy(xpath = "//input[contains(@id,'txtSearch')]")
 	
@@ -48,8 +49,10 @@ public class Service2Page extends BasePage
 	
 	private List<WebElementFacade> deleteServices;
 	
+	      
+    @FindBy(xpath = "//table[contains(@id,'_grdHCPCSelected')]//tr[@class='PanelDetail']//td")
 	
-	
+   	private List<WebElementFacade> verifyServicesGetAdded;
 	
 	
 	public void enterCodes(String text)
@@ -71,35 +74,54 @@ public class Service2Page extends BasePage
 	
 	public void verifySingleMultipleRadioBtn()
 	{
-		Assert.assertTrue("Single Multiple Radio Not Coming ",singleMultipleRadioBtn.size()==2 );
+		Assert.assertTrue("Single Multiple Radio Not Coming ",singleMultipleRadioBtn.size()==2 );	
 		
+		System.out.print(singleMultipleRadioBtn.size());
+	}
+	
+	
+	public void verifySingleMultipleRadioBtnNotExists()
+	{	
+		Assert.assertTrue("Single Multiple Radio Not Coming ",singleMultipleRadioBtn.size()==0 );			
 	}
 	
 	
 	public void addServicesSearchResults()
 	{
-		int i = random.nextInt(clickOnServiceSearchResults.size());			
-		withAction().moveToElement(clickOnServiceSearchResults.get(i)).click().build().perform();						
+		int i = random.nextInt(clickOnServiceSearchResults.size());	
+	    abc=clickOnServiceSearchResults.get(i).getText().toString();
+		withAction().moveToElement(clickOnServiceSearchResults.get(i)).click().build().perform();			
 	}
 	
 	
 	public void deleteServices()
 	{
 		
-	for(int i=0; i<deleteServices.size();i++)
-	{
-		System.out.print(i);
-		withAction().moveToElement(deleteServices.get(i)).click().build().perform();			
+	for(int i=deleteServices.size(); i>0;i--)
+	{		
+		withAction().moveToElement(deleteServices.get(0)).click().build().perform();			
 		r1AccessCommonMethod.clickOnCheckOut();				
 	}}
 	
-	
-	
-	
+			
 	public void verifyServiceGridIsNotDisplayed()
-	{
-		Assert.assertTrue("service search results grid is coming", !serviceSearchResults.isDisplayed());		
+	{	   
+		Assert.assertFalse(!serviceSearchResults.isDisplayed());			
 	}
+	
+	
+	public void verifyServiceShouldBeAdded()
+	{
+		for(int i=0;i<verifyServicesGetAdded.size();i++)
+		{					
+				if(verifyServicesGetAdded.get(i).getText().toString().contains(abc))
+				{
+				flag=true;					
+				}					
+		}
+		Assert.assertTrue("Service don't get added", flag);						
+	}
+	
 	
 	
 }
