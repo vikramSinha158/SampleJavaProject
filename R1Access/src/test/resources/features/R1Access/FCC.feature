@@ -19,7 +19,7 @@ Feature: Verification of FCC functionality and attributes
     Given user is on FCC worklist
     When user clicks on facility list
     And user select the facility "SJMC - St. John Hospital and Medical Center"
-    Then user should be able to view the selected facility
+    Then user should be able to view the selected facility "SJMC - St. John Hospital and Medical Center"
 
   @391666 @FCC
   Scenario: Verify User should be able to go to the next FCC tab while clicking Right VCR > button.
@@ -55,7 +55,7 @@ Feature: Verification of FCC functionality and attributes
     And user select the operator "LIKE"
     And user enters text "00" into text box
     And user clicks on the Filter button
-    Then user should be able to view the worklist
+    Then user should be able to view the worklist with account containing "00"
     When user clicks on the Clear button
     And user clicks on the column header
     Then worklist data should appear in ascending order

@@ -78,7 +78,7 @@ Feature: Verify the workflow of Notes tab
     Then user should be able to view the status Incomplete, Redo or Assigned
 
   @393848 @R1Neccessity
-  Scenario: Verification of Exceptions visible on the Necessity Tab 
+  Scenario: Verification of Exceptions visible on the Necessity Tab
     Given user is on account detail page
     When user click on the "Search" button on blue ribbon
     Then user run the query and fetch the neccessity encounterID "EncounterID"
@@ -92,10 +92,8 @@ Feature: Verify the workflow of Notes tab
     And user clicks on the "R1 Necessity" tab
     And user clicks on "Complete" button
     Then user should be able to view the exceptions
-      
-      | Necessity Actions | Please select a valid action to complete the task   |
+      | Necessity Actions  | Please select a valid action to complete the task  |
       | Necessity Services | Please complete the Services Task before Necessity |
-      
     And user should be able to view Necessity tab color in RED
     When user clicks on the "Services" tab
     And user clicks on "Complete" button
@@ -117,3 +115,23 @@ Feature: Verify the workflow of Notes tab
     When user clicks on "Complete" button
     And user should be not able to view the exception "Necessity Actions  Please select a valid action to complete the task"
     And user should be able to view Necessity tab color in BLUE
+
+  @393862 @R1Neccessity
+  Scenario: Verify the criteria of Necessity to be visible on tab menu
+    Given user is on account detail page
+    When user click on the "Search" button on blue ribbon
+    Then user run the query and fetch the outpatient "EncounterID"
+    And user enters the EncounterID into search field
+    And user clicks on the Search button
+    Then Necessity tab should not be visible
+    When user clicks on the "Coverage" tab
+    And user clicks on "Check Out" button
+    When user add "Medicare" coverage
+    Then user should be able to view COB as 1
+    When user clicks on "Complete" button
+    Then user should be able to view Coverage tab color in BLUE
+    When user clicks on the "Patient" tab
+    Then user should be able to view the patient type as O on demographic details panel
+    And user clicks on "Complete" button
+    Then user should be able to view Patient tab color in BLUE
+    And Necessity tab should be visible
