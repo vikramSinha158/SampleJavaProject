@@ -103,8 +103,7 @@ public class ServiceAutomationRulePage extends BasePage{
 	@FindBy(xpath = "//table[contains(@id,'gvServiceAutomation')]//tr//td[16]")
 	private List<WebElementFacade> isEnabledColVal;
 	
-
-@FindBy(xpath = "//input[contains(@id,'btnExport')]")
+    @FindBy(xpath = "//input[contains(@id,'btnExport')]")
 	private WebElementFacade btnExport;
 	
 	@FindBy(xpath = "//table[contains(@id,'gvServiceAutomation')]//th")
@@ -165,7 +164,7 @@ public class ServiceAutomationRulePage extends BasePage{
 		 
 	 }
 	 
-	public void verifyRuleAccuracy(String accuracyValue) {
+	 public void verifyRuleAccuracy(String accuracyValue) {
 		 Assert.assertTrue("Accuracy textbox is empty", txtRuleAccuracy.getAttribute("value").contains(accuracyValue)); 
 	    }
 	 
@@ -326,10 +325,10 @@ public class ServiceAutomationRulePage extends BasePage{
 	{
 		String downloadpath = CommonMethods.LoadProperties("downloadpath");
 		int uiHeadercount = totalHeaderUI.size();
-		System.out.println(uiHeadercount);
 		Assert.assertTrue("Failed to download Expected document",isFileDownloadedWithContent(downloadpath,uiHeadercount));
 	}
 	
+	@SuppressWarnings("resource")
 	public boolean isFileDownloadedWithContent(String downloadpath,int uiHeadercount) throws IOException 
 	{
 		boolean flag = false;
@@ -353,7 +352,7 @@ public class ServiceAutomationRulePage extends BasePage{
 	        } 
 	        }
 	    	return flag;
-		}
+	}
 	
 
 	

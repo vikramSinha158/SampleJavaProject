@@ -3,7 +3,7 @@ Feature: Verify the Service Automation Rule functionality
   Background: user navigates to Patient Shopper Tool page
     Given user is on R1 hub page
     When user clicks on facility list
-    And user select the facility "SJMC - St. John Hospital and Medical Center"
+    And user select the facility "SJMA - St. John Macomb-Oakland Hospital"
     And user clicks on setting link
     And user clicks on IT Tool
     And user clicks on Zero-Touch-Residual-Configuration 
@@ -12,7 +12,7 @@ Feature: Verify the Service Automation Rule functionality
   Scenario: Verify create a new Service Automation Rule and Services get added on the account having matching rule
     Given User is on Zero-Touch-Residual-Configuration Page
     When user add service automation rule by click on add button
-    And user enters rule name "TestAutomation123" ,Patient Type "O" ,Facility Patient Type "O" 
+    And user enters rule name "SARTesting" ,Patient Type "O" ,Facility Patient Type "O" 
     And user should able to view rule Accuracy is "100.00"
     And enter CPT Code "99283"
     And user click on check boxes for Is Enabled and Complete Service Task  
@@ -22,7 +22,7 @@ Feature: Verify the Service Automation Rule functionality
     And user clicks on IT Tool
     And user clicks on Service Bus Monitor
     And user click on Message Publish plus button
-    And user enters Facility code "SJMC"
+    And user enters Facility code "SJMA"
     And user clicks on publish button
     And user clicks on "Patient Access" link
     And user clicks on "Pre-Registration" link
@@ -33,9 +33,9 @@ Feature: Verify the Service Automation Rule functionality
     
    @392065 @ServiceAutomationRule
    Scenario: Verify that newly created Service Automation rules has accuracy as 100% and accuracy can't be edited while editing a Service Automation rule
-   Given User is on Zero-Touch-Residual-Configuration Page 
-   When user select any service automation rule and clicks on edit button
-   Then user should not able to edit accuracy value
+     Given User is on Zero-Touch-Residual-Configuration Page 
+     When user select any service automation rule and clicks on edit button
+     Then user should not able to edit accuracy value
    
    @392066 @ServiceAutomationRule
    Scenario: Verify the functionality of Esc and Cancel button on Add Service Automation Rule window
@@ -51,10 +51,10 @@ Feature: Verify the Service Automation Rule functionality
      
    @392067 @ServiceAutomationRule
    Scenario: Verify that user is able to Edit existing Service Automation Rule
-    Given User is on Zero-Touch-Residual-Configuration Page 
-    When user select any service automation rule and clicks on edit button
-    And user enters rule name "TestQA" ,Patient Type "O" ,Facility Patient Type "O" 
-    Then user should able to view updated value in Service Automation Rule panel
+     Given User is on Zero-Touch-Residual-Configuration Page 
+     When user select any service automation rule and clicks on edit button
+     And user enters rule name "TestQA" ,Patient Type "O" ,Facility Patient Type "O" 
+     Then user should able to view updated value in Service Automation Rule panel
     
     @392068 @ServiceAutomationRule
    Scenario: Verify that user is able to Deactivate existing Service Automation rule  
@@ -66,7 +66,7 @@ Feature: Verify the Service Automation Rule functionality
      And user clicks on IT Tool
      And user clicks on Service Bus Monitor
      And user click on Message Publish plus button
-     And user enters Facility code "SJMC"
+     And user enters Facility code "SJMA"
      And user clicks on publish button
      And user clicks on "Patient Access" link
      And user clicks on "Pre-Registration" link
@@ -85,7 +85,7 @@ Feature: Verify the Service Automation Rule functionality
      And user clicks on IT Tool
      And user clicks on Service Bus Monitor
      And user click on Message Publish plus button
-     And user enters Facility code "SJMC"
+     And user enters Facility code "SJMA"
      And user clicks on publish button
      And user clicks on "Patient Access" link
      And user clicks on "Pre-Registration" link
@@ -94,18 +94,18 @@ Feature: Verify the Service Automation Rule functionality
      And user clicked Unassigned Account
      Then verify service should get added from the audit and tab should be completed
     
-     @392068 @ServiceAutomationRule
+    @392068 @ServiceAutomationRule
    Scenario: Verify that user is able to Delete existing Service Automation rule   
-    Given User is on Zero-Touch-Residual-Configuration Page
-    When user select any existing service automation rule
-    And user Clicks on delete button
-    Then selected Service Automation rule should get deleted successfully
+     Given User is on Zero-Touch-Residual-Configuration Page
+     When user select any existing service automation rule
+     And user Clicks on delete button
+     Then selected Service Automation rule should get deleted successfully
     
     @392069 @ServiceAutomationRule
    Scenario: Verify Export functionality
-   Given User is on Zero-Touch-Residual-Configuration Page
-   When user clicks on Export button
-   Then user should able to view exported excel in system   
+     Given User is on Zero-Touch-Residual-Configuration Page
+     When user clicks on Export button
+     Then user should able to view exported excel in system   
      
         
         

@@ -41,7 +41,6 @@ public class ServiceAutomationRuleStepDef extends BasePage {
 	@When("^user should able to view rule Accuracy is \"([^\"]*)\"$")
 	public void user_should_able_to_view_rule_Accuracy_is(String accuracyValue) {
 		serviceAutomationRulePage.verifyRuleAccuracy(accuracyValue);
-	    
 	}
 
 	@Then("^enter CPT Code \"([^\"]*)\"$")
@@ -78,7 +77,6 @@ public class ServiceAutomationRuleStepDef extends BasePage {
 	@When("^user enters Facility code \"([^\"]*)\"$")
 	public void user_enters_Facility_code_and(String facilityCode) {
 		serviceAutomationRulePage.enterFacilityCode(facilityCode);
-		
 	}
 
 	@When("^user clicks on publish button$")
@@ -108,8 +106,7 @@ public class ServiceAutomationRuleStepDef extends BasePage {
 		serviceAutomationRulePage.verifyRuleAccuracyDisable();
 	}
 	
-	
-    @Then("^user should able to view Add Service Automation Rule window$")
+	@Then("^user should able to view Add Service Automation Rule window$")
 	public void user_should_able_to_view_Add_Service_Automation_Rule_window() {
     	serviceAutomationRulePage.addServiceAutomationRulePopUp();
 	}
@@ -122,8 +119,6 @@ public class ServiceAutomationRuleStepDef extends BasePage {
     @Then("^Add Service Automation Rule window should disappear$")
 	public void add_Service_Automation_Rule_window_should_disappear() {
 		serviceAutomationRulePage.addServiceAutomationRulePopUpDisappear();
-	   
-	    
 	}
     
     @Then("^user should able to view updated value in Service Automation Rule panel$")
@@ -134,19 +129,16 @@ public class ServiceAutomationRuleStepDef extends BasePage {
     @When("^user select any existing service automation rule having Is Enable as True$")
     public void user_select_any_existing_service_automation_rule_having_Is_Enable_as_True() {
     	serviceAutomationRulePage.verifyIsEnabledColumnValueTrue();
-        
     }
 
     @When("^user clicks on Deactivate button$")
     public void user_clicks_on_Deactivate_button() {
     	serviceAutomationRulePage.verifyRuleDeactivate();
-        
     }
 
     @Then("^value of Is Enabled should be updated as False$")
     public void value_of_Is_Enabled_should_be_updated_as_False() {
     	serviceAutomationRulePage.verifyIsEnabledColumnValueFalse();
-        
     }
     
     @Then("^verify No service should get added from the audit and tab should not be completed$")
@@ -154,25 +146,21 @@ public class ServiceAutomationRuleStepDef extends BasePage {
     	serviceAutomationRulePage.clickServiceAutomationRule();
     	serviceAutomationRulePage.verifyNoServiceAdded();
     	serviceAutomationRulePage.clickServiceAutomationRule();
-        
     }
     
     @When("^user select any existing service automation rule having Is Enable as False$")
     public void user_select_any_existing_service_automation_rule_having_Is_Enable_as_False() {
     	serviceAutomationRulePage.clickIsEnabledColumnValueFalse();
-        
     }
 
     @When("^user clicks on Activate button$")
     public void user_clicks_on_Activate_button() {
     	serviceAutomationRulePage.verifyRuleActivate();
-        
     }
 
     @Then("^value of Is Enabled should be updated as True$")
     public void value_of_Is_Enabled_should_be_updated_as_True() {
     	serviceAutomationRulePage.verifyIsEnabledColumnValueTrue();
-        
     }
 
     @Then("^verify service should get added from the audit and tab should be completed$")
@@ -180,26 +168,21 @@ public class ServiceAutomationRuleStepDef extends BasePage {
     	serviceAutomationRulePage.clickServiceAutomationRule();
     	serviceAutomationRulePage.verifyMatchingRule();
     	serviceAutomationRulePage.clickServiceAutomationRule();
-        
     }
     
     @When("^user select any existing service automation rule$")
     public void user_select_any_existing_service_automation_rule() {
     	serviceAutomationRulePage.verifyIsEnabledColumnValueTrue();
-    	
-       
     }
 
     @When("^user Clicks on delete button$")
     public void user_Clicks_on_delete_button() {
     	serviceAutomationRulePage.verifyDeleteButton();
-       
     }
 
     @Then("^selected Service Automation rule should get deleted successfully$")
     public void selected_Service_Automation_rule_should_get_deleted_successfully() {
     	serviceAutomationRulePage.verifyNoServiceAdded();
-        
     }
 
     @When("^user clicks on Export button$")
@@ -207,8 +190,7 @@ public class ServiceAutomationRuleStepDef extends BasePage {
 		serviceAutomationRulePage.clickExport();
 	}
 
-
-	@Then("^user should able to view exported excel in system$")
+    @Then("^user should able to view exported excel in system$")
 	public void user_should_able_to_view_exported_excel_in_system() throws IOException {
 		serviceAutomationRulePage.verifyExport();
 	}
