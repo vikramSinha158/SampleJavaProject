@@ -79,7 +79,7 @@ public class ServiceAutomationRulePage extends BasePage{
 	@FindBy(xpath = "//input[contains(@id,'dshServiceAutomation_imgIcon')]")
 	private WebElementFacade ImgIcon;
 	
-	@FindBy(xpath = "//table[contains(@id,'_gvServiceAutomation')]//td")
+	@FindBy(xpath = "//table[contains(@id,'_gvServiceAutomation')]//td[1]")
 	private WebElementFacade selectId;
 	
 	@FindBy(xpath = "//input[contains(@id,'_btnEdit')]")
@@ -206,7 +206,8 @@ public class ServiceAutomationRulePage extends BasePage{
 	 
 	 public void enterFacilityCode(String facilityCode) {
 			typeInto(txtFacilityCode,facilityCode);
-			typeInto(txtTaskid,taskId);
+			//System.out.println(taskId);
+			//typeInto(txtTaskid,taskId);
 			
 		}
 	 
@@ -226,7 +227,7 @@ public class ServiceAutomationRulePage extends BasePage{
 	public void verifyServiceAutomationRuleAdded() {
 		getColValue= commonMethodsR1Access.getTableColValue(serviceAutomationtableRow, serviceAutomationRowHeader, "Rule Name") ;
 			Assert.assertTrue("Service Automation Rule does not exist", getColValue.contains(textRuleName));
-			for (int i = 1; i <= getColValue.size(); i++) {
+			for (int i = 1; i < getColValue.size(); i++) {
 				if(getColValue.get(i).equals(textRuleName))
 			    {
 				  getColValue1 = commonMethodsR1Access.getTableColValue(serviceAutomationtableRow, serviceAutomationRowHeader, "ID") ;
@@ -275,7 +276,7 @@ public class ServiceAutomationRulePage extends BasePage{
 	@SuppressWarnings("unchecked")
 	public void verifyIsEnabledColumnValueFalse() {
 		getColValue= commonMethodsR1Access.getTableColValue(serviceAutomationtableRow, serviceAutomationRowHeader, "ID") ;
-		for (int i = 1; i <= getColValue.size(); i++) {
+		for (int i = 1; i < getColValue.size(); i++) {
 			if(getColValue.get(i).equals(taskId))
 		    {
 			  getColValue1 = commonMethodsR1Access.getTableColValue(serviceAutomationtableRow, serviceAutomationRowHeader, "Is Enabled") ;
@@ -289,7 +290,7 @@ public class ServiceAutomationRulePage extends BasePage{
 	@SuppressWarnings("unchecked")
 	public void clickIsEnabledColumnValueFalse() {
 		getColValue= commonMethodsR1Access.getTableColValue(serviceAutomationtableRow, serviceAutomationRowHeader, "ID") ;
-		for (int i = 1; i <= getColValue.size(); i++) {
+		for (int i = 1; i < getColValue.size(); i++) {
 			if(getColValue.get(i).equals(taskId))
 		    {
 			  getColValue1 = commonMethodsR1Access.getTableColValue(serviceAutomationtableRow, serviceAutomationRowHeader, "Is Enabled") ;
@@ -305,7 +306,7 @@ public class ServiceAutomationRulePage extends BasePage{
 	@SuppressWarnings("unchecked")
 	public void verifyIsEnabledColumnValueTrue() {
 		getColValue= commonMethodsR1Access.getTableColValue(serviceAutomationtableRow, serviceAutomationRowHeader, "ID") ;
-		for (int i = 1; i <= getColValue.size(); i++) {
+		for (int i = 1; i < getColValue.size(); i++) {
 			if(getColValue.get(i).equals(taskId))
 		    {
 			  getColValue1 = commonMethodsR1Access.getTableColValue(serviceAutomationtableRow, serviceAutomationRowHeader, "Is Enabled") ;

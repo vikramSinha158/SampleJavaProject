@@ -53,8 +53,10 @@ Feature: Verify the Service Automation Rule functionality
    Scenario: Verify that user is able to Edit existing Service Automation Rule
      Given User is on Zero-Touch-Residual-Configuration Page 
      When user select any service automation rule and clicks on edit button
-     And user enters rule name "TestQA" ,Patient Type "O" ,Facility Patient Type "O" 
+     And user enters rule name "TestQA" ,Patient Type "O" ,Facility Patient Type "O"
+     And user click on save button
      Then user should able to view updated value in Service Automation Rule panel
+     
     
     @392068 @ServiceAutomationRule
    Scenario: Verify that user is able to Deactivate existing Service Automation rule  
@@ -67,7 +69,7 @@ Feature: Verify the Service Automation Rule functionality
      And user clicks on Service Bus Monitor
      And user click on Message Publish plus button
      And user enters Facility code "SJMA"
-     And user clicks on publish button
+     And user clicks on publish button               
      And user clicks on "Patient Access" link
      And user clicks on "Pre-Registration" link
      And user clicks on show all button
