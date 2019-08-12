@@ -15,7 +15,7 @@ public class ServiceAutomationRuleStepDef extends BasePage {
 	UserLogin userLogin;
 	Navigation navigation;
 	ServiceAutomationRulePage serviceAutomationRulePage;
-	
+	String s;
 	
 	
 	@When("^user clicks on Zero-Touch-Residual-Configuration$")
