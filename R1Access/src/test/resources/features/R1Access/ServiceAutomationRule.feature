@@ -1,4 +1,4 @@
-Feature: Verify the Service Automation Rule functionality
+Feature: Verify the Services Automation Rule functionality
 
   Background: user navigates to Patient Shopper Tool page
     Given user is on R1 hub page

@@ -206,7 +206,6 @@ public class ServiceAutomationRulePage extends BasePage{
 	 
 	 public void enterFacilityCode(String facilityCode) {
 			typeInto(txtFacilityCode,facilityCode);
-			//System.out.println(taskId);
 			//typeInto(txtTaskid,taskId);
 			
 		}
