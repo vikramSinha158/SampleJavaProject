@@ -22,7 +22,7 @@ Feature: Verify the Services Automation Rule functionality
     And user clicks on IT Tool
     And user clicks on Service Bus Monitor
     And user click on Message Publish plus button
-    And user enters Facility code "SJMA"
+    And user enters Facility code
     And user clicks on publish button
     And user clicks on "Patient Access" link
     And user clicks on "Pre-Registration" link
@@ -68,7 +68,7 @@ Feature: Verify the Services Automation Rule functionality
      And user clicks on IT Tool
      And user clicks on Service Bus Monitor
      And user click on Message Publish plus button
-     And user enters Facility code "SJMA"
+     And user enters Facility code
      And user clicks on publish button               
      And user clicks on "Patient Access" link
      And user clicks on "Pre-Registration" link
@@ -87,7 +87,7 @@ Feature: Verify the Services Automation Rule functionality
      And user clicks on IT Tool
      And user clicks on Service Bus Monitor
      And user click on Message Publish plus button
-     And user enters Facility code "SJMA"
+     And user enters Facility code
      And user clicks on publish button
      And user clicks on "Patient Access" link
      And user clicks on "Pre-Registration" link
