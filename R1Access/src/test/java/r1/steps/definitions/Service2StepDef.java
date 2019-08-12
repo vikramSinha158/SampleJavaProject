@@ -10,14 +10,11 @@ import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
 import r1.pages.Service2Page;
 
-public class Service2StepDef {
+public class Service2StepDef extends BasePage{
 	
 	R1AccessCommonMethods r1AccessCommonMethod;
 	Service2Page service2;
-	
-	
-	
-	
+				
 	@When("^user clicks on any Unassigned Account$")
 	public void user_clicks_on_any_Unassigned_Account() {
 		r1AccessCommonMethod.clickOnUnassignedAccount();
@@ -25,8 +22,8 @@ public class Service2StepDef {
 
 
 	@When("^user clicked on \"([^\"]*)\" tab$")
-	public void user_clicked_on_tab(String arg1) {
-		r1AccessCommonMethod.clickR1AccesModulesTab(arg1);
+	public void user_clicked_on_tab(String Text) {
+		r1AccessCommonMethod.clickR1AccesModulesTab(Text);
 	}
 
 	@Then("^verify the fields before checkout$")
@@ -38,6 +35,11 @@ public class Service2StepDef {
 	public void user_clicked_on_checkout_button() {
 		r1AccessCommonMethod.clickOnCheckOut();
 	}
+	
+	@When("^user clicked on Admitting if exists$")
+	public void user_clicked_on_Admitting_if_exists() {
+		service2.clickOnAdmiting();
+	}
 
 	@Then("^verify the fields after the checkout$")
 	public void verify_the_fields_after_the_checkout() {
@@ -45,8 +47,8 @@ public class Service2StepDef {
 	}
 
 	@When("^user enter services like \"([^\"]*)\" in search field$")
-	public void user_enter_services_like_in_search_field(String arg1) {
-		service2.enterCodes(arg1);
+	public void user_enter_services_like_in_search_field(String Text) {
+		service2.enterCodes(Text);
 		service2.clickOnSearch();
 	}
 
@@ -82,8 +84,8 @@ public class Service2StepDef {
 	}
 
 	@When("^user clicks on \"([^\"]*)\" btn$")
-	public void user_clicks_on_btn(String arg1) {
-		r1AccessCommonMethod.clickActionStatusTab("Release");
+	public void user_clicks_on_btn(String Text) {
+		r1AccessCommonMethod.clickActionStatusTab(Text);
 	}
 
 	@Then("^single multiple radio buttons of pricing will not be displayed$")

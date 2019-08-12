@@ -19,8 +19,8 @@ public class R1AccessCommonMethods extends BasePage {
 	String value="";
 	public ArrayList colValues;
 	public ArrayList columnValue;
-	static int count=0;
-	static int count2=0;
+	static int count;
+	static int count2;
 	boolean flag=false;
 	
 	
@@ -567,7 +567,7 @@ public String clickOnAccountReturnEncounterID(String colName){
 						count2++;					
 					}																
 					}	
-				Assert.assertTrue("After Checkout Tab Are Not Coming", count2==6);				
+				Assert.assertTrue("After Checkout Tabs Are Not Coming", count2==6);				
 		} 
 		 
 		
@@ -589,7 +589,7 @@ public String clickOnAccountReturnEncounterID(String colName){
 						count++;						
 					}									
 				}				
-				Assert.assertTrue("After Checkout Tab Are Not Coming", count==3);
+				Assert.assertTrue("After Checkout Tabs Are Not Coming", count==3);
 		} 
 		 
 		 	

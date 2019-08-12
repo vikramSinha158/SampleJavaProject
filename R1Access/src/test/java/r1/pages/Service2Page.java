@@ -53,6 +53,19 @@ public class Service2Page extends BasePage
     @FindBy(xpath = "//table[contains(@id,'_grdHCPCSelected')]//tr[@class='PanelDetail']//td")
 	
    	private List<WebElementFacade> verifyServicesGetAdded;
+    
+    @FindBy(xpath = " //a[contains(@id,'lnkViewMode')]")
+	
+   	private WebElementFacade clickOnAdmitting;
+    
+    public void clickOnAdmiting()
+    {
+    	if(clickOnAdmitting.getText().equalsIgnoreCase("Admitting"))
+    	{
+    		clickOn(clickOnAdmitting);
+    	}
+    }
+ 
 	
 	
 	public void enterCodes(String text)
