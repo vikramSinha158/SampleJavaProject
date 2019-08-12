@@ -174,10 +174,10 @@ public class PatientStepDef extends BasePage {
 		
 	}
 
-	@When("^user clicks on cancel button$")
-	public void user_clicks_on_cancel_button() {
-	   
-	}
+//	@When("^user clicks on cancel button$")
+//	public void user_clicks_on_cancel_button() {
+//	   
+//	}
 
 	@Then("^user should able to view the incomplete state of account$")
 	public void user_should_able_to_view_the_incomplete_state_of_account() {
