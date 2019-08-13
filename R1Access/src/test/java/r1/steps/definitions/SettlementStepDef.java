@@ -8,6 +8,7 @@ import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import junit.framework.Assert;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
 import r1.pages.Settlement;
@@ -47,23 +48,12 @@ public class SettlementStepDef extends BasePage {
 
 	@Then("^user is able to view Settlement tab color as \"([^\"]*)\"$")
 	public void user_is_able_to_view_Settlement_tab_color_as(String arg1) {
-	    String color = commonMethods.checkTabColor("Settlement");
-	    if(color.equals("Red"))
-	    {
-	    	System.out.println("Settlement tab incomplete ");
-	    }else
-	    	System.out.println("Settlement tab color is " + color);
-	     
+		Assert.assertTrue(commonMethods.checkTabColor("Settlement").equals("Red"));     
 	}
 
 	@Then("^Settlement tab status as \"([^\"]*)\"$")
 	public void settlement_tab_status_as(String arg1) {
-	    String status =  commonMethods.chkTabStatusIncompleteComplete();
-	    if(status.equals("Incomplete"))
-	    {
-	    	System.out.println("Settlement tab is incomplete ");
-	    }else
-	    	System.out.println("Settlement tab  is " + status);
+		Assert.assertTrue(commonMethods.chkTabStatusIncompleteComplete().equals("Incomplete"));
 	}
 
 	@Then("^user is able to view Prior Balance label$")
@@ -107,12 +97,10 @@ public class SettlementStepDef extends BasePage {
 	    settlement.verifyTotalPaymentsVal();
 	}
 
-
 	@When("^user clicks on an account$")
 	public void user_clicks_on_an_account() {
 		commonMethods.clickOnUnassignedAccount();
 	}
-
 
 	@Then("^user should be able to view show all related visits checkbox as unchecked$")
 	public void user_should_be_able_to_view_show_all_related_visits_checkbox_as_unchecked() {
@@ -127,8 +115,6 @@ public class SettlementStepDef extends BasePage {
 	@Then("^Select One value is displayed in Non-Collection Reason$")
 	public void select_One_value_is_displayed_in_Non_Collection_Reason() {
 		settlement.verifyNonCollReason();
-	}
-
-	
+	}	
 	
 }
