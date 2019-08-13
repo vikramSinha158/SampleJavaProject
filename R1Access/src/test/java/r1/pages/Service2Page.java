@@ -16,6 +16,7 @@ public class Service2Page extends BasePage
 	R1AccessCommonMethods r1AccessCommonMethod;
 	static String abc="";
 	boolean flag=false;
+	int i;
 	
 	@FindBy(xpath = "//input[contains(@id,'txtSearch')]")
 	
@@ -45,6 +46,11 @@ public class Service2Page extends BasePage
 	private List<WebElementFacade> clickOnServiceSearchResults;
 	
 	
+	@FindBy(xpath = "//table[contains(@id,'_grdICD9SearchResults')]//tr//a")
+	
+	private List<WebElementFacade> clickOnICDCodes;
+	
+	
     @FindBy(xpath = "//table[contains(@id,'grdHCPCSelected')]//tr[@class='PanelDetail']//a//img[@src='/images/delete.gif']")
 	
 	private List<WebElementFacade> deleteServices;
@@ -57,6 +63,13 @@ public class Service2Page extends BasePage
     @FindBy(xpath = " //a[contains(@id,'lnkViewMode')]")
 	
    	private WebElementFacade clickOnAdmitting;
+    
+   @FindBy(xpath = " //a[contains(@id,'accTaskAction_btnStatusOverrideUpdate')]")
+	
+   	private WebElementFacade clickOnContinueButton;
+    
+  
+    
     
     public void clickOnAdmiting()
     {
@@ -99,7 +112,7 @@ public class Service2Page extends BasePage
 	
 	public void addServicesSearchResults()
 	{
-		int i = random.nextInt(clickOnServiceSearchResults.size());	
+	    i = random.nextInt(clickOnServiceSearchResults.size());	
 	    abc=clickOnServiceSearchResults.get(i).getText().toString();
 		withAction().moveToElement(clickOnServiceSearchResults.get(i)).click().build().perform();			
 	}
@@ -131,6 +144,27 @@ public class Service2Page extends BasePage
 				}					
 		}
 		Assert.assertTrue("Service don't get added", flag);						
+	}
+	
+	public void addICDDiagnosisCodes()
+	{
+		 i = random.nextInt(clickOnICDCodes.size());	
+	    //abc=clickOnServiceSearchResults.get(i).getText().toString();
+		withAction().moveToElement(clickOnICDCodes.get(i)).click().build().perform();			
+	}
+	
+	public void verifyTabColorAndCompleteStatus()
+	{
+		Assert.assertTrue(r1AccessCommonMethod.chkTabStatusIncompleteComplete().equalsIgnoreCase("Incomplete"));
+		Assert.assertTrue(r1AccessCommonMethod.checkTabColor("Services").equalsIgnoreCase("blue"));
+	}
+	
+	public void clickOnExceptionContinueButton(String tab)
+	{
+		if(clickOnContinueButton.getText().equalsIgnoreCase(tab))
+    	{
+    		clickOn(clickOnContinueButton);
+    	}
 	}
 			
 }

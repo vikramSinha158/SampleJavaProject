@@ -93,6 +93,34 @@ public class Service2StepDef extends BasePage{
 		service2.verifySingleMultipleRadioBtnNotExists();
 	}
 	
+	@When("^user add ICD Codes$")
+	public void user_add_ICD_Codes() {	    
+		service2.addICDDiagnosisCodes();
+	}
+
+	@Then("^verify the status of the tab its completed$")
+	public void verify_the_status_of_the_tab_its_completed() {
+	  
+		service2.verifyTabColorAndCompleteStatus();
+	}
+
+
+   @Then("^verify the status of the tab is completed$")
+   public void verify_the_status_of_the_tab_is_completed() {
+   
+	   
+   }
+
+
+  @Then("^verify that up down arrow key is moving of ICD codes$")
+  public void verify_that_up_down_arrow_key_is_moving_of_ICD_codes() {
+   
+	  
+	  
+  }
+
+	
+	
 }
 
 
