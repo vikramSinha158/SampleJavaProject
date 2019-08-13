@@ -1,5 +1,5 @@
+@Settlement
 Feature: Verification of Settlement tab functionality.
-
 
 Background: User navigates to the Settlement tab
 Given user is on R1 hub page
@@ -7,7 +7,7 @@ When user clicks on facility list
 And user select the facility "SJMC - St. John Hospital and Medical Center"
 When user clicks on "Patient Access and then Pre-registration"
 
-@396272 @Settlement
+@396272 
 Scenario: Verify settlement tab color for account having prior balance > 0
 Given user is on Pre-registration worklist
 When user filters the account having "PriorBalance" ">" "0"
@@ -20,7 +20,7 @@ And user is able to view Prior Balance label
 When user clicks on "Check Out" button
 Then fields on the tab becomes editable
 
-@396274 @Settlement
+@396274 
 Scenario: Total Payments panel for an account having total payments value not equal to zero
 Given user is on Pre-registration worklist
 When user runs the query and fetches the encounterid_1
@@ -34,7 +34,7 @@ Then user should be able to view corresponding columns
 | PostDate | Pmt Code | Description | Plan Code | Tran Type | Tran Date | Amount |
 Then sum of all the values under Amount column should be equal to Total Payments value
 
-@396276 @Settlement
+@396276 
 Scenario: Verify default values of the controls
 Given user is on Pre-registration worklist
 When user clicks on an account
