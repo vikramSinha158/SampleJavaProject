@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.List;
 import org.junit.Assert;
 import org.openqa.selenium.support.FindBy;
+
+import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
@@ -17,6 +19,8 @@ public class Service2Page extends BasePage
     String abc;
 	boolean flag=false;
 	int i;
+	int rowIndex;
+	
 	
 	@FindBy(xpath = "//input[contains(@id,'txtSearch')]")
 	
@@ -64,11 +68,29 @@ public class Service2Page extends BasePage
 	
    	private WebElementFacade clickOnAdmitting;
     
-   @FindBy(xpath = " //a[contains(@id,'accTaskAction_btnStatusOverrideUpdate')]")
+    @FindBy(xpath = " //a[contains(@id,'accTaskAction_btnStatusOverrideUpdate')]")
 	
    	private WebElementFacade clickOnContinueButton;
     
+    @FindBy(xpath = "//table[contains(@id,'grdICD9Selected')]//tr[@class='PanelTitle tableHeader']//td")
+	
+   	private List<WebElementFacade> fetchICDCodesIndexFromTable;
+    
+    @FindBy(xpath = "//table[contains(@id,'grdICD9Selected')]//tr[@class='PanelDetail']")
+	
+   	private List<WebElementFacade> fetchICDCodesIndexValueFromTable;
+    
+    
   
+    @FindBy(xpath = "//table[contains(@id,'grdICD9Selected')]//tr[@class='PanelDetail']//td[1]")
+ 	
+    private WebElementFacade clickICDCodesUpArrow;
+    
+     @FindBy(xpath = "//table[contains(@id,'grdICD9Selected')]//tr")
+	
+   	private List<WebElementFacade> clickICDCodesIndexValueFromTable;
+      
+    
     
     
     public void clickOnAdmiting()
