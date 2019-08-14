@@ -19,8 +19,8 @@ public class R1AccessCommonMethods extends BasePage {
 	String value="";
 	public ArrayList colValues;
 	public ArrayList columnValue;
-	static int count;
-	static int count2;
+	int countBeforeCheckOut;
+	int countAfterCheckOut;
 	boolean flag=false;
 	
 	
@@ -544,30 +544,30 @@ public String clickOnAccountReturnEncounterID(String colName){
 				{	
 					if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Phone"))
 					{						
-						count2++;						
+						countAfterCheckOut++;						
 					}
 					else if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Schedule"))
 					{						
-						count2++;						
+						countAfterCheckOut++;						
 					}
 					else if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Assign"))
 					{						
-						count2++;					
+						countAfterCheckOut++;					
 					}	
 					else if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Complete"))
 					{						
-						count2++;						
+						countAfterCheckOut++;						
 					}	
 					else if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Release"))
 					{						
-						count2++;						
+						countAfterCheckOut++;						
 					}	
 					else if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Exceptions"))
 					{						
-						count2++;					
+						countAfterCheckOut++;					
 					}																
 					}	
-				Assert.assertTrue("After Checkout Tabs Are Not Coming", count2==6);				
+				Assert.assertTrue("After Checkout Tabs Are Not Coming", countAfterCheckOut==6);				
 		} 
 		 
 		
@@ -578,18 +578,18 @@ public String clickOnAccountReturnEncounterID(String colName){
 				{
 					if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Phone"))
 					{													
-						count++;						
+						countBeforeCheckOut++;						
 					}
 					else if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Check Out"))
 					{							
-						count++;						
+						countBeforeCheckOut++;						
 					}
 					else if(actionsStatusTab.get(i).getText().equalsIgnoreCase("Exceptions"))
 					{							
-						count++;						
+						countBeforeCheckOut++;						
 					}									
 				}				
-				Assert.assertTrue("After Checkout Tabs Are Not Coming", count==3);
+				Assert.assertTrue("After Checkout Tabs Are Not Coming", countBeforeCheckOut==3);
 		} 
 		 
 		 	

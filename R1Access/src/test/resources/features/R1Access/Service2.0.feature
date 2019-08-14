@@ -4,7 +4,7 @@ Background: User should be able to navigate on Account Worklist Grid
 
  Given user is on R1 hub page
  When user clicks on facility list
- And user select the facility "LLNJ - Our Lady of Lourdes Medical Center"
+ And user select the facility "SCFL - St Vincents Medical Center Clay County"
  And user clicks on Patient Access link
  And user clicks on Pre-Registration
  Then user should be able to view Account Worklist Grid

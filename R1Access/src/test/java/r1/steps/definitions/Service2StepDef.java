@@ -98,16 +98,10 @@ public class Service2StepDef extends BasePage{
 		service2.addICDDiagnosisCodes();
 	}
 
-	@Then("^verify the status of the tab its completed$")
-	public void verify_the_status_of_the_tab_its_completed() {
-	  
-		service2.verifyTabColorAndCompleteStatus();
-	}
-
 
    @Then("^verify the status of the tab is completed$")
-   public void verify_the_status_of_the_tab_is_completed() {
-   
+   public void verify_the_status_of_the_tab_is_completed() {  
+	   service2.verifyTabColorAndCompleteStatus();
 	   
    }
 
@@ -119,6 +113,11 @@ public class Service2StepDef extends BasePage{
 	  
   }
 
+@When("^user clicked on \"([^\"]*)\" btn$")
+public void user_clicked_on_btn(String arg1) {
+	
+	service2.clickOnExceptionContinueButton("Continue");
+}
 	
 	
 }

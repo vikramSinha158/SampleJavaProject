@@ -14,7 +14,7 @@ public class Service2Page extends BasePage
 {
 	Random random = new Random(); 
 	R1AccessCommonMethods r1AccessCommonMethod;
-	static String abc="";
+    String abc;
 	boolean flag=false;
 	int i;
 	
@@ -130,7 +130,7 @@ public class Service2Page extends BasePage
 			
 	public void verifyServiceGridIsNotDisplayed()
 	{	   
-		Assert.assertFalse(!serviceSearchResults.isDisplayed());			
+		Assert.assertFalse("Service Grid Is Appearing", !serviceSearchResults.isDisplayed());				
 	}
 	
 	
