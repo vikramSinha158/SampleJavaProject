@@ -42,15 +42,36 @@ And answer should not be appear in answer grid under Update button
 
 @491028
 Scenario: Verify Default Answer for Pregnancy related question in case of Sex is M
-Given User is on R1 Access home page
+Given user is on R1 Access home page
 When user clicks on Patient Access link
 And user clicks on R1 detect worklist
 When user fetch the encounterid from Query "PFA_419028_SQL10" 
 And user clicks on SEARCH link
 And enters the encounterid in visit Text field
 And user clicks on Search button
-And  verify the answer of question Are you pregnant or is the date of service pregnancy related? on L1Screening Questions tab.
-Then Default answer  should be No selected appear
+Then Default answer should be No selected for question "Are you pregnant or is your upcoming visit pregnancy related?" on L1Screening Questions tab
+
+@491029
+Scenario: Verify Default Answer for Pregnancy related question in case of Sex is F and Age>54
+Given user is on R1 Access home page
+When user clicks on Patient Access link
+And user clicks on R1 detect worklist
+When user fetch the encounterid from Query "PFA_419029_SQL11" 
+And user clicks on SEARCH link
+And enters the encounterid in visit Text field
+And user clicks on Search button
+Then Default answer should be No selected for question "Are you pregnant or is your upcoming visit pregnancy related?" on L1Screening Questions tab
+
+@491030
+Scenario: Verify Default Answer for Pregnancy related question in case of Sex is F and Age>54
+Given user is on R1 Access home page
+When user clicks on Patient Access link
+And user clicks on R1 detect worklist
+When user fetch the encounterid from Query "PFA_419030_SQL12" 
+And user clicks on SEARCH link
+And enters the encounterid in visit Text field
+And user clicks on Search button
+Then no answer is selected for the question "Are you pregnant or is your upcoming visit pregnancy related?" on L1Screening Questions tab
 
 
 
