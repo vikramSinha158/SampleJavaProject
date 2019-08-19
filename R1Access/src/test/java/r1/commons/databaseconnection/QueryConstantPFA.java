@@ -22,6 +22,8 @@ public class QueryConstantPFA extends BasePage{
 				"where r.sex='F' and (DATEDIFF(DAY, r.DOB, r.AdmitDate) / 365) <'54'";
 	}
 	
+	public static String queryPayorCode = "select * from payorplans where payorplanname like '%commercial%'";
+	
 	
 	
 
