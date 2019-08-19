@@ -417,18 +417,18 @@ public class PatientPage extends BasePage {
       Assert.assertTrue("Admitn Date is not visible", tabcolor.equalsIgnoreCase("Red"));
     }
     String sSNnumber;
-    public void changSNNumberLength()
+    public void addSNNumber()
     { 
       newSSNText.clear();
       newSSNText.sendKeys(sSNnumber+"44");
     }
     
-    public void repSNNumberLength()
+    public void repSNNumberLengthRemove()
     {
       sSNnumber=	newSSNText.getAttribute("value");         
       length=  sSNnumber.length();
       sSNnumber=   sSNnumber.substring(1,length-2);  
-      sSNnumber=sSNnumber+"99";
+      sSNnumber=sSNnumber;
       newSSNText.clear();
       newSSNText.sendKeys(sSNnumber);
     }

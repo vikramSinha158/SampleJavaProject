@@ -242,11 +242,11 @@ public class PatientStepDef extends BasePage {
 	}
 	@When("^user make changes against the SSN field by adding one or two more digits$")
 	public void user_make_changes_against_the_SSN_field_by_adding_one_or_two_more_digits() {
-	
+		patientPage.addSNNumber();
 	}
 	@Then("^message should display as Invalid SSN at the bottom of the Patient Visit and Address Panel$")
 	public void message_should_display_as_Invalid_SSN_at_the_bottom_of_the_Patient_Visit_and_Address_Panel() {
-		patientPage.changSNNumberLength();
+		patientPage.repSNNumberLengthRemove();
 	}	
 	@When("^user clicks on the Patient tab$")
 	public void user_clicks_on_the_Patient_tab() {
@@ -254,7 +254,7 @@ public class PatientStepDef extends BasePage {
 	}
 	@When("^user make changes against the SSN field but not adding any other digits$")
 	public void user_make_changes_against_the_SSN_field_but_not_adding_any_other_digits() {
-
+		patientPage.repSNNumberLengthRemove();
 	}
 	@Then("^message should display  as SSN has changed at the bottom of the pannel$")
 	public void message_should_display_as_SSN_has_changed_at_the_bottom_of_the_pannel() {	    

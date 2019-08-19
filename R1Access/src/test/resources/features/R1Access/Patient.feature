@@ -130,7 +130,7 @@ Feature: Verifiy the functionality of Patient operations
   When user Add fill fields 
   Then new account should be created 
   
-  @419167 @Patient
+   @419167 @Patient
   Scenario: Verify 'Update' functionality on 'Patient' tab of an account
   When user run the query and fetch the encounterid for not having red tab
   And user clicks on search button of menu 
@@ -149,7 +149,7 @@ Feature: Verifiy the functionality of Patient operations
   And Update Patient Record? With unchecked checkbox should display in front of Skip Trace button 
   When user set the value as Checked for the Update Patient Record to checked
   And user clicks on Update button 
-  Then Value of SSN should be updated
+ Then Value of SSN should get updated
   And Record updated message should be displayed 
   And Patient Tab turn into Blue 
   When user clicks on Log Tab 
@@ -196,6 +196,7 @@ Then user should be able to view the updated history
 When user clicks on Patient tab
  Then Tab will open 
 And Displays tab and ribbon color as  Blue and "Status" should display as "Completed"
+
 
 
 
