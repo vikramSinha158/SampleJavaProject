@@ -1,34 +1,44 @@
 package r1.commons.databaseconnection;
 
-public class QueryConstantPatient {
+import r1.commons.BasePage;
 
-	public static String queryPatientGurantor() {
-		return "Select top 1 encounterid ,SSN ,Admitdate from Registrations where GuarantorID is not null and encounterid is not NULL and SSN is not null and SSN <> '000000200' and SSN <> '000000000' and Phone is not null and ID not in (select RecordKey from RecordCheckOut) order by id desc ";
+public class QueryConstantPatient extends BasePage{
+	
+	public static  String queryPatientGurantor()
+	{
+	 return "Select top 1 encounterid ,SSN ,Admitdate from Registrations where GuarantorID is not null and encounterid is not NULL and SSN is not null and SSN <> '000000200' and SSN <> '000000000' and Phone is not null and ID not in (select RecordKey from RecordCheckOut) order by id desc ";
+	}	
+	
+	public String queryPatientCheckReturn(String encounterID)
+	{
+	   return " Select top 1 isadmitted,isdischarged, * from registrations where encounterid='"+encounterID+"'";
 	}
-
-	public static String queryPatientCheckReturn(String encounterID) {
-		return " Select top 1 isadmitted,isdischarged * from registrations where isdischarged = 1 and isadmitted=1 and encounterid='"
-				+ encounterID + "'";
-	}
-
-	public static String queryPatientforZeroAmmount() {
-		return " Select Distinct top 2 r.encounterId, SUM(c.totalCharges) FROM registrations r JOIN charges c ON r.id = c.registrationId GROUP BY r.encounterId HAVING SUM(c.totalCharges) = 0";
-	}
-
-	public static String queryPatientforNotZeroAmmount() {
-		return "SELECT Distinct top 2 r.encounterId, SUM(c.totalCharges) FROM registrations r JOIN charges c ON r.id = c.registrationId GROUP BY r.encounterId HAVING SUM(c.totalCharges) <>0  ";
-	}
-
-	public static String queryPatientGetCricitcalError() {
-		return "select top 2 encounterId from registrations where address is null";
-	}
-
-	public static String queryPatientGetNonricitcalError() {
-		return "select top 2 encounterId from registrations where address is null;";
-	}
-
-	public static String queryPatientforGreaterZeroAmmount() {
-		return "SELECT distinct top 5 r.encounterId, SUM(c.totalCharges) FROM registrations r JOIN charges c ON r.id = c.registrationId GROUP BY r.encounterId HAVING SUM(c.totalCharges) > 0";
-	}
-
+	
+	public static String queryPatientforZeroAmmount()
+	{
+	return " Select Distinct top 2 r.encounterId, SUM(c.totalCharges) FROM registrations r JOIN charges c ON r.id = c.registrationId GROUP BY r.encounterId HAVING SUM(c.totalCharges) = 0";
+	}	
+	
+	public static String queryPatientforNotZeroAmmount()
+	{
+	return "SELECT Distinct top 2 r.encounterId, SUM(c.totalCharges) FROM registrations r JOIN charges c ON r.id = c.registrationId GROUP BY r.encounterId HAVING SUM(c.totalCharges) <>0  ";
+	}	
+	
+	public static String queryPatientGetCricitcalError()
+	{
+	return "select top 2 encounterId from registrations where address is null";
+	}	
+	public static String queryPatientGetNonricitcalError()
+    {
+     return "select top 2 encounterId from registrations where address is null;";
+    }	
+   public static String queryPatientforGreaterZeroAmmount()
+   {
+     return "SELECT distinct top 5 r.encounterId, SUM(c.totalCharges) FROM registrations r JOIN charges c ON r.id = c.registrationId GROUP BY r.encounterId HAVING SUM(c.totalCharges) > 0";
+    }
+public static String queryFdischargePatient()
+{
+return "Select top 5 r.encounterID, r.SSN from registrations r inner join persons p on p.id = r.personid left join SkipTraces st on p.ID = st.PersonID where st.TraceDate is NULL and r.SSN is not null and r.SSN <> '000000200' and r.SSN <> '000000000' and r.Phone is not null and r.isdischarged = 1 and r.ID not in (select RecordKey from RecordCheckOut) order by r.id desc";
+}
+	
 }

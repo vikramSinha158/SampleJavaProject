@@ -6,12 +6,11 @@ When user clicks on facility list
 And user select the facility "SJMA - St. John Macomb-Oakland Hospital"
 When user clicks on Setting link
 And user clicks on user managment of IT Tools
-And user clicks on ARSupervisor CheckBoxs
-Then user ARSupervisor checkbox should be checked 
+Then user clicks on ARSupervisor CheckBoxs
 
- @391772 @PatientPASupervisorRole
+ @391772 @PASupervisorEnable
  Scenario: Patient_Verify "Cancelled" checkbox status for account having totalcharges = 0 for an account having "PA Supervisor" role
-  When user run the query and fetch the encounteridSix
+  When user run the query and fetch the encounteridForEqualZero
   And user clicks on search button of menu 
   And user enter encounterid in search textbox
   And user clicks on submit button
@@ -20,10 +19,9 @@ Then user ARSupervisor checkbox should be checked
   And user clicks on checkout button
   Then user should be able to view cancelled checkbox in disableState mode
 
-@391773 @PatientPASupervisorRole
+@391773 @PASupervisorEnable
   Scenario: Patient_Verify "Cancelled" checkbox status for account having totalcharges <> 0 for an account having "PA Supervisor" role
-  Given User is on Account Worklist Page
-  When user run the query and fetch the encounteridSeven
+  When user run the query and fetch the encounteridForNotEqualZero
   And user clicks on search button of menu 
   And user enter encounterid in search textbox1
   And user clicks on submit button

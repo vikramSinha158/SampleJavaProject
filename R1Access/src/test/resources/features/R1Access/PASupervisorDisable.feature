@@ -6,13 +6,11 @@ When user clicks on facility list
 And user select the facility "SJMA - St. John Macomb-Oakland Hospital"
 When user clicks on Setting link
 And user clicks on user managment of IT Tools
-And user clicks on ARSupervisor CheckBoxs for disable Role
-Then user ARSupervisor checkbox should be checked 
+Then user clicks on ARSupervisor CheckBoxs for disable Role
 
   @391774 @PASupervisorDisable
   Scenario: Patient_Verify "Cancelled" checkbox status for an account without "PA Supervisor" role
-  Given User is on Account Worklist Page
-  When user run the query and fetch the encounteridEighth
+  When user run the query and fetch the encounteridForDisable
   And user clicks on search button of menu 
   And user enter encounterid in search textbox
   And user clicks on submit button
