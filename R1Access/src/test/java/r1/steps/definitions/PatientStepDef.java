@@ -230,7 +230,8 @@ public class PatientStepDef extends BasePage {
 		r1AccessCommonMethod.checkOut();
 	}
 	@Then("^Patient Visit and Address Panel should get displayed$")
-	public void patient_Visit_and_Address_Panel_should_get_displayed() {	
+	public void patient_Visit_and_Address_Panel_should_get_displayed() {
+		patientPage.verifyPatientCheckBox();
 	}
 	@Then("^Status should be appear incomplete$")
 	public void status_should_be_appear_incomplete() {

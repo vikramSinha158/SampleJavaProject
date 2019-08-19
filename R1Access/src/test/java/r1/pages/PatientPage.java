@@ -422,13 +422,18 @@ public class PatientPage extends BasePage {
       newSSNText.clear();
       newSSNText.sendKeys(sSNnumber+"44");
     }
+   
+    public void verifyStatusPatientTab()
+    {
+    	status=r1AccessCommonMethod.chkTabStatusIncompleteComplete();
+    	
+    }
     
     public void repSNNumberLengthRemove()
     {
       sSNnumber=	newSSNText.getAttribute("value");         
       length=  sSNnumber.length();
       sSNnumber=   sSNnumber.substring(1,length-2);  
-      sSNnumber=sSNnumber;
       newSSNText.clear();
       newSSNText.sendKeys(sSNnumber);
     }
