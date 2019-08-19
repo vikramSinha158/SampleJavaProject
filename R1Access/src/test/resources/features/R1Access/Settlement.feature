@@ -42,3 +42,5 @@ And user clicks on Settlement tab
 Then user should be able to view show all related visits checkbox as unchecked 
 And No payment selected in Primary Disposition label  
 And Select One value is displayed in Non-Collection Reason
+
+

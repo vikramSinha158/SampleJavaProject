@@ -116,5 +116,6 @@ public class SettlementStepDef extends BasePage {
 	public void select_One_value_is_displayed_in_Non_Collection_Reason() {
 		settlement.verifyNonCollReason();
 	}	
-	
 }
+
+

@@ -8,5 +8,4 @@ public class QueryConstantSettlement extends BasePage{
 	{
 		return "select top 1 encounterid from registrations where facilitypatientid in (select top 1 facilitypatientid from priorbalance where patientbalance>0)";
 	}	
-	
 }

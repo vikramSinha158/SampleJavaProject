@@ -170,7 +170,6 @@ public class Settlement extends BasePage {
 		Assert.assertTrue("Related Visit Checkbox is enabled." , !relatedVisitsChkbox.isEnabled());
 	}
 	
-	
 	public void verifyPrimaryDisposition()
 	{
 		Assert.assertTrue("Primary Disposition Label is visible.", primaryDispositionLabel.isDisplayed());
@@ -189,3 +188,4 @@ public class Settlement extends BasePage {
 		Assert.assertTrue(nonCollReasons.getText().equals("[Select One]"));
 	}
 }
+
