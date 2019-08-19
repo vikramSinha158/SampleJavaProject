@@ -56,6 +56,22 @@ Scenario: Verify user is able to move the services up/down
 	And user add ICD Codes 
 	Then verify that up down arrow key is moving of ICD codes 
 	
+@391644 
+Scenario: Service_Verify default pricing mode in facility setting. 
+    When user clicks on the "Settings" link from footer Tab
+	And user clicks on "IT Tools" 
+	And user clicks on "FacilitySetting Configuration"
+	And user set the facility "SCFL" setting name "PRICINGMODE_SINGLEDEFAULT" setting value "S"
+	And user clicks on the "Patient Access" link from footer Tab
+	And user clicks on facility list
+	And user select the facility "SCFL - St Vincents Medical Center Clay County"
+	And user clicks on Pre-Registration	
+	And user clicks on any Unassigned Account 
+	And user clicked on "Services" tab 
+    And user clicked on checkout button 
+	And user clicked on Admitting if exists
+	Then verify "Single" radio button should be selected by default 
+	
 	
 	
  

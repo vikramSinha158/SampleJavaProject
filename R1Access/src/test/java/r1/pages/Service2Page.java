@@ -78,6 +78,15 @@ public class Service2Page extends BasePage {
 	@FindBy(xpath = "//table[contains(@id,'grdICD9Selected')]//tr")
 
 	private List<WebElementFacade> clickICDCodesIndexValueFromTable;
+	
+			
+	@FindBy(xpath = "//label[contains(text(), 'Single')]//preceding-sibling::input")
+
+	private WebElementFacade singleRadioButton;
+	
+	@FindBy(xpath = "//label[contains(text(), 'Multiple')]//preceding-sibling::input")
+
+	private WebElementFacade multipleRadioButton;
 
 	public void clickOnAdmiting() {
 		if (clickOnAdmitting.getText().equalsIgnoreCase("Admitting")) {
@@ -147,6 +156,21 @@ public class Service2Page extends BasePage {
 		if (clickOnContinueButton.getText().equalsIgnoreCase(tab)) {
 			clickOn(clickOnContinueButton);
 		}
+	}
+	
+	public void VerifyModeIsSelectedInContextToSettings(String Text)
+	{
+		 if(Text.equalsIgnoreCase("Single"))
+		   {
+			 System.out.print(singleRadioButton.isSelected());  
+			 Assert.assertTrue("",singleRadioButton.isSelected()); 
+		   }
+		   else
+		   {
+			   System.out.print(multipleRadioButton.isSelected()); 
+			   Assert.assertTrue("",multipleRadioButton.isSelected());  
+		   }
+		
 	}
 
 }
