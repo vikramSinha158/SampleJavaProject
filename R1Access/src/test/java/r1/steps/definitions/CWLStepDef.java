@@ -92,7 +92,7 @@ public class CWLStepDef extends BasePage {
 	@Then("^verify \"([^\"]*)\" value$")
 	public void verify_value(String arg1) {
 	    // Write code here that turns the phrase above into concrete actions
-		cwl.conversiontable();
+		cwl.conversiontable("I", "S");
 	    
 	}
 
@@ -109,16 +109,33 @@ public class CWLStepDef extends BasePage {
 	   cwl.verifyTotalBal();
 	}
 
-
-	@Then("^Record should not be either \"([^\"]*)\" or \"([^\"]*)\"$")
-	public void record_should_not_be_either_or(String arg1, String arg2) {
+	@Then("^LA column(.*) \"([^\"]*)\" / \"([^\"]*)\"$")
+	public void la_column(String arg1, String arg2, String arg3) {
 	    // Write code here that turns the phrase above into concrete actions
-	    
+	    cwl.verifyLA();
 	}
 
-	@Then("^\"([^\"]*)\" column(.*) \"([^\"]*)\" / \"([^\"]*)\"$")
-	public void column(String arg1, String arg2, String arg3, String arg4) {
+	/*----------------Test Case 391788:CWL_Verify records in "E/O" at Risk" filter folder--------------------------*/
+	
+	@Then("^user clicks E/O at Risk$")
+	public void user_clicks_E_O_at_Risk() {
 	    // Write code here that turns the phrase above into concrete actions
+		cwl.clickEoRisk();
+	}
+
+	@Then("^verify \"([^\"]*)\" value as 'E' OR 'O'$")
+	public void verify_value_as_E_OR_O(String arg1) {
+	    // Write code here that turns the phrase above into concrete actions
+		cwl.conversiontable("E", "O");
+	    
+	}
+	
+	/*----------------Test Case 391788:CWL_Verify records in "Future Follow Up" filter folder--------------------------*/
+
+	@Then("^user clicks Future Follow Up$")
+	public void user_clicks_Future_Follow_Up() {
+	    // Write code here that turns the phrase above into concrete actions
+		cwl.clickFutureFollowUp();
 	    
 	}
 	

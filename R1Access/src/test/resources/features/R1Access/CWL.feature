@@ -20,16 +20,35 @@
  Then verify following filter folder lists
  
  @391788
- Scenario: CWL_Verify records in "I/S at Risk" filter folder
+  Scenario: CWL_Verify records in "I/S at Risk" filter folder
   When click on "Patient Access"
   And user is on Conversion Follow up
   Then user clicks "I/S at Risk"
   And verify "PT" value
   And Verify NFU date
   And Verify Total Open Balance value
-  And Record should not be either "Referred to Care Coverage" or "Referred to Supervisor" 
-  And "LA" column<> "Referred to Care Coverage" / "Referred to Supervisor"
- 
+  And LA column<> "Referred to Care Coverage" / "Referred to Supervisor" 
+  
+  
+   @391789
+  Scenario: CWL_Verify records in "E/O at Risk" filter folder
+  When click on "Patient Access"
+  And user is on Conversion Follow up
+  Then user clicks E/O at Risk
+  And verify "PT" value as 'E' OR 'O' 
+  And Verify NFU date
+  And Verify Total Open Balance value
+  And LA column<> "Referred to Care Coverage" / "Referred to Supervisor" 
+  
+  
+ @391790
+ Scenario: CWL_Verify records in "Future Follow Up" filter folder
+  When click on "Patient Access"
+  And user is on Conversion Follow up
+  Then user clicks Future Follow Up 
+  And Verify NFU date
+  And Verify Total Open Balance value
+  And LA column<> "Referred to Care Coverage" / "Referred to Supervisor" 
  
  
 

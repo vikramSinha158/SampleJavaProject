@@ -1,11 +1,13 @@
 package r1.pages;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.gargoylesoftware.htmlunit.javascript.host.Set;
@@ -51,10 +53,20 @@ public class CWLPage extends BasePage {
 	@FindBy(xpath="//span[text()='I/S at Risk']")
 	private WebElementFacade ISRisk;
 	
-	String[] conversionList = {"Conversion Followup","Pending"," "," "," "," "," "," "," ","On-Deck","at Risk","E/O at Risk","Future Follow Up","Zero Balance","Supervisor Worklist","Care Coverage"," "," ","BSO"};
+	@FindBy(xpath="//span[text()='E/O at Risk']")
+	private WebElementFacade EORisk;
+	
+	@FindBy(xpath="//span[text()='Future Follow Up']")
+	private WebElementFacade FutureFollowUp;
+	
+	String[] conversionList = {"Conversion Followup","Pending","On-Deck","at Risk","E/O at Risk","Future Follow Up","Zero Balance","Supervisor Worklist","Care Coverage","BSO"};
+	ArrayList<String> namesList = new ArrayList<String>();
 	
 	@FindBy(xpath = "//table[@class='worklistTable']/tbody/tr")
 	private List<WebElementFacade> conversionFollowtableRows;
+	
+	@FindBy(xpath="//a[contains(@id,'_grid_lnkClear')]")
+	private List<WebElementFacade>  showAll;
 	
 	public void click_setting()
 	{
@@ -111,7 +123,7 @@ public class CWLPage extends BasePage {
 				Assert.assertFalse(size==0);
 				
 			}
-	//Test Case 391787:CWL_Verify the filter folders in the worklist
+	/*-------------------------------------------------------------Test Case 391787:CWL_Verify the filter folders in the worklist-------------------------------------------------------------*/
 			
 			
 			// click on patient access
@@ -128,25 +140,31 @@ public class CWLPage extends BasePage {
 			
 			public void filterList()
 			{
-
-			
-				for(int i=0;i<conversionList.length;i++)
-				{
+				for(int i=0;i<conversionFollowList.size();i++) {
 					String optionValue=conversionFollowList.get(i).getText();
-					if(optionValue.equals(conversionList[i]))
+					
+					if(optionValue==null)
+					{
+						return;
+					}
+					else if(optionValue.equals(conversionList[i]))
 					{
 						System.out.println("passed on: " + optionValue);
-					}else
+					}
+					else
 					{
 						System.out.println("failed on: " + optionValue);
-					}
+						Assert.assertTrue("failed on: " + optionValue, false);
+					}}
 				}
-			}
 			
-			//CWL_Verify records in "I/S at Risk" filter folder
+			
+	/*-------------------------------------------------------------Test Case 391788:CWL_Verify records in "I/S at Risk" filter folder-------------------------------------------------------------*/
+	
 			
 			public void clickOnIsRisk()
 			{
+				clickShowAll();
 				ISRisk.click();
 			}
 
@@ -159,28 +177,32 @@ public class CWLPage extends BasePage {
 			@SuppressWarnings("deprecation")
 			
 			// verify PT value on Conversion Followup > I/S at Risk 
-			public void conversiontable()
+			
+			public void conversiontable(String val1, String val2)
 			{
-				
-				
-				 ArrayList<String> ptCol= common.getTableColValue(followUpWorklistRow,followUpWorklistHeader,"PT");
-				 for(String i:ptCol)
+			  ArrayList<String> ptCol= common.getTableColValue(followUpWorklistRow,followUpWorklistHeader,"PT");
+			 if(ptCol.size()>0) {
+			  for(int k=0;k<ptCol.size();k++)
 				 {
-
-					 if((!i.equals("I") || i.equals("S")) && (!i.equals("S") || i.equals("I")))
+					 System.out.println(ptCol.size());
+					 String i=ptCol.get(k);
+					 if(i.contains(val1))
 					 {
-						 Assert.assertTrue(false);
-						 System.out.println(i+" Pt value is not matching");
+						 Assert.assertTrue(true);
+						
+					 }else if(i.contains(val2))
+					 {
+						 Assert.assertTrue(true);
 					 }else
 					 {
-						System.out.println(i+" Pt value is matching");
+						 System.out.println("PT value is coming"+ i);
+						 Assert.assertTrue(false);
 					 }
-						 
-					
-					 System.out.println(i);
-				 }
-				 
-				}
+				 }}else
+				    {
+				    	Assert.assertTrue("No PtColums columns present", false);
+				    }
+			}
 			
 			// verify NFU date on Conversion Followup > I/S at Risk 
 				public void verifyNfuDt() 
@@ -188,7 +210,8 @@ public class CWLPage extends BasePage {
 					ArrayList<String> NFUdt= common.getTableColValue(followUpWorklistRow,followUpWorklistHeader,"NFU Dt");
 					DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("MM/dd/yyyy"); 
 				    String currentDate = myDateObj.format(myFormatObj); 
-				    System.out.println("After formatting: " + currentDate); 
+				    System.out.println("After formatting: " + currentDate);
+				    if(NFUdt.size()>0) {
 				  	for(String nfudate:NFUdt)
 					{
 						if(currentDate.compareTo(nfudate)<=0)
@@ -209,17 +232,23 @@ public class CWLPage extends BasePage {
 					{
 						
 					}
+				    }else
+				    {
+				    	Assert.assertTrue("No NFUDt columns present", false);
+				    }
 				}
 				
 				
-				// Verify total balance on Conversion Followup > I/S at Risk  
+				// Verify total balance on Conversion Followup > I/S at Risk
+				
 				public void verifyTotalBal() {
 				ArrayList<String> openBal=  common.getTableColValue(followUpWorklistRow,followUpWorklistHeader,"Total Open Bal");
+				if(openBal.size()>0) {
 				for(String TotalopenBal:openBal)
 				{
-					//int result = Integer.parseInt(TotalopenBal);
+					
 					double d = Double.parseDouble(TotalopenBal);
-					if(d==0)
+					if(d==0.00 || d==0)
 					{
 						 Assert.assertTrue(false);
 					}else
@@ -229,4 +258,61 @@ public class CWLPage extends BasePage {
 					}
 				}
 				
-			}}
+			}else {
+				Assert.assertTrue("No openBal columns present", false);
+			}
+			}
+				
+			// Verify LA values on 	Conversion Followup > I/S at Risk
+				public void verifyLA() {
+					ArrayList<String> LA=  common.getTableColValue(followUpWorklistRow,followUpWorklistHeader,"LA");
+					if(LA.size()>0)
+					{
+					for(String LAvalue:LA)
+					{
+					  if(LAvalue.contains("Referred to Care Coverage"))
+						{
+							 Assert.assertTrue(false);
+						}
+					  else if(LAvalue.contains("Referred to Supervisor"))
+						{
+							Assert.assertTrue(false);
+							
+						}else {
+							Assert.assertTrue(true);
+							System.out.println("LA value is matching");
+						}
+					}}else
+					{
+						Assert.assertTrue("No LA columns present", false);
+					}
+					
+				}
+				
+				public void clickShowAll()
+				{
+					int k=showAll.size();
+					if (k > 0) {
+						showAll.get(0).click();
+					}
+				}
+
+
+		/*-------------------------------------------------------------Test Case 391788:CWL_Verify records in "E/O" at Risk" filter folder------------------------------------------------------------*/
+				
+				
+				public void clickEoRisk()
+				{
+					clickShowAll();
+					EORisk.click();
+				}
+				
+				/*----------------Test Case 391788:CWL_Verify records in "Future Follow Up" filter folder--------------------------*/			
+
+				public void clickFutureFollowUp()
+				{
+					clickShowAll();
+					FutureFollowUp.click();
+				}
+				
+}
