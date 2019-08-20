@@ -223,7 +223,7 @@ public class PatientStepDef extends BasePage {
 	}	
 	@When("^user run the query and fetch the encounterid for not having red tab$")
 	public void user_run_the_query_and_fetch_the_encounterid_for_not_having_red_tab() throws ClassNotFoundException, IOException, SQLException {
-		patientPage.getPatientGuranorAccount();
+		patientPage.getEncounteridPatientTabRed();
 	}
 	@When("^user clicks on the  checkout button$")
 	public void user_clicks_on_the_checkout_button() {
@@ -235,7 +235,7 @@ public class PatientStepDef extends BasePage {
 	}
 	@Then("^Status should be appear incomplete$")
 	public void status_should_be_appear_incomplete() {
-	  
+		patientPage.verifyIncompleteStatus();
 	}
 	@Then("^Patient tab color should be appear Red$")
 	public void patient_tab_color_should_be_appear_Red() {
@@ -247,7 +247,7 @@ public class PatientStepDef extends BasePage {
 	}
 	@Then("^message should display as Invalid SSN at the bottom of the Patient Visit and Address Panel$")
 	public void message_should_display_as_Invalid_SSN_at_the_bottom_of_the_Patient_Visit_and_Address_Panel() {
-		patientPage.repSNNumberLengthRemove();
+		patientPage.verifySSNMessaage();
 	}	
 	@When("^user clicks on the Patient tab$")
 	public void user_clicks_on_the_Patient_tab() {
@@ -255,18 +255,18 @@ public class PatientStepDef extends BasePage {
 	}
 	@When("^user make changes against the SSN field but not adding any other digits$")
 	public void user_make_changes_against_the_SSN_field_but_not_adding_any_other_digits() {
-		patientPage.repSNNumberLengthRemove();
+		patientPage.modifySNNumber();
 	}
 	@Then("^message should display  as SSN has changed at the bottom of the pannel$")
 	public void message_should_display_as_SSN_has_changed_at_the_bottom_of_the_pannel() {	    
 	}
 	@Then("^Update Patient Record\\? With unchecked checkbox should display in front of Skip Trace button$")
 	public void update_Patient_Record_With_unchecked_checkbox_should_display_in_front_of_Skip_Trace_button() {
-	
+		patientPage.verifySkipTraceButton();
 	}
 	@When("^user set the value as Checked for the Update Patient Record to checked$")
 	public void user_set_the_value_as_Checked_for_the_Update_Patient_Record_to_checked() {
-	
+		patientPage.clickOnUpdateCheckBox();
 	}
 	@When("^user clicks on Update button$")
 	public void user_clicks_on_Update_button() {
@@ -274,7 +274,7 @@ public class PatientStepDef extends BasePage {
 	}
 	@Then("^Value of SSN should be  updated$")
 	public void value_of_SSN_should_be_updated() {
-	
+		patientPage.verifySSN();
 	}
 	@Then("^Record updated message should be displayed$")
 	public void record_updated_message_should_be_displayed() {
@@ -293,8 +293,11 @@ public class PatientStepDef extends BasePage {
 	
 	}
 	@When("^user clicks on any Account where the Traffic light of P column is Red$")
-	public void user_clicks_on_any_Account_where_the_Traffic_light_of_P_column_is_Red() {
-	 
+	public void user_clicks_on_any_Account_where_the_Traffic_light_of_P_column_is_Red()  throws ClassNotFoundException, IOException, SQLException {
+	 	patientPage.getEncounteridPatientTabRed();
+		patientPage.clickOnSearch();
+		patientPage.entersSearchText();
+		patientPage.clickOnSearchButton();		
 	}
 	@Then("^Status should display in the ribbon as Incomplete with Red color$")
 	public void status_should_display_in_the_ribbon_as_Incomplete_with_Red_color() {
@@ -322,7 +325,7 @@ public class PatientStepDef extends BasePage {
 	}
 	@Then("^Value of SSN should get updated$")
 	public void value_of_SSN_should_get_updated() {
-	   
+		patientPage.verifySSN();
 	}
 	@Then("^user should be able to view Patient Phone Number is Missing\\.Please input Valid Phone Number in  exception Panel$")
 	public void user_should_be_able_to_view_Patient_Phone_Number_is_Missing_Please_input_Valid_Phone_Number_in_exception_Panel() {

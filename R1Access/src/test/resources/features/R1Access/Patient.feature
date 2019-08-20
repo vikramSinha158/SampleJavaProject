@@ -137,6 +137,7 @@ Feature: Verifiy the functionality of Patient operations
   And user enter encounterid in search textbox
   And user clicks on submit button
   Then Patient Visit and Address Panel should get displayed
+  Then user should be able to clicks on checkout button
   And Status should be appear incomplete
   And Patient tab color should be appear Red 
   When user make changes against the SSN field by adding one or two more digits  
@@ -145,7 +146,6 @@ Feature: Verifiy the functionality of Patient operations
   When user clicks on the Patient tab 
   And user make changes against the SSN field but not adding any other digits 
   And user clicks on update button
-  Then message should display  as SSN has changed at the bottom of the pannel 
   And Update Patient Record? With unchecked checkbox should display in front of Skip Trace button 
   When user set the value as Checked for the Update Patient Record to checked
   And user clicks on Update button 
@@ -166,7 +166,6 @@ Feature: Verifiy the functionality of Patient operations
   When user set the value as Checked for the Update Patient Record?
   And user clicks on Update button 
   Then Value of SSN should get updated
-  And user should be able to view Patient Phone Number is Missing.Please input Valid Phone Number in  exception Panel 
   When user update the Phone and SSN fields with correct values 
   And user clicks on Update button 
   Then fields should get updated and exceptions should get removed 

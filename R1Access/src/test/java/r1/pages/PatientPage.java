@@ -32,7 +32,23 @@ public class PatientPage extends BasePage {
 	DataAccess dataAccess;
 	QueryConstantPatient queryConstantPatient;
 	Select select;	
-	int length;
+	int length;	
+	
+	@FindBy(xpath = "//*[contains(@id,'_btnStatusOverrideUpdate')]")
+	private WebElementFacade continueButton;
+	
+	@FindBy(xpath = "//*[contains(@id,'_btnStatusOverrideCancel')]")
+	private WebElementFacade continueBCancelutton;
+	
+	@FindBy(xpath = "//td[contains(text(),'Are you sure you want to mark the task complete?')]")
+	private WebElementFacade softException;
+	
+	@FindBy(xpath = "//*[contains(@id,'_txtSSN')]")
+	private WebElementFacade getSSN;
+	
+	@FindBy(xpath = "//*[contains(@id,'_valSSN')]/li")
+	private WebElementFacade ssnMessage;
+	
 	@FindBy(xpath = "//SELECT[contains(@id,'_ddlGender')]")
 	private WebElementFacade selectGender;
 	
@@ -150,6 +166,21 @@ public class PatientPage extends BasePage {
 	public void clickOnUpdateCheckBox() {
 		clickOn(checktUpdate);
 	}	
+	
+	
+	public void clickCheckUpdate()
+	{
+		checkDisplaySelect = checktUpdate.isDisplayed();	
+		if (checkDisplaySelect==true)
+		{	clickOn(checktUpdate);
+			clickOn(patientUpdate);
+		}
+		else
+		{
+			clickOn(patientUpdate);
+		}		
+	}
+	
 	public void clearkPatientAddress() {
 		patientAddress.clear();
 	}
@@ -271,7 +302,7 @@ public class PatientPage extends BasePage {
 	}
 	public void verifyIncompleteStatus() {
 	   status = r1AccessCommonMethod.chkTabStatusIncompleteComplete();
-	   Assert.assertTrue("Patient tab status is not Incomplete", status.equalsIgnoreCase("Incomplete"));
+	   Assert.assertTrue("Patient tab status is not Incomplete", status.equalsIgnoreCase("Incomplete") || status.equalsIgnoreCase("Redo"));
 	}
 	public void verifyCompleteStatus() {
 		status = r1AccessCommonMethod.chkTabStatusIncompleteComplete();
@@ -392,7 +423,6 @@ public class PatientPage extends BasePage {
     {	 selectFromDropdown(selectGender,"Female");
 		 selectFromDropdown(selectPatientType,"S - Outpatient Surgery");
 		 LocalDate futureDate = LocalDate.now().plusDays(16);
-		 System.out.println(futureDate);
 		 admitDate.sendKeys(futureDate.toString());
 		 int randomNumber = CommonMethods.GetRandom(999999999);
 		 int ranValue=CommonMethods.GetRandom(9);
@@ -421,22 +451,28 @@ public class PatientPage extends BasePage {
     { 
       newSSNText.clear();
       newSSNText.sendKeys(sSNnumber+"44");
-    }
-   
+    }   
     public void verifyStatusPatientTab()
     {
-    	status=r1AccessCommonMethod.chkTabStatusIncompleteComplete();
-    	
-    }
+    	status=r1AccessCommonMethod.chkTabStatusIncompleteComplete();    	
+    } 
     
-    public void repSNNumberLengthRemove()
-    {
-      sSNnumber=	newSSNText.getAttribute("value");         
+    String newSSnNumber;
+    public void modifySNNumber()
+    { sSNnumber=	getSSN.getAttribute("value");  
+    // sSNnumber=	getSSN.getText();
+     System.out.print(sSNnumber);
       length=  sSNnumber.length();
       sSNnumber=   sSNnumber.substring(1,length-2);  
-      newSSNText.clear();
-      newSSNText.sendKeys(sSNnumber);
-    }
+      getSSN.clear();
+      newSSnNumber=sSNnumber+"55";
+      getSSN.sendKeys(newSSnNumber);
+    }    
+    public void verifySSN()
+    {
+    	sSNnumber=	getSSN.getAttribute("value");  
+    	Assert.assertTrue("SSN Number is not updated",sSNnumber.equalsIgnoreCase(sSNnumber));
+    }    
 	public void verifySSNExceptionForLenth() {
 		message = patientExceptionPanel.getText();
 		Assert.assertTrue("Patient Address Street Number Not Valid message does not exist",
@@ -455,7 +491,36 @@ public class PatientPage extends BasePage {
 				"Patient Address-Street Address Missing Patient Address-City Missing Patient Address-Zip Missing message does not exist",
 				message.contains(
 						"Patient Address-Street Address Missing Patient Address-City Missing Patient Address-Zip Missing"));	
-    
-    
-}
+     
+   }	
+	public void verifySSNMessaage()
+	{		message =ssnMessage.getText();
+		Assert.assertTrue("Invalid SSN message does not exist",
+				message.contains("Invalid SSN"));
+	}	
+	public void verifySoftException()
+	{
+		message = softException.getText();
+		Assert.assertTrue("Soft Exception message does not exist",
+				message.contains("Exceptions Exist - Are you sure you want to mark the task complete?"));		
+	}	
+	public void clickContinueutton() {
+		clickOn(continueButton);
+	}
+	
+	public void verifyCancelkContinueutton() {
+		checkDisplaySelect = continueButton.isDisplayed();
+		Assert.assertTrue("Continue button is not disable", checkDisplaySelect == true);
+		checkDisplaySelect = continueBCancelutton.isDisplayed();
+		Assert.assertTrue("Continue Camcel button is not disable", checkDisplaySelect == true);
+	}
+	
+	public void getEncounteridPatientTabRed() throws ClassNotFoundException, IOException, SQLException 
+	{	query = QueryConstantPatient.queryPatienTabRed();
+		SearchAccount = DataAccess.getEncounterId(("encounterid"), query);
+	}
+	public void getEncounteridPatientTabBlue() throws ClassNotFoundException, IOException, SQLException 
+	{	query = QueryConstantPatient.queryPatienTabBlue();
+		SearchAccount = DataAccess.getEncounterId(("encounterid"), query);
+	}
 }

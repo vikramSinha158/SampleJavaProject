@@ -35,10 +35,17 @@ public class QueryConstantPatient extends BasePage{
    public static String queryPatientforGreaterZeroAmmount()
    {
      return "SELECT distinct top 5 r.encounterId, SUM(c.totalCharges) FROM registrations r JOIN charges c ON r.id = c.registrationId GROUP BY r.encounterId HAVING SUM(c.totalCharges) > 0";
-    }
-public static String queryFdischargePatient()
-{
-return "Select top 5 r.encounterID, r.SSN from registrations r inner join persons p on p.id = r.personid left join SkipTraces st on p.ID = st.PersonID where st.TraceDate is NULL and r.SSN is not null and r.SSN <> '000000200' and r.SSN <> '000000000' and r.Phone is not null and r.isdischarged = 1 and r.ID not in (select RecordKey from RecordCheckOut) order by r.id desc";
-}
-	
+   }
+  public static String queryFdischargePatient()
+  {
+  return "Select top 5 r.encounterID, r.SSN from registrations r inner join persons p on p.id = r.personid left join SkipTraces st on p.ID = st.PersonID where st.TraceDate is NULL and r.SSN is not null and r.SSN <> '000000200' and r.SSN <> '000000000' and r.Phone is not null and r.isdischarged = 1 and r.ID not in (select RecordKey from RecordCheckOut) order by r.id desc";
+  }
+ public static String queryPatienTabRed()
+ {
+	return "select top 1 reg.encounterid from dbo.recordtaskstatus rec join registrations  reg  on rec.RecordKey= reg.id where rec.taskid = 11 and  rec.status=2";
+ }
+ public static String queryPatienTabBlue()
+ {
+	return "select top 1 reg.encounterid from dbo.recordtaskstatus rec join registrations  reg  on rec.RecordKey= reg.id where rec.taskid = 11 and  rec.status=1";
+ }
 }
