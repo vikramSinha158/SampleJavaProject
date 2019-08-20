@@ -520,7 +520,7 @@ public class R1AccessCommonMethods extends BasePage {
 
 	/*---------------------------- SET FACILITY SETTING VALUE   ------------------------------------*/
 
-	public void setFacilitySettingVal(String facilityCode, String settingName, String val) {
+	public void setFacilitySettingVal(String facilityCode, String settingName, String value) {
 		select = new Select(select_search_field_dropDown);
 		select.selectByValue("Code");
 		search_value_textbox.sendKeys(facilityCode);

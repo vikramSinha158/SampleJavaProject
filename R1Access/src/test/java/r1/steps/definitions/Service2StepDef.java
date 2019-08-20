@@ -14,6 +14,11 @@ public class Service2StepDef extends BasePage {
 	R1AccessCommonMethods r1AccessCommonMethod;
 	Service2Page service2;
 
+	@When("^user select filter \"([^\"]*)\" operator \"([^\"]*)\" value \"([^\"]*)\" from dropdown$")
+	public void user_select_filter_operator_value_from_dropdown(String filter, String op, String value) {
+		r1AccessCommonMethod.ddlWorkListFilter(filter, op, value);
+	}
+
 	@When("^user clicks on any Unassigned Account$")
 	public void user_clicks_on_any_Unassigned_Account() {
 		r1AccessCommonMethod.clickOnUnassignedAccount();
@@ -22,6 +27,11 @@ public class Service2StepDef extends BasePage {
 	@When("^user clicked on \"([^\"]*)\" tab$")
 	public void user_clicked_on_tab(String Text) {
 		r1AccessCommonMethod.clickR1AccesModulesTab(Text);
+	}
+
+	@When("^user clicks on \"([^\"]*)\" side sub menu$")
+	public void user_clicks_on_side_sub_menu(String Text) {
+		r1AccessCommonMethod.clickSubSideR1HubModulesMenuLink(Text);
 	}
 
 	@Then("^verify the fields before checkout$")
@@ -109,40 +119,44 @@ public class Service2StepDef extends BasePage {
 
 	@When("^user clicked on \"([^\"]*)\" btn$")
 	public void user_clicked_on_btn(String arg1) {
-
 		service2.clickOnExceptionContinueButton("Continue");
 	}
 
+	@When("^user clicks on the \"([^\"]*)\" link from footer Tab$")
+	public void user_clicks_on_the_link_from_footer_Tab(String Text) {
+		r1AccessCommonMethod.clickFooterR1AccesModulesTab(Text);
 
-@When("^user clicks on the \"([^\"]*)\" link from footer Tab$")
-public void user_clicks_on_the_link_from_footer_Tab(String Text) {
+	}
 
-	r1AccessCommonMethod.clickFooterR1AccesModulesTab(Text);
-	
-}
+	@When("^user set the facility \"([^\"]*)\" setting name \"([^\"]*)\" setting value \"([^\"]*)\"$")
+	public void user_set_the_facility_setting_name_setting_value(String Text, String Text1, String Text2) {
+		r1AccessCommonMethod.setFacilitySettingVal(Text, Text1, Text2);
+	}
 
-@When("^user set the facility \"([^\"]*)\" setting name \"([^\"]*)\" setting value \"([^\"]*)\"$")
-public void user_set_the_facility_setting_name_setting_value(String Text, String Text1, String Text2) {
-  
-	r1AccessCommonMethod.setFacilitySettingVal(Text,Text1,Text2);
-	
-}
+	@Then("^verify \"([^\"]*)\" radio button should be selected by default$")
+	public void verify_radio_button_should_be_selected_by_default(String Text) {
 
-/*
-@Then("^verify single radio button should be selected by default$")
-public void verify_single_radio_button_should_be_selected_by_default() {
-   
-	service2.VerifyModeIsSelectedInContextToSettings();
-	
-	
-}
-	
-*/
+		service2.verifyModeIsSelectedInContextToSettings(Text);
+	}
 
-@Then("^verify \"([^\"]*)\" radio button should be selected by default$")
-public void verify_radio_button_should_be_selected_by_default(String Text) {
-  
-}
+	@Then("^user should be able to view Account Worklist Grid$")
+	public void user_should_be_able_to_view_Account_Worklist_Grid() {
+		r1AccessCommonMethod.verifyWorklistExists();
+	}
 
-	
+	@Then("^verify that ICD(\\d+) codes checkbox exist$")
+	public void verify_that_ICD_codes_checkbox_exist() {
+		service2.verifyICDCodesCheckboxExist();
+	}
+
+	@When("^user clicks on ICD(\\d+) codes checkbox$")
+	public void user_clicks_on_ICD_codes_checkbox() {
+		service2.clickOnICD9Checkbox();
+	}
+
+	@Then("^verify \"([^\"]*)\" codes are coming in diagnosis grid$")
+	public void verify_codes_are_coming_in_diagnosis_grid(String Text) {
+		service2.verifyICD9CodesAreComingOrNot(Text);
+	}
+
 }

@@ -8,7 +8,7 @@ import net.serenitybdd.cucumber.CucumberWithSerenity;
 
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(features = { "src/test/resources/features/R1Access/Service2.0.feature" }, 
-dryRun=true,
+//dryRun=true,
 //tags = { "@FCC"}, 
 glue = "r1.steps.definitions")
 

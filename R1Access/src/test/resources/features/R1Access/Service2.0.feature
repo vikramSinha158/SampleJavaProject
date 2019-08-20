@@ -7,7 +7,57 @@ Background: User should be able to navigate on Account Worklist Grid
 	And user select the facility "SCFL - St Vincents Medical Center Clay County" 
 	And user clicks on Patient Access link 
 	And user clicks on Pre-Registration 
-	Then user should be able to view Account Worklist Grid 
+	Then user should be able to view Account Worklist Grid
+			
+	@391639
+Scenario: Verify 'Search' and add services by ICD9/ICD10Code 
+    When user select filter "Type" operator "=" value "O" from dropdown
+    And user clicks on any Unassigned Account 
+	And user clicked on "Services" tab 	 
+	And user clicked on checkout button 
+	And user clicked on Admitting if exists 
+	Then verify that ICD9 codes checkbox exist 	
+	When user clicks on ICD9 codes checkbox
+	And user enter services like "740" in search field 
+	Then verify "ICD10" codes are coming in diagnosis grid	
+	When user clicks on ICD9 codes checkbox
+	And user enter services like "740" in search field
+	Then verify "ICD9" codes are coming in diagnosis grid
+	
+	
+@391642
+Scenario: Verify 'Search' and add services by ICD9/ICD10Code 
+    When user clicks on any Unassigned Account 
+	And user clicked on "Services" tab 	 
+	And user clicked on checkout button 
+	And user clicked on Admitting if exists 
+	Then verify that ICD9 codes checkbox exist 	
+	When user clicks on ICD9 codes checkbox
+	And user enter services like "172" in search field 
+	Then verify "ICD10" codes are coming in diagnosis grid	
+	When user clicks on ICD9 codes checkbox
+	And user enter services like "172" in search field
+	Then verify "ICD9" codes are coming in diagnosis grid	
+
+	
+	
+@393857
+Scenario: Service_Verify default pricing mode in facility setting. 
+    When user clicks on the "Settings" link from footer Tab
+	And user clicks on "IT Tools" side sub menu
+	And user clicks on "FacilitySetting Configuration" side sub menu
+	And user set the facility "SCFL" setting name "PRICINGMODE_SINGLEDEFAULT" setting value "S"
+	And user clicks on the "Patient Access" link from footer Tab
+	And user clicks on facility list
+	And user select the facility "SCFL - St Vincents Medical Center Clay County"
+	And user clicks on Pre-Registration	
+	And user clicks on any Unassigned Account 
+	And user clicked on "Services" tab 
+    And user clicked on checkout button 
+	And user clicked on Admitting if exists
+	Then verify "Single" radio button should be selected by default 
+	
+	
 	
 @391638 @391835 @391837 @391648 
 Scenario: Verify Radio Buttons for Single and multiple pricing modes 
@@ -25,9 +75,9 @@ Scenario: Verify Radio Buttons for Single and multiple pricing modes
 	When user delete added services 
 	Then service search result grid will not be displayed 
 	When user clicks on "Release" btn 
-	Then single multiple radio buttons of pricing will not be displayed 
+	Then single multiple radio buttons of pricing will not be displayed 	
 	
-@391646 
+ @391646 
 Scenario:
 Verify user is able to complete the 'Service' tab when services are added to it 
 	When user clicks on any Unassigned Account 
@@ -55,23 +105,3 @@ Scenario: Verify user is able to move the services up/down
 	And user add services 
 	And user add ICD Codes 
 	Then verify that up down arrow key is moving of ICD codes 
-	
-@391644 
-Scenario: Service_Verify default pricing mode in facility setting. 
-    When user clicks on the "Settings" link from footer Tab
-	And user clicks on "IT Tools" 
-	And user clicks on "FacilitySetting Configuration"
-	And user set the facility "SCFL" setting name "PRICINGMODE_SINGLEDEFAULT" setting value "S"
-	And user clicks on the "Patient Access" link from footer Tab
-	And user clicks on facility list
-	And user select the facility "SCFL - St Vincents Medical Center Clay County"
-	And user clicks on Pre-Registration	
-	And user clicks on any Unassigned Account 
-	And user clicked on "Services" tab 
-    And user clicked on checkout button 
-	And user clicked on Admitting if exists
-	Then verify "Single" radio button should be selected by default 
-	
-	
-	
- 

@@ -78,15 +78,22 @@ public class Service2Page extends BasePage {
 	@FindBy(xpath = "//table[contains(@id,'grdICD9Selected')]//tr")
 
 	private List<WebElementFacade> clickICDCodesIndexValueFromTable;
-	
-			
+
 	@FindBy(xpath = "//label[contains(text(), 'Single')]//preceding-sibling::input")
 
 	private WebElementFacade singleRadioButton;
-	
+
 	@FindBy(xpath = "//label[contains(text(), 'Multiple')]//preceding-sibling::input")
 
 	private WebElementFacade multipleRadioButton;
+
+	@FindBy(xpath = "//table[contains(@id, 'tblICD9SearchResults')]//tr//td[3]")
+
+	private List<WebElementFacade> icdninediagnosisgrid;
+
+	@FindBy(xpath = "//input[contains(@id,'ChkShowICD9Codes')]")
+
+	private WebElementFacade showICDCheckBox;
 
 	public void clickOnAdmiting() {
 		if (clickOnAdmitting.getText().equalsIgnoreCase("Admitting")) {
@@ -157,20 +164,40 @@ public class Service2Page extends BasePage {
 			clickOn(clickOnContinueButton);
 		}
 	}
-	
-	public void VerifyModeIsSelectedInContextToSettings(String Text)
-	{
-		 if(Text.equalsIgnoreCase("Single"))
-		   {
-			 System.out.print(singleRadioButton.isSelected());  
-			 Assert.assertTrue("",singleRadioButton.isSelected()); 
-		   }
-		   else
-		   {
-			   System.out.print(multipleRadioButton.isSelected()); 
-			   Assert.assertTrue("",multipleRadioButton.isSelected());  
-		   }
-		
+
+	public void verifyModeIsSelectedInContextToSettings(String Text) {
+		if (Text.equalsIgnoreCase("Single")) {
+			Assert.assertTrue("Single radio button does not exist", singleRadioButton.isSelected());
+		} else {
+			Assert.assertTrue("Multiple radio button does not exist", multipleRadioButton.isSelected());
+		}
+
 	}
 
+	public void verifyICDCodesCheckboxExist() {
+		Assert.assertTrue("ICD9 checkbox code does not exist", showICDCheckBox.isDisplayed());
+	}
+
+	public void clickOnICD9Checkbox() {
+		clickOn(showICDCheckBox);
+	}
+
+	public void verifyICD9CodesAreComingOrNot(String Text) {
+		if (Text.equalsIgnoreCase("ICD10")) {
+			for (int i = 0; i < icdninediagnosisgrid.size(); i++) {
+				if (icdninediagnosisgrid.get(i).getText().toString().contains("ICD10")) {
+					flag = true;
+				}
+			}
+			Assert.assertTrue("ICD10  code does not exist", flag);
+		} else {
+			for (int i = 0; i < icdninediagnosisgrid.size(); i++) {
+				if (icdninediagnosisgrid.get(i).getText().toString().contains("ICD9")) {
+					flag = true;
+					break;
+				}
+			}
+			Assert.assertTrue("ICD9  code does not exist", flag);
+		}
+	}
 }
