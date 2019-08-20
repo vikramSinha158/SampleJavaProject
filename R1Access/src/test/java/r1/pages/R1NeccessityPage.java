@@ -350,7 +350,6 @@ public class R1NeccessityPage extends BasePage{
 	}
 	
 	public void verifyExceptions(DataTable exceptions) {
-	@SuppressWarnings("unused")
 	List<List<String>> exceptionList = exceptions.raw();
 	for(int i=0;i<2;i++) {
 		 if(exceptionsPanel.getText().contains(exceptionList.get(i).get(0)) && exceptionsPanel.getText().contains(exceptionList.get(i).get(1))) {
@@ -429,4 +428,9 @@ public class R1NeccessityPage extends BasePage{
 	public void patientTypeDemographic() {
 		Assert.assertEquals("Patient Type is not matching", "O", patientTypeDemographic.getText());
 	}
+	
+	
+	
+	
+	
 }

@@ -8,7 +8,7 @@ import r1.commons.databaseconnection.DatabaseConn;
 import r1.commons.databaseconnection.QueryConstants;
 import r1.commons.utilities.CommonMethods;
 
-public class NotesSteps extends BasePage{
+public class NotesSteps {
 	
 	@Step
 	public static String verifyNewCreatedScope(String encounterid, String column) throws IOException, ClassNotFoundException, SQLException{

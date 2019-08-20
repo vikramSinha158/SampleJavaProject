@@ -37,12 +37,18 @@ public class Navigation extends BasePage {
 	@FindBy(xpath = "//span[@class='txt'][text()='Service Bus Monitor']")
 	private WebElementFacade serviceBusMonitor;
 	
+	@FindBy(xpath = "//a[contains(@id,'hypLogo')]")
+	private WebElementFacade r1Logo;
 	
 	
 	public List<WebElementFacade> menuLinks() {
 		return preRegistrationLink;
 	}
 	
+	public void clickR1Logo() {
+		withAction().moveToElement(r1Logo).click().build().perform();
+	}
+		
 	public void clickMenu(String menuName) {
 		for(int i=0;i<preRegistrationLink.size();i++) {
 			if(preRegistrationLink.get(i).getText().equalsIgnoreCase(menuName)) {

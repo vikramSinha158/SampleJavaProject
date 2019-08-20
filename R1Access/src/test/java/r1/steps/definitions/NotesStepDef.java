@@ -22,10 +22,15 @@ public class NotesStepDef extends BasePage {
 	NotesSteps noteSteps;
 
 	@Given("^user is on R1 hub page$")
-	public void user_is_on_hub_page() throws IOException {
+	public void user_is_on_R1_hub_page() throws IOException {
 		OpenBrowser();
 		userLogin.EnterCredentials();
 		userLogin.ClickLoginButton();
+	}
+	
+	@Given("^user is on hub page$")
+	public void user_is_on_hub_page() throws IOException {
+		navigation.clickR1Logo();
 	}
 
 	@When("^user clicks on facility list$")
@@ -38,8 +43,8 @@ public class NotesStepDef extends BasePage {
 		navigation.selectFacility(facility);
 	}
 
-	@And("^user clicks on \"([^\"]*)\" link$")
-	public void user_clicks_on_link(String menu) {
+	@And("^user clicks on \"([^\"]*)\" menu$")
+	public void user_clicks_on_menu(String menu) {
 		navigation.clickMenu(menu);
 	}
 

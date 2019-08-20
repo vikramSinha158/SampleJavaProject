@@ -12,11 +12,19 @@ import java.io.IOException;
 import java.util.*;
 
 
-public class CommonMethods extends BasePage {
+public class CommonMethods{
 
 	public static void DrpVisibleTxt(WebElementFacade we, String s) {
 		Select drp = new Select(we);
 		drp.selectByVisibleText(s);
+	}
+	
+	public static String selectRandomList(WebElementFacade element) {
+		 Select selectDropdown = new Select(element);
+	     List<WebElement> listOptionDropdown = selectDropdown.getOptions();
+	     int random = (int)(Math.random() * listOptionDropdown.size()-1)+1;
+	     selectDropdown.selectByIndex(random);
+	     return selectDropdown.getFirstSelectedOption().getText();
 	}
 	
 	public static int dropDownSize(WebElementFacade list) {

@@ -89,7 +89,7 @@ public class NotesPage extends BasePage {
 	
 	public void clickAccountDetailMenuLink(String menuName) {
 		for(int i=0;i<accountDetailMenuLinks.size();i++) {
-			if(accountDetailMenuLinks.get(i).getText().contains(menuName)) {
+			if(accountDetailMenuLinks.get(i).getText().equals(menuName) || accountDetailMenuLinks.get(i).getText().equalsIgnoreCase(menuName)) {
 				withAction().moveToElement(accountDetailMenuLinks.get(i)).click().build().perform();
 				break;
 			}

@@ -4,8 +4,8 @@ Feature: Verify the workflow of Notes tab
     Given user is on R1 hub page
     When user clicks on facility list
     And user select the facility "SJMA - St. John Macomb-Oakland Hospital"
-    And user clicks on "Patient Access" link
-    And user clicks on "Pre-Registration" link
+    And user clicks on "Patient Access" menu
+    And user clicks on "Pre-Registration" menu
     Then user should be able to view the "Pre-Registration" label on worklist page
     Then user clicks on any record on the worklist
     

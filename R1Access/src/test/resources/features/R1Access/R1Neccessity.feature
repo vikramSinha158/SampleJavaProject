@@ -4,8 +4,8 @@ Feature: Verify the workflow of Notes tab
     Given user is on R1 hub page
     When user clicks on facility list
     And user select the facility "SJMA - St. John Macomb-Oakland Hospital"
-    And user clicks on "Patient Access" link
-    And user clicks on "Pre-Registration" link
+    And user clicks on "Patient Access" menu
+    And user clicks on "Pre-Registration" menu
     Then user is on "Pre-Registration" page
     Then user should be able to view Filters in left panel
     And user should be able to view labels NEW,TASK,COLUMNS,SEARCH,EXPORT,SAVE LIST and CONFIG
