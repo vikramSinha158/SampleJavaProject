@@ -32,6 +32,9 @@ public class CWLPage extends BasePage {
 	public String followUpWorklistRow = "//*[contains(@id,'grdWorklist')]/tbody/tr";
   	public String followUpWorklistHeader = "//*[contains(@id,'grdWorklist')]/tbody/tr[1]/td";
   	
+  	@FindBy(xpath ="//*[contains(@id,'grdWorklist')]/tbody/tr")
+	private List<WebElementFacade> AccountRecords;
+  	
 	@FindBy(xpath = "//td[contains(text(),'Patient Visit and Address')]")
 	private WebElementFacade verify_patient_tab;
 	
@@ -59,7 +62,10 @@ public class CWLPage extends BasePage {
 	@FindBy(xpath="//span[text()='Future Follow Up']")
 	private WebElementFacade FutureFollowUp;
 	
-	String[] conversionList = {"Conversion Followup","Pending","On-Deck","at Risk","E/O at Risk","Future Follow Up","Zero Balance","Supervisor Worklist","Care Coverage","BSO"};
+	@FindBy(xpath="//span[text()='Zero Balance']")
+	private WebElementFacade zeroBalance;
+	
+	String[] conversionList = {"Conversion Followup","Pending","","","","","","","","On-Deck","I/S at Risk","E/O at Risk","Future Follow Up","Zero Balance","Supervisor Worklist","Care Coverage","","","BSO"};
 	ArrayList<String> namesList = new ArrayList<String>();
 	
 	@FindBy(xpath = "//table[@class='worklistTable']/tbody/tr")
@@ -67,6 +73,14 @@ public class CWLPage extends BasePage {
 	
 	@FindBy(xpath="//a[contains(@id,'_grid_lnkClear')]")
 	private List<WebElementFacade>  showAll;
+	
+
+	@FindBy(xpath="//table[@class='worklistTable']/tbody/tr[")
+	private WebElementFacade beforeXpath;
+	
+	@FindBy(xpath="]/td[5]/a")
+	private WebElementFacade afterXpath;
+	
 	
 	public void click_setting()
 	{
@@ -140,12 +154,13 @@ public class CWLPage extends BasePage {
 			
 			public void filterList()
 			{
+
 				for(int i=0;i<conversionFollowList.size();i++) {
 					String optionValue=conversionFollowList.get(i).getText();
 					
-					if(optionValue==null)
+					if(optionValue.equals(""))
 					{
-						return;
+						continue;
 					}
 					else if(optionValue.equals(conversionList[i]))
 					{
@@ -168,11 +183,6 @@ public class CWLPage extends BasePage {
 				ISRisk.click();
 			}
 
-			@FindBy(xpath="//table[@class='worklistTable']/tbody/tr[")
-			private WebElementFacade beforeXpath;
-			
-			@FindBy(xpath="]/td[5]/a")
-			private WebElementFacade afterXpath;
 			
 			@SuppressWarnings("deprecation")
 			
@@ -181,18 +191,18 @@ public class CWLPage extends BasePage {
 			public void conversiontable(String val1, String val2)
 			{
 			  ArrayList<String> ptCol= common.getTableColValue(followUpWorklistRow,followUpWorklistHeader,"PT");
-			 if(ptCol.size()>0) {
+			 if(AccountRecords.size()>1) {
 			  for(int k=0;k<ptCol.size();k++)
 				 {
 					 System.out.println(ptCol.size());
 					 String i=ptCol.get(k);
 					 if(i.contains(val1))
 					 {
-						 Assert.assertTrue(true);
-						
+						 System.out.println(i+" is matching with"+val1);
+						 						
 					 }else if(i.contains(val2))
 					 {
-						 Assert.assertTrue(true);
+						 System.out.println(i+" is matching with"+val2);
 					 }else
 					 {
 						 System.out.println("PT value is coming"+ i);
@@ -200,7 +210,7 @@ public class CWLPage extends BasePage {
 					 }
 				 }}else
 				    {
-				    	Assert.assertTrue("No PtColums columns present", false);
+				    	Assert.assertTrue("No Accounts records are present", false);
 				    }
 			}
 			
@@ -211,22 +221,23 @@ public class CWLPage extends BasePage {
 					DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("MM/dd/yyyy"); 
 				    String currentDate = myDateObj.format(myFormatObj); 
 				    System.out.println("After formatting: " + currentDate);
-				    if(NFUdt.size()>0) {
+				    if(AccountRecords.size()>1) {
 				  	for(String nfudate:NFUdt)
 					{
 						if(currentDate.compareTo(nfudate)<=0)
 								{
-							 Assert.assertTrue(false);
+							 Assert.assertTrue("nfudate is not correct",false);
 								System.out.println(currentDate.compareTo(nfudate));
 								}
 						else if(nfudate.isEmpty())
 						{
-							 Assert.assertTrue(true);
+							System.out.println("nfudate is empty");
+							 
 						}else
 						{
-							 Assert.assertTrue(true);
+							System.out.println("nfudate is correct:"+currentDate.compareTo(nfudate));
 						}
-						System.out.println(currentDate.compareTo(nfudate));
+						
 						
 					} 
 					{
@@ -234,7 +245,7 @@ public class CWLPage extends BasePage {
 					}
 				    }else
 				    {
-				    	Assert.assertTrue("No NFUDt columns present", false);
+				    	Assert.assertTrue("No Accounts records are present", false);
 				    }
 				}
 				
@@ -243,48 +254,76 @@ public class CWLPage extends BasePage {
 				
 				public void verifyTotalBal() {
 				ArrayList<String> openBal=  common.getTableColValue(followUpWorklistRow,followUpWorklistHeader,"Total Open Bal");
-				if(openBal.size()>0) {
+				if(AccountRecords.size()>1) {
 				for(String TotalopenBal:openBal)
 				{
 					
 					double d = Double.parseDouble(TotalopenBal);
 					if(d==0.00 || d==0)
 					{
-						 Assert.assertTrue(false);
+						
+						Assert.assertTrue("total balance is coming"+d,false);
 					}else
 					{
-						Assert.assertTrue(true);
-						System.out.println(d);
+						System.out.println("total balance is coming"+d);
+						
+						
 					}
 				}
 				
 			}else {
-				Assert.assertTrue("No openBal columns present", false);
+				Assert.assertTrue("No Accounts records are present", false);
 			}
 			}
+				
+		// Verify total zero balance on Conversion Followup
+				public void verifyTotalzeroBal() {
+				ArrayList<String> openBal=  common.getTableColValue(followUpWorklistRow,followUpWorklistHeader,"Total Open Bal");
+				if(AccountRecords.size()>1) {
+				for(String TotalopenBal:openBal)
+				{
+					
+					double d = Double.parseDouble(TotalopenBal);
+					if(d==0.00 || d==0)
+					{
+						 Assert.assertTrue("Total balnce is coming"+d+"on zero balnce",true);
+						 System.out.println(d);
+					}else
+					{
+						Assert.assertTrue("Total balance is coming "+d,false);
+											}
+				}
+				
+			}else {
+				Assert.assertTrue("No Accounts records are present", false);
+			}
+			}
+			
+				
+				
 				
 			// Verify LA values on 	Conversion Followup > I/S at Risk
 				public void verifyLA() {
 					ArrayList<String> LA=  common.getTableColValue(followUpWorklistRow,followUpWorklistHeader,"LA");
-					if(LA.size()>0)
+					if(AccountRecords.size()>1)
 					{
 					for(String LAvalue:LA)
 					{
 					  if(LAvalue.contains("Referred to Care Coverage"))
 						{
-							 Assert.assertTrue(false);
+							 Assert.assertTrue("LA values is "+LAvalue,false);
 						}
 					  else if(LAvalue.contains("Referred to Supervisor"))
 						{
-							Assert.assertTrue(false);
+							Assert.assertTrue("LA values is "+LAvalue,false);
 							
 						}else {
 							Assert.assertTrue(true);
-							System.out.println("LA value is matching");
+							System.out.println("LA value is "+LAvalue);
 						}
 					}}else
 					{
-						Assert.assertTrue("No LA columns present", false);
+						Assert.assertTrue("No Accounts records are present", false);
 					}
 					
 				}
@@ -298,7 +337,7 @@ public class CWLPage extends BasePage {
 				}
 
 
-		/*-------------------------------------------------------------Test Case 391788:CWL_Verify records in "E/O" at Risk" filter folder------------------------------------------------------------*/
+	/*-------------------------------------------------------------Test Case 391788:CWL_Verify records in "E/O" at Risk" filter folder------------------------------------------------------------*/
 				
 				
 				public void clickEoRisk()
@@ -307,12 +346,18 @@ public class CWLPage extends BasePage {
 					EORisk.click();
 				}
 				
-				/*----------------Test Case 391788:CWL_Verify records in "Future Follow Up" filter folder--------------------------*/			
+	/*----------------Test Case 391788:CWL_Verify records in "Future Follow Up" filter folder--------------------------*/			
 
 				public void clickFutureFollowUp()
 				{
 					clickShowAll();
 					FutureFollowUp.click();
+				}
+	/*----------------Test Case 422404:CWL_Verify records in "Zero Balance" filter folder--------------------------*/
+				public void clickZeroBalance()
+				{
+					clickShowAll();
+					zeroBalance.click();
 				}
 				
 }

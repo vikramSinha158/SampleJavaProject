@@ -58,19 +58,19 @@ public class CWLStepDef extends BasePage {
 	
 
 	/*Test Case 391787:CWL_Verify the filter folders in the worklist*/
-
-	@When("^click on \"([^\"]*)\"$")
-	public void click_on(String arg1) {
-	    // Write code here that turns the phrase above into concrete actions
-		cwl.clickOnpatientAccess();
-	}
 	
-	@Given("^user is on Conversion Follow up$")
-	public void user_is_on_Conversion_Follow_up() {
+	@When("^user click on \"([^\"]*)\"$")
+	public void user_click_on(String arg1) {
 	    // Write code here that turns the phrase above into concrete actions
-		cwl.clickConversionfollowup();
-	    
+	   cwl.clickOnpatientAccess();
 	}
+
+	@When("^user user clicks on Conversion Follow up$")
+	public void user_user_clicks_on_Conversion_Follow_up() {
+	    // Write code here that turns the phrase above into concrete actions
+	  cwl.clickConversionfollowup();	}
+	
+
 
 	@Then("^verify following filter folder lists$")
 	public void verify_following_filter_folder_lists() {
@@ -138,5 +138,23 @@ public class CWLStepDef extends BasePage {
 		cwl.clickFutureFollowUp();
 	    
 	}
+	
+	
+	/*----------------Test Case 391791:CWL_Verify records in "Zero Balance" filter folder--------------------------*/
+	
+	@Then("^user clicks Zero Balance$")
+	public void user_clicks_Zero_Balance() {
+	    // Write code here that turns the phrase above into concrete actions
+		cwl.clickZeroBalance();
+	    
+	}
+
+
+ @Then("^verify total open balance=(\\d+)$")
+ public void verify_total_open_balance(int arg1) {
+    // Write code here that turns the phrase above into concrete actions
+	 cwl.verifyTotalzeroBal();
+   
+  }
 	
 }
