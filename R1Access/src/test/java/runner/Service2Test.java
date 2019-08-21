@@ -9,7 +9,7 @@ import net.serenitybdd.cucumber.CucumberWithSerenity;
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(features = { "src/test/resources/features/R1Access/Service2.0.feature" }, 
 //dryRun=true,
-//tags = { "@FCC"}, 
+tags = { "@391646"}, 
 glue = "r1.steps.definitions")
 
 public class Service2Test {

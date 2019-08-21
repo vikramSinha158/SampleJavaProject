@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import org.junit.Assert;
 import org.openqa.selenium.support.FindBy;
-
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
@@ -154,14 +153,20 @@ public class Service2Page extends BasePage {
 		withAction().moveToElement(clickOnICDCodes.get(i)).click().build().perform();
 	}
 
-	public void verifyTabColorAndCompleteStatus() {
-		Assert.assertTrue(r1AccessCommonMethod.chkTabStatusIncompleteComplete().equalsIgnoreCase("Incomplete"));
-		Assert.assertTrue(r1AccessCommonMethod.checkTabColor("Services").equalsIgnoreCase("blue"));
+	public void verifyTabColorAndStatus(String moduleTab, String tabStatus, String color) {
+
+		System.out.print(r1AccessCommonMethod.chkTabStatusIncompleteComplete());
+		System.out.print(r1AccessCommonMethod.checkTabColor(moduleTab));
+		Assert.assertTrue(r1AccessCommonMethod.chkTabStatusIncompleteComplete().equalsIgnoreCase("tabStatus"));
+		Assert.assertTrue(r1AccessCommonMethod.checkTabColor(moduleTab).equalsIgnoreCase(color));
 	}
 
 	public void clickOnExceptionContinueButton(String tab) {
-		if (clickOnContinueButton.getText().equalsIgnoreCase(tab)) {
-			clickOn(clickOnContinueButton);
+
+		if (clickOnContinueButton.isDisplayed()) {
+			if (clickOnContinueButton.getText().equalsIgnoreCase(tab)) {
+				clickOn(clickOnContinueButton);
+			}
 		}
 	}
 

@@ -2,6 +2,8 @@ package r1.steps.definitions;
 
 import java.io.IOException;
 import org.junit.Assert;
+
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -106,10 +108,9 @@ public class Service2StepDef extends BasePage {
 		service2.addICDDiagnosisCodes();
 	}
 
-	@Then("^verify the status of the tab is completed$")
-	public void verify_the_status_of_the_tab_is_completed() {
-		service2.verifyTabColorAndCompleteStatus();
-
+	@Then("^verify the status of the \"([^\"]*)\" tab is \"([^\"]*)\" and color \"([^\"]*)\"$")
+	public void verify_the_status_of_the_tab_is_and_color(String moduleTab, String tabStatus, String color) {
+		service2.verifyTabColorAndStatus(moduleTab, tabStatus, color);
 	}
 
 	@Then("^verify that up down arrow key is moving of ICD codes$")
@@ -144,19 +145,19 @@ public class Service2StepDef extends BasePage {
 		r1AccessCommonMethod.verifyWorklistExists();
 	}
 
-	@Then("^verify that ICD(\\d+) codes checkbox exist$")
-	public void verify_that_ICD_codes_checkbox_exist() {
-		service2.verifyICDCodesCheckboxExist();
-	}
-
-	@When("^user clicks on ICD(\\d+) codes checkbox$")
-	public void user_clicks_on_ICD_codes_checkbox() {
-		service2.clickOnICD9Checkbox();
-	}
-
 	@Then("^verify \"([^\"]*)\" codes are coming in diagnosis grid$")
 	public void verify_codes_are_coming_in_diagnosis_grid(String Text) {
 		service2.verifyICD9CodesAreComingOrNot(Text);
+	}
+
+	@Then("^verify that IcdNine codes checkbox exist$")
+	public void verify_that_IcdNine_codes_checkbox_exist() {
+		service2.verifyICDCodesCheckboxExist();
+	}
+
+	@When("^user clicks on IcdNine codes checkbox$")
+	public void user_clicks_on_IcdNine_codes_checkbox() {
+		service2.clickOnICD9Checkbox();
 	}
 
 }
