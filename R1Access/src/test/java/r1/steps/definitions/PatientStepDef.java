@@ -338,5 +338,106 @@ public class PatientStepDef extends BasePage {
 	@Then("^fields should get updated and exceptions should get removed$")
 	public void fields_should_get_updated_and_exceptions_should_get_removed() {
 	   
+	}		
+	//
+	@When("^user clicks on any Account where the Traffic light of P column is Blue$")
+	public void user_clicks_on_any_Account_where_the_Traffic_light_of_P_column_is_Blue()  throws ClassNotFoundException, IOException, SQLException { 
+		patientPage.getEncounteridPatientTabBlue();
 	}	
+	@Then("^Patient Visit and Address Panel should be visible and details should be displayed$")
+	public void patient_Visit_and_Address_Panel_should_be_visible_and_details_should_be_displayed() {
+	   
+	}
+
+	@Then("^verify the Ribbon color it should get changed into Red color and Status should be displayed as Redo$")
+	public void verify_the_Ribbon_color_it_should_get_changed_into_Red_color_and_Status_should_be_displayed_as_Redo() {
+	   
+	}
+
+	@When("^user enter invalid address in mandatory fields$")
+	public void user_enter_invalid_address_in_mandatory_fields() {
+		patientPage.EnterInvalidAddress();
+	}
+	@When("^clicks on Update button$")
+	public void clicks_on_Update_button() {		
+		//patientPage.clickOnPatientUpdate();
+		patientPage.clickCheckUpdate();
+	}
+
+	@Then("^display message Record Updated should visible at bottom left of Patient visit and Address Panel$")
+	public void display_message_Record_Updated_should_visible_at_bottom_left_of_Patient_visit_and_Address_Panel() {
+     patientPage.verifyRecordUpdated();
+	}
+
+	@When("^user clicks on Complete button$")
+	public void user_clicks_on_Complete_button() {
+		patientPage.clickCompleteButton();		
+	}
+
+	@Then("^Street Number Not Valid with exception should display in exception panel$")
+	public void street_Number_Not_Valid_with_exception_should_display_in_exception_panel() {
+		patientPage.verifyPatientExceptionMesssage();
+	}
+
+	@Then("^Exceptions Exist - Are you sure you want to mark the task complete\\? With Continue & Cancel button should display$")
+	public void exceptions_Exist_Are_you_sure_you_want_to_mark_the_task_complete_With_Continue_Cancel_button_should_display() throws ClassNotFoundException, IOException, SQLException
+	{	patientPage.verifySoftException();
+	}
+
+	@When("^user clicks on Continue button$")
+	public void user_clicks_on_Continue_button() {
+		patientPage.clickContinueutton();
+	}
+
+	@Then("^Tab gets completed and displays tab colour blue$")
+	public void tab_gets_completed_and_displays_tab_colour_blue() {
+
+	}
+
+	@Then("^Status should be Completed$")
+	public void status_should_be_Completed() {
+	   
+	}
+
+	@When("^user clicks on the Patient Tab$")
+	public void user_clicks_on_the_Patient_Tab() {
+	 
+	}
+
+	@When("^Verify the Patient Visit and Address panel$")
+	public void verify_the_Patient_Visit_and_Address_panel() {
+	
+	}
+
+	@Then("^Upadetd address should display$")
+	public void upadetd_address_should_display() {
+	   
+	}
+
+	@Then("^Street Number Not Valid exception message should display in exception panel$")
+	public void street_Number_Not_Valid_exception_message_should_display_in_exception_panel() {
+
+	}
+
+	@Then("^Tab will open$")
+	public void tab_will_open() {
+
+	}
+
+	@Then("^Displays tab and ribbon color as  Blue and \"([^\"]*)\" should display as \"([^\"]*)\"$")
+	public void displays_tab_and_ribbon_color_as_Blue_and_should_display_as(String arg1, String arg2) {
+	  
+	}
+
+   
+
+@Then("^Skip Trace  button should visible at bottom right of Patient visit and Address panel$")
+public void skip_Trace_button_should_visible_at_bottom_right_of_Patient_visit_and_Address_panel() {
+  
+}
+
+@Then("^Displays tab and ribbon color as  Blue and Status should display as Completed$")
+public void displays_tab_and_ribbon_color_as_Blue_and_Status_should_display_as_Completed() {
+   
+}
 }

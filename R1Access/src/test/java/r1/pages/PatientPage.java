@@ -34,6 +34,11 @@ public class PatientPage extends BasePage {
 	Select select;	
 	int length;	
 	
+	////*[contains(@id,'_lblMessage')]
+	
+	@FindBy(xpath = "//*[contains(@id,'_lblMessage')]")
+	private WebElementFacade messageRecordUpdate;
+	
 	@FindBy(xpath = "//*[contains(@id,'_btnStatusOverrideUpdate')]")
 	private WebElementFacade continueButton;
 	
@@ -99,6 +104,9 @@ public class PatientPage extends BasePage {
 
 	@FindBy(xpath = "//input[contains(@id,'_chkAllowUpdate')]")
 	private WebElementFacade checktUpdate;
+	
+	@FindBy(xpath = "//input[contains(@id,'_chkAllowUpdate')]")
+	private List<WebElementFacade> checktUpdateList;
 
 	@FindBy(xpath = "//input[contains(@id,'_chkReturnedMail')]")
 	private WebElementFacade checkReturnedMail;
@@ -166,12 +174,10 @@ public class PatientPage extends BasePage {
 	public void clickOnUpdateCheckBox() {
 		clickOn(checktUpdate);
 	}	
-	
-	
 	public void clickCheckUpdate()
 	{
-		checkDisplaySelect = checktUpdate.isDisplayed();	
-		if (checkDisplaySelect==true)
+		length = checktUpdateList.size();	
+		if (length> 0)
 		{	clickOn(checktUpdate);
 			clickOn(patientUpdate);
 		}
@@ -265,7 +271,11 @@ public class PatientPage extends BasePage {
 	}
 	public void clickPatientTab() {
 		r1AccessCommonMethod.clickR1AccesModulesTab("Patient");
-	}
+	}	
+	public void clickCompleteButton()
+	{
+		r1AccessCommonMethod.clickActionStatusTab("Complete");
+	}	
 	public void verifyGurantorConfirmMessage() {
 	    message = gurantorPopUP.getText();
 		Assert.assertTrue("Are you sure? message does not exist", message.contains("Are you sure?"));
@@ -282,14 +292,15 @@ public class PatientPage extends BasePage {
 	    message = updateRecord.getText().trim().trim();
 		Assert.assertTrue("Update Patient Record? does not exist", message.equalsIgnoreCase("Update Patient Record?"));
 	}
+	//	Patient Address-Invalid Zip
 	public void verifyPatientExceptionMesssage() {
 		message = patientExceptionPanel.getText();
 		Assert.assertTrue("Patient Address Street Number Not Valid message does not exist",
-				message.contains("Patient Address Street Number Not Valid"));
-		Assert.assertTrue(
-				"Patient Address-Street Address Missing Patient Address-City Missing Patient Address-Zip Missing message does not exist",
-				message.contains(
-						"Patient Address-Street Address Missing Patient Address-City Missing Patient Address-Zip Missing"));
+				message.contains("Patient Address Street Number Not Valid")|| message.contains("Patient Address-Invalid Zip"));
+	//	Assert.assertTrue(
+				//"Patient Address-Street Address Missing Patient Address-City Missing Patient Address-Zip Missing message does not exist",
+			//	message.contains(
+						//"Patient Address-Street Address Missing Patient Address-City Missing Patient Address-Zip Missing"));
 	}
 	public void verifyCriticalExceptionMesssage() {
 		message = criticalErrorMessage.getText();
@@ -503,6 +514,13 @@ public class PatientPage extends BasePage {
 		message = softException.getText();
 		Assert.assertTrue("Soft Exception message does not exist",
 				message.contains("Exceptions Exist - Are you sure you want to mark the task complete?"));		
+	}	
+	
+	public void verifyRecordUpdated()
+	{
+		message = messageRecordUpdate.getText();
+		Assert.assertTrue("Record Updated message does not exist",
+				message.contains("Record Updated"));		
 	}	
 	public void clickContinueutton() {
 		clickOn(continueButton);

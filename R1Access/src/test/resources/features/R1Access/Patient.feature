@@ -173,13 +173,16 @@ Feature: Verifiy the functionality of Patient operations
   @419168 @Patient
  Scenario: Verify address verification functionality
  When user clicks on any Account where the Traffic light of P column is Blue
- And user clicks on the  checkout button 
- Then Patient Visit and Address Panel should be visible and details should be displayed 
+ And user clicks on search button of menu 
+ And user enter encounterid in search textbox
+ And user clicks on submit button
+ Then Patient Visit and Address Panel should get displayed
+ And user should be able to clicks on checkout button
+And Patient Visit and Address Panel should be visible and details should be displayed 
  And verify the Ribbon color it should get changed into Red color and Status should be displayed as Redo
  When user enter invalid address in mandatory fields
  And clicks on Update button 
  Then display message Record Updated should visible at bottom left of Patient visit and Address Panel  
- And Skip Trace  button should visible at bottom right of  Patient visit and Address panel
  When user clicks on Complete button 
  Then Street Number Not Valid with exception should display in exception panel
  And Exceptions Exist - Are you sure you want to mark the task complete? With Continue & Cancel button should display
@@ -193,8 +196,8 @@ Feature: Verifiy the functionality of Patient operations
  When user clicks on Log tab 
 Then user should be able to view the updated history 
 When user clicks on Patient tab
- Then Tab will open 
-And Displays tab and ribbon color as  Blue and "Status" should display as "Completed"
+Then Tab will open 
+
 
 
 
