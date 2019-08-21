@@ -119,8 +119,8 @@ public class Service2StepDef extends BasePage {
 	}
 
 	@When("^user clicked on \"([^\"]*)\" btn$")
-	public void user_clicked_on_btn(String arg1) {
-		service2.clickOnExceptionContinueButton("Continue");
+	public void user_clicked_on_btn(String Text) {
+		service2.clickOnExceptionContinueButton(Text);
 	}
 
 	@When("^user clicks on the \"([^\"]*)\" link from footer Tab$")

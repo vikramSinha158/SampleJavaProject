@@ -70,13 +70,7 @@ public class Service2Page extends BasePage {
 
 	private List<WebElementFacade> fetchICDCodesIndexValueFromTable;
 
-	@FindBy(xpath = "//table[contains(@id,'grdICD9Selected')]//tr[@class='PanelDetail']//td[1]")
 
-	private WebElementFacade clickICDCodesUpArrow;
-
-	@FindBy(xpath = "//table[contains(@id,'grdICD9Selected')]//tr")
-
-	private List<WebElementFacade> clickICDCodesIndexValueFromTable;
 
 	@FindBy(xpath = "//label[contains(text(), 'Single')]//preceding-sibling::input")
 
@@ -93,7 +87,24 @@ public class Service2Page extends BasePage {
 	@FindBy(xpath = "//input[contains(@id,'ChkShowICD9Codes')]")
 
 	private WebElementFacade showICDCheckBox;
+	
+	
+	@FindBy(xpath = "//table[contains(@id,'grdICD9Selected')]//tr[@class='PanelDetail']//td[1]")
 
+	private WebElementFacade clickICDCodesUpArrow;
+
+	@FindBy(xpath = "//table[contains(@id,'grdICD9Selected')]//tr")
+
+	private List<WebElementFacade> clickICDCodesIndexValueFromTable;
+	
+
+	public void verifyUpDownArrowKeyIsWorking()
+	{
+	
+		
+		
+	}
+	
 	public void clickOnAdmiting() {
 		if (clickOnAdmitting.getText().equalsIgnoreCase("Admitting")) {
 			clickOn(clickOnAdmitting);
@@ -113,7 +124,9 @@ public class Service2Page extends BasePage {
 	}
 
 	public void verifySingleMultipleRadioBtn() {
-		Assert.assertTrue("Single Multiple Radio Not Coming ", singleMultipleRadioBtn.size() == 2);
+		Assert.assertTrue("Single Multiple Radio Button Not Coming ", singleMultipleRadioBtn.size() == 2);
+		Assert.assertTrue("Single radio button label does not exist", singleRadioButton.isDisplayed());
+		Assert.assertTrue("Multiple radio button label does not exist", multipleRadioButton.isDisplayed());
 	}
 
 	public void verifySingleMultipleRadioBtnNotExists() {
@@ -127,7 +140,6 @@ public class Service2Page extends BasePage {
 	}
 
 	public void deleteServices() {
-
 		for (int i = deleteServices.size(); i > 0; i--) {
 			withAction().moveToElement(deleteServices.get(0)).click().build().perform();
 			r1AccessCommonMethod.clickOnCheckOut();
@@ -168,15 +180,15 @@ public class Service2Page extends BasePage {
 				clickOn(clickOnContinueButton);
 			}
 		}
+
 	}
 
 	public void verifyModeIsSelectedInContextToSettings(String Text) {
-		if (Text.equalsIgnoreCase("Single")) {
-			Assert.assertTrue("Single radio button does not exist", singleRadioButton.isSelected());
-		} else {
+		if (Text.equalsIgnoreCase("Single")) {			
+			Assert.assertTrue("Single radio button does not exist", singleRadioButton.isSelected());			
+		} else {			
 			Assert.assertTrue("Multiple radio button does not exist", multipleRadioButton.isSelected());
 		}
-
 	}
 
 	public void verifyICDCodesCheckboxExist() {
@@ -186,6 +198,8 @@ public class Service2Page extends BasePage {
 	public void clickOnICD9Checkbox() {
 		clickOn(showICDCheckBox);
 	}
+	
+
 
 	public void verifyICD9CodesAreComingOrNot(String Text) {
 		if (Text.equalsIgnoreCase("ICD10")) {
