@@ -1,8 +1,9 @@
 package r1.steps.definitions;
 
 import java.io.IOException;
-import org.junit.Assert;
+import java.sql.SQLException;
 
+import org.junit.Assert;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -15,6 +16,12 @@ public class Service2StepDef extends BasePage {
 
 	R1AccessCommonMethods r1AccessCommonMethod;
 	Service2Page service2;
+
+	@Then("^verify facility \"([^\"]*)\" service \"([^\"]*)\" and residual \"([^\"]*)\" has version two$")
+	public void verify_facility_service_and_residual_has_version_two(String facility, String serviceSetting,
+			String residualSetting) throws ClassNotFoundException, IOException, SQLException {
+		service2.verifyServiceandResidualSettings(facility, serviceSetting, residualSetting);
+	}
 
 	@When("^user select filter \"([^\"]*)\" operator \"([^\"]*)\" value \"([^\"]*)\" from dropdown$")
 	public void user_select_filter_operator_value_from_dropdown(String filter, String op, String value) {
@@ -90,7 +97,6 @@ public class Service2StepDef extends BasePage {
 	@Then("^service search result grid will not be displayed$")
 	public void service_search_result_grid_will_not_be_displayed() {
 		service2.verifyServiceGridIsNotDisplayed();
-
 	}
 
 	@When("^user clicks on \"([^\"]*)\" btn$")
@@ -115,7 +121,7 @@ public class Service2StepDef extends BasePage {
 
 	@Then("^verify that up down arrow key is moving of ICD codes$")
 	public void verify_that_up_down_arrow_key_is_moving_of_ICD_codes() {
-
+		service2.verifyUpDownArrowKeyIsWorking();
 	}
 
 	@When("^user clicked on \"([^\"]*)\" btn$")
@@ -126,7 +132,6 @@ public class Service2StepDef extends BasePage {
 	@When("^user clicks on the \"([^\"]*)\" link from footer Tab$")
 	public void user_clicks_on_the_link_from_footer_Tab(String Text) {
 		r1AccessCommonMethod.clickFooterR1AccesModulesTab(Text);
-
 	}
 
 	@When("^user set the facility \"([^\"]*)\" setting name \"([^\"]*)\" setting value \"([^\"]*)\"$")
@@ -136,7 +141,6 @@ public class Service2StepDef extends BasePage {
 
 	@Then("^verify \"([^\"]*)\" radio button should be selected by default$")
 	public void verify_radio_button_should_be_selected_by_default(String Text) {
-
 		service2.verifyModeIsSelectedInContextToSettings(Text);
 	}
 

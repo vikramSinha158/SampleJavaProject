@@ -1,22 +1,35 @@
 package r1.pages;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.Assert;
-import org.openqa.selenium.support.FindBy;
-import net.serenitybdd.core.annotations.findby.By;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.support.ui.Select;
+import java.util.Random;
+import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
+import r1.commons.utilities.CommonMethods;
+import r1.commons.databaseconnection.DataAccess;
+import r1.commons.databaseconnection.QueryConstantService;
+
 import java.util.Random;
 
 public class Service2Page extends BasePage {
 	Random random = new Random();
 	R1AccessCommonMethods r1AccessCommonMethod;
-	String value;
 	boolean flag = false;
-	int i;
+	int i, settingValue;
 	int rowIndex;
+	String query, value;
 
 	@FindBy(xpath = "//input[contains(@id,'txtSearch')]")
 
@@ -70,8 +83,6 @@ public class Service2Page extends BasePage {
 
 	private List<WebElementFacade> fetchICDCodesIndexValueFromTable;
 
-
-
 	@FindBy(xpath = "//label[contains(text(), 'Single')]//preceding-sibling::input")
 
 	private WebElementFacade singleRadioButton;
@@ -87,24 +98,57 @@ public class Service2Page extends BasePage {
 	@FindBy(xpath = "//input[contains(@id,'ChkShowICD9Codes')]")
 
 	private WebElementFacade showICDCheckBox;
-	
-	
+
 	@FindBy(xpath = "//table[contains(@id,'grdICD9Selected')]//tr[@class='PanelDetail']//td[1]")
 
 	private WebElementFacade clickICDCodesUpArrow;
 
 	@FindBy(xpath = "//table[contains(@id,'grdICD9Selected')]//tr")
 
-	private List<WebElementFacade> clickICDCodesIndexValueFromTable;
-	
+	private List<WebElementFacade> clickICDCodesRowValue;
 
-	public void verifyUpDownArrowKeyIsWorking()
-	{
-	
-		
-		
+	@FindBy(xpath = "//table[contains(@id,'grdICD9Selected')]//img[contains(@src,'/images/dn.gif')]")
+
+	private WebElementFacade clickICDCodesIndexValueFromTable;
+
+	public void verifyServiceandResidualSettings(String facility, String serviceSetting, String residualSetting)
+			throws ClassNotFoundException, IOException, SQLException {
+		settingValue = Integer.parseInt(retrieveSettingValue(serviceSetting));
+
+		if (settingValue != 2) {
+			r1AccessCommonMethod.clickFooterR1AccesModulesTab("Settings");
+			r1AccessCommonMethod.clickSubSideR1HubModulesMenuLink("IT Tools");
+			r1AccessCommonMethod.clickSubSideR1HubModulesMenuLink("FacilitySetting Configuration");
+			r1AccessCommonMethod.setFacilitySettingVal(facility, serviceSetting, "2");
+		}
+
+		settingValue = Integer.parseInt(retrieveSettingValue(residualSetting));
+
+		if (settingValue != 2) {
+			r1AccessCommonMethod.clickFooterR1AccesModulesTab("Settings");
+			r1AccessCommonMethod.clickSubSideR1HubModulesMenuLink("IT Tools");
+			r1AccessCommonMethod.clickSubSideR1HubModulesMenuLink("FacilitySetting Configuration");
+			r1AccessCommonMethod.setFacilitySettingVal(facility, residualSetting, "2");
+		}
+
 	}
-	
+
+	public String retrieveSettingValue(String settingName) throws ClassNotFoundException, IOException, SQLException {
+		query = QueryConstantService.fetchSettingValue(settingName);
+		value = DataAccess.getEncounterId(("SettingValue"), query);
+		return value;
+	}
+
+	public void verifyUpDownArrowKeyIsWorking() {
+		for (int i = 1; i <= verifyServicesGetAdded.size(); i++) {
+			String before = clickICDCodesRowValue.get(i).getText().toString();
+			clickOn(clickICDCodesIndexValueFromTable);
+			String after = clickICDCodesRowValue.get(i + 1).getText().toString();
+			Assert.assertTrue("Up Down Arrow Is Not Working", !after.equals(before));
+			System.out.print(after);
+		}
+	}
+
 	public void clickOnAdmiting() {
 		if (clickOnAdmitting.getText().equalsIgnoreCase("Admitting")) {
 			clickOn(clickOnAdmitting);
@@ -166,9 +210,6 @@ public class Service2Page extends BasePage {
 	}
 
 	public void verifyTabColorAndStatus(String moduleTab, String tabStatus, String color) {
-
-		System.out.print(r1AccessCommonMethod.chkTabStatusIncompleteComplete());
-		System.out.print(r1AccessCommonMethod.checkTabColor(moduleTab));
 		Assert.assertTrue(r1AccessCommonMethod.chkTabStatusIncompleteComplete().equalsIgnoreCase("tabStatus"));
 		Assert.assertTrue(r1AccessCommonMethod.checkTabColor(moduleTab).equalsIgnoreCase(color));
 	}
@@ -180,13 +221,12 @@ public class Service2Page extends BasePage {
 				clickOn(clickOnContinueButton);
 			}
 		}
-
 	}
 
 	public void verifyModeIsSelectedInContextToSettings(String Text) {
-		if (Text.equalsIgnoreCase("Single")) {			
-			Assert.assertTrue("Single radio button does not exist", singleRadioButton.isSelected());			
-		} else {			
+		if (Text.equalsIgnoreCase("Single")) {
+			Assert.assertTrue("Single radio button does not exist", singleRadioButton.isSelected());
+		} else {
 			Assert.assertTrue("Multiple radio button does not exist", multipleRadioButton.isSelected());
 		}
 	}
@@ -198,8 +238,6 @@ public class Service2Page extends BasePage {
 	public void clickOnICD9Checkbox() {
 		clickOn(showICDCheckBox);
 	}
-	
-
 
 	public void verifyICD9CodesAreComingOrNot(String Text) {
 		if (Text.equalsIgnoreCase("ICD10")) {
