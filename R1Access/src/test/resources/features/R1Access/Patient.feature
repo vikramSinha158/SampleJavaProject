@@ -198,6 +198,62 @@ Then user should be able to view the updated history
 When user clicks on Patient tab
 Then Tab will open 
 
+  @419171 @Patient
+  Scenario: Verify Skip Trace functionality for account that is not discharged as yet and is previously skip traced with Trace Date less than/ Equal to Rerun days in facility settings and has address exception existing on the account
+  When user run the query and fetch the encounterid for previously skip traced and not discharged
+  And user clicks on search button of menu 
+  And user enter encounterid in search textbox
+  And user clicks on submit button
+  Then user should be able to view on Account Level Details Page
+  When user clicks on Patient tab
+  Then user should be able to clicks on checkout button
+  And user should be able to view patient information
+  And user should be able to view skip button with date
+  When user clicks on skip show trace button
+  Then user should be able to view address grid
+  When user click lastname link of grid 
+  Then user should be able to view lastname updated address  
+  
+  @419172 @Patient
+  Scenario: Verify Skip Trace functionality for account that is not discharged and is previously skip traced with Trace Date greater than Rerun days in facility settings and has address exception existing on it
+  When user run the query and fetch the encounterid for previously skip traced and with greater then return days
+  And user clicks on search button of menu 
+  And user enter encounterid in search textbox
+  And user clicks on submit button
+  Then user should be able to view on Account Level Details Page
+  When user clicks on Patient tab
+  Then user should be able to clicks on checkout button
+  And user should be able to view patient information
+  And user should be able to view skip button with date
+  When user clicks on skip show trace button
+  Then user should be able to view address grid
+  When user click lastname link of grid 
+  Then user should be able to view lastname updated address
+    
+  @419173 @Patient
+  Scenario: Verify Show Trace <date> and kip Trace button functionality for guarantor panel
+  When user run the query and fetch the encounterid for skip trace functionality on gurantor tab
+  And user clicks on search button of menu 
+  And user enter encounterid in search textbox
+  And user clicks on submit button
+  Then user should be able to view on Account Level Details Page
+  When user clicks on Patient tab
+  Then user should be able to clicks on checkout button
+  When uhen user clicks on Add gurantor button 
+  Then user should be able to add values 
+  When uhen user clicks on update button
+ Then user should be able to updated values
+When user clicks on edit button 
+  Then user should be able to update SSN number
+  When user clicks on skip button of gurantor tab
+  And user click on ok button
+  Then user should be able to view address grid
+  When user click lastname link of grid 
+  Then user should be able to view lastname updated address
+  
+  
+  
+
 
 
 

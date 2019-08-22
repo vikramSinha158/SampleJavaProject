@@ -157,9 +157,8 @@ public class PatientStepDef extends BasePage {
 	}
 	@Then("^user should be able to view patient information$")
 	public void user_should_be_able_to_view_patient_information() {
-		patientPage.verifySkipTraceButton();
+		patientPage.verifyPatientDetails();
 	}
-
 	@Then("^user should be able to view skip button$")
 	public void user_should_be_able_to_view_skip_button() {
 		patientPage.verifySkipTraceButton();
@@ -174,7 +173,7 @@ public class PatientStepDef extends BasePage {
 	}
 	@Then("^user should be able to view address grid$")
 	public void user_should_be_able_to_view_address_grid() {
-		patientPage.verifySkipLastName();
+		//patientPage.verifySkipLastName();
 	}
 	@When("^user click lastname link of grid$")
 	public void user_click_lastname_link_of_grid() {
@@ -438,6 +437,70 @@ public void skip_Trace_button_should_visible_at_bottom_right_of_Patient_visit_an
 
 @Then("^Displays tab and ribbon color as  Blue and Status should display as Completed$")
 public void displays_tab_and_ribbon_color_as_Blue_and_Status_should_display_as_Completed() {
+   
+}
+
+//////
+
+
+@When("^user run the query and fetch the encounterid for skip trace functionality on gurantor tab$")
+public void user_run_the_query_and_fetch_the_encounterid_for_skip_trace_functionality_on_gurantor_tab() throws ClassNotFoundException, IOException, SQLException {
+	
+	patientPage.getEncounteridPatientSkipTraceGurantor();
+}
+
+@When("^uhen user clicks on Add gurantor button$")
+public void uhen_user_clicks_on_Add_gurantor_button() {
+	patientPage.clickAddGurantorButton();
+}
+
+@Then("^user should be able to add values$")
+public void user_should_be_able_to_add_values() {
+
+	patientPage.updateGurantorLastName();
+}
+
+@When("^uhen user clicks on update button$")
+public void uhen_user_clicks_on_update_button() {
+	patientPage.clickOngurantorUpdate();
+}
+
+@Then("^user should be able to updated values$")
+public void user_should_be_able_to_updated_values() {
+
+}
+
+@When("^uhen user clicks on Edit button$")
+public void uhen_user_clicks_on_Edit_button() {
+  
+}
+
+@Then("^user should be able to update SSN number$")
+public void user_should_be_able_to_update_SSN_number() {
+
+}
+
+@When("^user clicks on skip button of gurantor tab$")
+public void user_clicks_on_skip_button_of_gurantor_tab() {
+ 
+}
+
+@When("^user run the query and fetch the encounterid for previously skip traced and not discharged$")
+public void user_run_the_query_and_fetch_the_encounterid_for_previously_skip_traced_and_not_discharged()throws ClassNotFoundException, IOException, SQLException {
+	patientPage.getEncounteridPatientSkipTraceNotDishcharge();
+}
+
+@Then("^user should be able to view skip button with date$")
+public void user_should_be_able_to_view_skip_button_with_date() {
+	patientPage.verifySkipTraceWithDate();
+}
+@When("^user clicks on skip show trace button$")
+public void user_clicks_on_skip_show_trace_button() {
+	patientPage.clickOnShowTrace();
+}
+
+@When("^user run the query and fetch the encounterid for previously skip traced and with greater then return days$")
+public void user_run_the_query_and_fetch_the_encounterid_for_previously_skip_traced_and_with_greater_then_return_days()throws ClassNotFoundException, IOException, SQLException {
    
 }
 }

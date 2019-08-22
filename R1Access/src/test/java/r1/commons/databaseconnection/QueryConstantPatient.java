@@ -48,4 +48,17 @@ public class QueryConstantPatient extends BasePage{
  {
 	return "select top 1 reg.encounterid from dbo.recordtaskstatus rec join registrations  reg  on rec.RecordKey= reg.id where rec.taskid = 11 and  rec.status=1";
  }
+ 
+ public static String queryForPatientSkipGurantor()
+ {
+	return "select top 1 reg.encounterid from dbo.recordtaskstatus rec join registrations  reg  on rec.RecordKey= reg.id where rec.taskid = 11 and  rec.status=1";
+ }
+ public static String queryForPatientSkipTraceNotDischarge()
+ {
+	return "select distinct top 5 r.EncounterID from SkipTraces st Inner Join Persons p on p.ID = st.PersonID Inner Join Registrations r on r.PersonID = p.ID inner join recordtaskexceptions rte on r.id = rte.RecordKey where datediff (dd, st.TraceDate, GetDate()) < = (select settingvalue from facilitysettings where SettingName = 'FRONT_SKIPTRACE_RERUN_DAYS') and p.SSN = st.SSN and r.isdischarged = 0 and rte.RecordExceptionStatusID = 1 and rte.taskexceptionID = 2 ";
+ }
+ public static String queryForPatientSkipTraceWithReturnDays()
+ {
+	return "select distinct top 5 r.EncounterID from SkipTraces st Inner Join Persons p on p.ID = st.PersonID Inner Join Registrations r on r.PersonID = p.ID inner join recordtaskexceptions rte on r.id = rte.RecordKey where datediff (dd, st.TraceDate, GetDate()) > = (select settingvalue from facilitysettings where SettingName = 'FRONT_SKIPTRACE_RERUN_DAYS') and p.SSN = st.SSN and rte.taskexceptionID = 2 and rte.RecordExceptionStatusID = 1   ";
+ }
 }

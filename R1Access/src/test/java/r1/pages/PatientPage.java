@@ -9,6 +9,8 @@ import java.util.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;   
 import java.util.List;
+
+import org.joda.time.format.DateTimeFormatter;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.support.ui.Select;
@@ -34,7 +36,16 @@ public class PatientPage extends BasePage {
 	Select select;	
 	int length;	
 	
-	////*[contains(@id,'_lblMessage')]
+	////*[@id="dnn_ctr1501_WorklistPanel_task_Task11_ctl00_btnShowTrace"]
+	
+	@FindBy(xpath = "//*[contains(@id,'_btnShowTrace')]")
+	private WebElementFacade showSkipTrace;		
+	
+	@FindBy(xpath = "//*[contains(@id,'_btnAddNew')]/img")
+	private List<WebElementFacade> clickAddGurantor;	
+	
+	@FindBy(xpath = "//*[contains(@id,'_btnAddNew')]/img")
+	private WebElementFacade AddGurantor;
 	
 	@FindBy(xpath = "//*[contains(@id,'_lblMessage')]")
 	private WebElementFacade messageRecordUpdate;
@@ -393,8 +404,10 @@ public class PatientPage extends BasePage {
 	}
 	public void verifySkipGridAddress() {
 		skipAddress = skipGridLAddress.getText().trim();
+		System.out.println(skipAddress);
 		Address = patientAddress.getAttribute("value").trim();
-		Assert.assertTrue("Skip Trace Grid Address does not updated ", skipAddress.equals(Address));
+		System.out.println(Address);
+		Assert.assertTrue("Skip Trace Grid Address does not updated ", skipAddress.equalsIgnoreCase(Address));
 	}
 	public void verifyGurantorTab() {
 	   int count = gurantorTabLastName.size();
@@ -541,4 +554,48 @@ public class PatientPage extends BasePage {
 	{	query = QueryConstantPatient.queryPatienTabBlue();
 		SearchAccount = DataAccess.getEncounterId(("encounterid"), query);
 	}
+	
+	public void getEncounteridPatientSkipTraceGurantor() throws ClassNotFoundException, IOException, SQLException 
+	{	query = QueryConstantPatient.queryForPatientSkipGurantor();
+		SearchAccount = DataAccess.getEncounterId(("encounterid"), query);
+	}	
+	
+	public void getEncounteridPatientSkipTraceNotDishcharge() throws ClassNotFoundException, IOException, SQLException 
+	{	query = QueryConstantPatient.queryForPatientSkipTraceNotDischarge();
+		SearchAccount = DataAccess.getEncounterId(("encounterid"), query);
+	}	
+	public void getEncounteridPatientSkipTraceWithReturnDays() throws ClassNotFoundException, IOException, SQLException 
+	{	query = QueryConstantPatient.queryForPatientSkipTraceWithReturnDays();
+		SearchAccount = DataAccess.getEncounterId(("encounterid"), query);
+	}	
+	
+	public void clickAddGurantorButton()
+	{
+		length = clickAddGurantor.size();
+		if (length >0)
+		{
+			clickOn(AddGurantor);		
+			
+		}		
+	}	
+	public void clickOnShowTrace() {
+		clickOn(showSkipTrace);
+	}	
+	
+	
+	public void verifySkipTraceWithDate()
+	{	
+		message=showSkipTrace.getText();
+		int month = LocalDate.now().getDayOfMonth();	
+		 
+		 //SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+		//    String s = formatter.format(current);
+		//    System.out.println(s);
+		
+		// System.out.print(current.toString());
+		 
+		//	Assert.assertTrue("Record Updated message does not exist",
+				//	message.contains);		
+	}
+	
 }
