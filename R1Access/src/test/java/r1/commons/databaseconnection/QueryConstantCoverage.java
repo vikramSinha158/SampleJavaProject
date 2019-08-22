@@ -42,8 +42,6 @@ public class QueryConstantCoverage {
 	public static String queryHcpcCode() {
 		return "Select top 10 hcpc_code_id,E.Code,E.EstimatedCharges from reference..hcpc_search h (nolock)\r\n" + 
 				" join estimates E (nolock) on h.hcpc_code_id=E.code where h.expirationdate is null";
-		
-		
 	}
 	
 	public static String queryCoverageColVal(String encounterID)

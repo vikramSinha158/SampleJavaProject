@@ -19,7 +19,6 @@ public class CoverageStepDef extends BasePage{
 	Navigation navigation;
 	CoverageSteps coverageSteps;
 
-	
 	@When("^user run the query and fetch the coverage \"([^\"]*)\"$")
 	public void user_run_the_query_and_fetch_the_coverage(String arg1) throws ClassNotFoundException, SQLException, IOException {
 		coveragePage.fetchEncounterId1();

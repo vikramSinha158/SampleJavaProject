@@ -55,7 +55,6 @@ public class Navigation extends BasePage {
 		}
 	}
 	
-	
 	public void clickFacilityList() throws InterruptedException {
 		clickOn(facilityList);
 	}

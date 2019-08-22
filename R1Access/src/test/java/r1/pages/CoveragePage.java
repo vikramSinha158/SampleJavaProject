@@ -35,16 +35,6 @@ public class CoveragePage extends BasePage{
 	String grpnum = "11111";
 	String subnum = "AB11111111";
 	String estAmount;
-//	ArrayList<String> payorPlanNameDB = new ArrayList<>();
-//	ArrayList<String> COBDB = new ArrayList<>();
-//	ArrayList<String> payorGroupCodeDB = new ArrayList<>();
-//	ArrayList<String> FacilityPlanCodeDB = new ArrayList<>();
-//	ArrayList<String> subscriberCodeDB = new ArrayList<>();
-//	ArrayList<String> copayDB = new ArrayList<>();
-//	ArrayList<String> ERDB = new ArrayList<>();
-//	ArrayList<String> deductDB = new ArrayList<>();
-//	ArrayList<String> coinsDB = new ArrayList<>();
-//	ArrayList<String> oopDB = new ArrayList<>();
 	
 	public String CoverageSelectedRow = "//*[contains(@id,'grdCoverageSelected')]//tr";
 	public String CoverageSelectedHeader = "//*[contains(@id,'grdCoverageSelected')]//tr[1]/td";

@@ -28,7 +28,6 @@ public class CoverageSteps extends BasePage{
 	public static ArrayList<String> oopDB = new ArrayList<>();
 	public static ArrayList<String> HCPC=new ArrayList<>();
 
-	
 	@Step
 	public static void getCoverageColumnValue(String encounterID) throws ClassNotFoundException, SQLException, IOException {
 		
