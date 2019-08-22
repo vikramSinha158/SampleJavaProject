@@ -11,12 +11,14 @@ import cucumber.api.DataTable;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
+import r1.commons.R1AccessCommonMethods;
 import r1.commons.utilities.CommonMethods;
 import r1.serenity.steps.R1NeccessitySteps;
 
 public class FCCPage extends BasePage{
 	
 	R1NeccessitySteps neccessitySteps;
+	R1AccessCommonMethods r1AccessCommonMethods;
 	
 	List<String> fccWorkListAccounts;
 	String patientPagevisitNumber,workListDataAsc,visit;
@@ -146,8 +148,14 @@ public class FCCPage extends BasePage{
 	@FindBy(xpath = "//div[@id='TaskGridDataData']/div/div[1]")
 	private WebElementFacade workListTaskList;
 	
+	@FindBy(xpath = "//div[contains(@id,'WorklistPanel')]/div[contains(@id,'WorklistPanel')]/span[@igtxt='1']")
+	private List<WebElementFacade> workListFilters;
 	
-
+	@FindBy(xpath = "//span[@igtxt='1'][text()='FCC Contact']")
+	private WebElementFacade fccContactFilter;
+	
+	@FindBy(xpath = "//span[@class='subHead']/preceding-sibling::span")
+	private WebElementFacade workListTitle;
 
 
 	
@@ -368,5 +376,28 @@ public class FCCPage extends BasePage{
 		Assert.assertEquals("FCC Contact task is not appearing in the Facility Setting window",worklistTask,workListTaskList.getText());
 	}
 	
+	public void clickFilterFolder(String filterFolderName) {
+		boolean flag = false;
+		for(int i=0;i<workListFilters.size();i++) {
+			if(workListFilters.get(i).getText().equals(filterFolderName)) {
+				flag = true;
+				clickOn(workListFilters.get(i));
+			}
+		}
+		Assert.assertTrue("Filter Folder-"+filterFolderName+"- is not appearing in UI",flag==true);
+	}
+	
+	public void clickSubFolder(String filterFolder, String filterSubFolder) throws InterruptedException {
+		r1AccessCommonMethods.subFolderClick(filterFolder, filterSubFolder);
+		
+	}
+	
+	public void clickFccContactFilter() {
+		clickOn(fccContactFilter);
+	}
+	
+	public void verifyFilterFolderRedirection(String title) {
+		Assert.assertTrue("Filter Folder redirectionis incorrect",workListTitle.getText().contains(title));
+	}
 	
 }

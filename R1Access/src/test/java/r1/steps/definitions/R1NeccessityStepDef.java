@@ -77,8 +77,8 @@ public class R1NeccessityStepDef extends BasePage{
 		neccessityPage.clickFilterMainMenu(filterName);
 	}
 	
-	@Then("^user should be able to view accounts displayed on the Necessity Required worklist$")
-	public void user_should_be_able_to_view_accounts_displayed_on_the_Necessity_Required_worklist(){
+	@Then("^user should be able to view records$")
+	public void user_should_be_able_to_view_records(){
 		neccessityPage.verifyAccountsDisplayed();
 	}
 	

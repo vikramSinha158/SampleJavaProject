@@ -26,7 +26,7 @@ Feature: Verify the workflow of Notes tab
   Scenario: Verification of Print ABN English and Print ABN Spanish button functionality
     Given user is on account detail page
     When user clicks on the "Necessity Required" filter
-    Then user should be able to view accounts displayed on the Necessity Required worklist
+    Then user should be able to view records
     When user clicks on any record on the worklist
     And user clicks on the "Services" tab
     And user clicks on "Check Out" button

@@ -44,7 +44,7 @@ public class R1NeccessityPage extends BasePage{
 	@FindBy(xpath = "//td[@class='PanelTitle']//tr//input[contains(@id,'txt')]")
 	private List<WebElementFacade> searchedAccountTextBox;
 	
-	@FindBy(xpath = "//div[@align='left'][contains(@id,'M_dnn')]/div[2]/div[not(contains(@id,'M_dnn'))]")
+	@FindBy(xpath = "//div[@align='left'][contains(@id,'M_dnn')]/div[2]/div[not(contains(@id,'M_dnn'))]//span[@igtxt='1']")
 	private List<WebElementFacade> filtersMainMenu;
 	
 	@FindBy(xpath = "//table[@class='worklistTable']//tr")
@@ -240,7 +240,7 @@ public class R1NeccessityPage extends BasePage{
 	}
 	
 	public void verifyAccountsDisplayed() {
-		Assert.assertTrue("There is no accounts for Necessity Required",necessityRequiredAccounts.size()>1);
+		Assert.assertTrue("There is no accounts in the worklist",necessityRequiredAccounts.size()>1);
 	}
 	
 	public void searchService(String serviceText) {

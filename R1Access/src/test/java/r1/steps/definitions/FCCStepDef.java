@@ -176,5 +176,21 @@ public class FCCStepDef {
 		fccPage.verifyFacilitySettingWorklistTask(taskName);
 	}
 	
+	@When("^user clicks on the sub filter \"([^\"]*)\" under filter \"([^\"]*)\"$")
+	public void user_clicks_on_the_sub_filter(String filterSubFolder, String filterFolder) throws InterruptedException{
+		fccPage.clickSubFolder(filterFolder,filterSubFolder);
+	}
+	
+	@When("^user clicks on the FCC Contact filter in filter folder$")
+	public void user_clicks_on_the_FCC_Contact_filter_in_filter() throws InterruptedException{
+		fccPage.clickFccContactFilter();
+	}
+	
+	@And("^user should be able to view the \"([^\"]*)\" title on worklist$")
+	public void verify_the_filter_folder_redirection(String filterFolderTitle){
+		fccPage.verifyFilterFolderRedirection(filterFolderTitle);
+	}
+	
+	
 	
 }
