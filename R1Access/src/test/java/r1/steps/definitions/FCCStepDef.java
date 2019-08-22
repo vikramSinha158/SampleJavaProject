@@ -1,5 +1,6 @@
 package r1.steps.definitions;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -10,13 +11,15 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import r1.pages.FCCPage;
 import r1.pages.NotesPage;
+import r1.serenity.steps.FCCSteps;
 
 public class FCCStepDef {
 	
 	FCCPage fccPage;
 	NotesPage notesPage;
+	FCCSteps fccSteps;
 	
-	String activity, disposition;
+	String activity, disposition,encounterID;
 	
 	
 	@Given("^user is on R1 FCC menu page$")
@@ -192,5 +195,28 @@ public class FCCStepDef {
 	}
 	
 	
+	@Then("^user should be able to view FCC Contact tab color in BLUE$")
+	public void user_should_be_able_to_view_FCC_Contact_tab_color_in_BLUE() {
+		fccPage.verifyFCCContactColorBlue();
+	}
 	
+	@Then("^user should be able to view the Status as Complete$")
+	public void user_should_be_able_to_view_the_Status_as_Complete() {
+		fccPage.verifyStatusHeader();
+	}
+	
+	@When("^user runs the query \"([^\"]*)\" for facility \"([^\"]*)\"$")
+	public void user_runs_the_query(String query, String facility) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		fccPage.runQuery(query,facility);
+	}
+	
+	@And("^user fetch the encounterID \"([^\"]*)\"$")
+	public void user_fetch_the_encounterID(String column) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		encounterID = fccPage.getEncounterID(column);
+	}
+	
+	@Then("^user enters the encounterID into search field$")
+	public void user_enters_the_encounterID_into_search_field() throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		fccPage.enterSearchText(encounterID);
+	}
 }

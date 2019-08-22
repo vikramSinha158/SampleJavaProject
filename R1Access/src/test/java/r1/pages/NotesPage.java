@@ -170,7 +170,6 @@ public class NotesPage extends BasePage {
 	
 	public void runQuery(String queryName) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
 		QueryExecutor.runQueryTranParam(queryName,encounterID.getText());
-		
 	}
 	
 	public void verifyNoteDB(String col) throws SQLException{

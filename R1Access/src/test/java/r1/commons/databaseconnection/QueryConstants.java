@@ -31,5 +31,7 @@ public class QueryConstants {
 	
 	public static String queryPatientTypeEncounterID =  "select top 1 * from registrations where patienttype='o' order by NEWID() ";
 	
+	
+	
 
 }

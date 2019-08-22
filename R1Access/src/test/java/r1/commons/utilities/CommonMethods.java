@@ -8,6 +8,9 @@ import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.pages.*;
 import net.thucydides.core.util.*;
 import r1.commons.BasePage;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
@@ -145,6 +148,12 @@ public class CommonMethods{
 	public static int GetRandom(int all) {
 		Random rnd = new Random();
 		return rnd.nextInt(all);
+	}
+	
+	public static String queryProperties(String input) throws FileNotFoundException, IOException {
+		 Properties prop = new Properties();
+		 prop.load(new FileInputStream("src/test/resources/TestData/Query.properties"));
+		 return prop.getProperty(input);
 	}
 	
 }

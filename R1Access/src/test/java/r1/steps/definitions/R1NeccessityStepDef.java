@@ -44,8 +44,16 @@ public class R1NeccessityStepDef extends BasePage{
 	
 	@Then("^user run the query and fetch the \"([^\"]*)\"$")
 	public void user_run_the_query_and_fetch_encounterid(String col) throws ClassNotFoundException, IOException, SQLException {
+		neccessitySteps = new R1NeccessitySteps();
 		encounterID = neccessitySteps.searchEncounterID(col);
 	}
+	
+	@Then("^user should be able to view the searched visit number on patient details panel$")
+	public void user_should_be_able_to_see_the_searched_visit_number() throws ClassNotFoundException, IOException, SQLException {
+		neccessityPage.verifySearchedVisitNumber(encounterID);
+	}
+	
+	
 	
 	@When("^user click on the \"([^\"]*)\" button on blue ribbon$")
 	public void user_click_on_the_button_on_blue_ribbon(String label) throws ClassNotFoundException, IOException, SQLException {
@@ -117,6 +125,7 @@ public class R1NeccessityStepDef extends BasePage{
 	
 	@Then("^user run the query and fetch the neccessity encounterID \"([^\"]*)\"$")
 	public void user_run_the_query_and_fetch_the_neccessity_encounterID(String column) throws ClassNotFoundException, IOException, SQLException{
+		neccessitySteps = new R1NeccessitySteps();
 		encounterID = neccessitySteps.searchNecessityEncounterID(column);
 	}
 	
@@ -224,6 +233,7 @@ public class R1NeccessityStepDef extends BasePage{
 	
 	@Then("^user run the query and fetch the outpatient \"([^\"]*)\"$")
 	public void user_run_the_query_and_fetch_the_outpatient_encounterID(String column) throws ClassNotFoundException, IOException, SQLException {
+		neccessitySteps = new R1NeccessitySteps();
 		encounterID = neccessitySteps.getPatientEncounterID(column);
 	}
 	

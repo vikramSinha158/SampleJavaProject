@@ -1,5 +1,6 @@
 package r1.pages;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -8,10 +9,13 @@ import java.util.Date;
 import java.util.List;
 import org.junit.Assert;
 import cucumber.api.DataTable;
+import cucumber.api.java.en.And;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
+import r1.commons.databaseconnection.DatabaseConn;
+import r1.commons.databaseconnection.QueryExecutor;
 import r1.commons.utilities.CommonMethods;
 import r1.serenity.steps.R1NeccessitySteps;
 
@@ -157,7 +161,15 @@ public class FCCPage extends BasePage{
 	@FindBy(xpath = "//span[@class='subHead']/preceding-sibling::span")
 	private WebElementFacade workListTitle;
 
-
+	@FindBy(xpath = "//a[contains(text(),'FCC Contact')]/ancestor::li")
+	private WebElementFacade fccContactTabColor;
+	
+	@FindBy(xpath = "//span[contains(@id,'lblStatus')]")
+	private WebElementFacade statusHeader;
+	
+	@FindBy(xpath = "//td[@class='PanelTitle']//tr//input[contains(@id,'txt')]")
+	private List<WebElementFacade> searchedAccountTextBox;
+	
 	
 	public void verifyFCCWorkListPage(String pageTitle) {
 		fccWorkListAccounts = new ArrayList<String>();
@@ -399,5 +411,27 @@ public class FCCPage extends BasePage{
 	public void verifyFilterFolderRedirection(String title) {
 		Assert.assertTrue("Filter Folder redirectionis incorrect",workListTitle.getText().contains(title));
 	}
+	
+	public void verifyFCCContactColorBlue() {
+		Assert.assertEquals("FCC Contact Tab color is not appearing in BLUE color","TabBGC",fccContactTabColor.getAttribute("class"));
+	}
+	
+	public void verifyStatusHeader() {
+		Assert.assertEquals("Status header is not matching", "Status: Completed",statusHeader.getText().trim());
+	}
+	
+	public void runQuery(String queryName, String facility) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		QueryExecutor.runQueryTran(queryName,facility.split(" - ")[0]);
+	}
+	
+	public String getEncounterID(String col) throws SQLException{
+		DatabaseConn.resultSet.next();
+		return DatabaseConn.resultSet.getString(col);
+	}
+	
+	public void enterSearchText(String id) {
+		typeInto(searchedAccountTextBox.get(4),id);
+	}
+	
 	
 }
