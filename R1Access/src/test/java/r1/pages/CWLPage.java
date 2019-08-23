@@ -164,11 +164,11 @@ public class CWLPage extends BasePage {
 					}
 					else if(optionValue.equals(conversionList[i]))
 					{
-						System.out.println("passed on: " + optionValue);
+						Assert.assertTrue("passed on: " + optionValue, true);
 					}
 					else
 					{
-						System.out.println("failed on: " + optionValue);
+						
 						Assert.assertTrue("failed on: " + optionValue, false);
 					}}
 				}
@@ -198,11 +198,12 @@ public class CWLPage extends BasePage {
 					 String i=ptCol.get(k);
 					 if(i.contains(val1))
 					 {
-						 System.out.println(i+" is matching with"+" "+val1);
+						 Assert.assertTrue(i+" is matching with"+" "+val1, true);
+						
 						 						
 					 }else if(i.contains(val2))
 					 {
-						 System.out.println(i+" is matching with"+" "+val2);
+						 Assert.assertTrue(i+" is matching with"+" "+val2, true);
 					 }else
 					 {
 						 System.out.println("PT value is coming"+ i);
@@ -226,16 +227,18 @@ public class CWLPage extends BasePage {
 					{
 						if(currentDate.compareTo(nfudate)<=0)
 								{
-							 Assert.assertTrue("nfudate is not correct",false);
-								System.out.println(currentDate.compareTo(nfudate));
+							 Assert.assertTrue("nfudate is not correct "+currentDate.compareTo(nfudate),false);
+								
 								}
 						else if(nfudate.isEmpty())
 						{
-							System.out.println("nfudate is empty");
+				
+							Assert.assertTrue("nfudate is empty", true);
 							 
 						}else
 						{
-							System.out.println("current: "+currentDate+" nfudate: "+nfudate );
+							Assert.assertTrue("current: "+currentDate+" nfudate: "+nfudate, true);
+							
 						}
 						
 						
@@ -265,7 +268,8 @@ public class CWLPage extends BasePage {
 						Assert.assertTrue("total balance is coming "+d,false);
 					}else
 					{
-						System.out.println("total balance is coming "+d);
+						Assert.assertTrue("total balance is coming "+d,true);
+						
 						
 						
 					}
@@ -287,7 +291,7 @@ public class CWLPage extends BasePage {
 					if(d==0.00 || d==0)
 					{
 						 Assert.assertTrue("Total balnce is coming "+d+"on zero balnce",true);
-						 System.out.println(d);
+						 
 					}else
 					{
 						Assert.assertTrue("Total balance is coming "+d,false);
@@ -318,8 +322,8 @@ public class CWLPage extends BasePage {
 							Assert.assertTrue("LA values is "+LAvalue,false);
 							
 						}else {
-							Assert.assertTrue(true);
-							System.out.println("LA value is "+LAvalue);
+							Assert.assertTrue("LA value is "+LAvalue,true);
+							
 						}
 					}}else
 					{
