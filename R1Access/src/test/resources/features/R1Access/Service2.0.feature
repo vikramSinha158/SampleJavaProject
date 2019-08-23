@@ -7,8 +7,9 @@ Background: User should be able to navigate on Account Worklist Grid
 	And user select the facility "SCFL - St Vincents Medical Center Clay County" 
 	And user clicks on "Patient Access" link 
 	And user clicks on "Pre-Registration" side sub menu
-	Then verify facility "SCFL - St Vincents Medical Center Clay County" service "FRONT_SERVICES_TASK_VERSION" and residual "FRONT_RESIDUAL_TASK_VERSION" has version two
 	Then user should be able to view Account Worklist Grid
+	Then verify facility "SCFL" service "FRONT_SERVICES_TASK_VERSION" and residual "FRONT_RESIDUAL_TASK_VERSION" has version two
+	
 			
 @391637 @391638 @391835 @391837 @391648 @Service2
 Scenario: Verify Radio Buttons for Single and multiple pricing modes 

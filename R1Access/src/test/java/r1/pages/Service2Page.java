@@ -129,7 +129,7 @@ public class Service2Page extends BasePage {
 	public void verifyServiceandResidualSettings(String facility, String serviceSetting, String residualSetting)
 			throws ClassNotFoundException, IOException, SQLException {
 		settingValue = Integer.parseInt(retrieveSettingValue(serviceSetting, facility));
-
+        System.out.print(settingValue);
 		if (settingValue != 2) {
 			r1AccessCommonMethod.clickFooterR1AccesModulesTab("Settings");
 			r1AccessCommonMethod.clickSubSideR1HubModulesMenuLink("IT Tools");
@@ -145,7 +145,10 @@ public class Service2Page extends BasePage {
 			r1AccessCommonMethod.clickSubSideR1HubModulesMenuLink("FacilitySetting Configuration");
 			r1AccessCommonMethod.setFacilitySettingVal(facility, residualSetting, "2");
 		}
-
+		
+		r1AccessCommonMethod.clickFooterR1AccesModulesTab("Settings");
+		r1AccessCommonMethod.clickSubSideR1HubModulesMenuLink("IT Tools");
+		r1AccessCommonMethod.clearCache();
 	}
 
 	public String retrieveSettingValue(String settingName,String facility) throws ClassNotFoundException, IOException, SQLException {
