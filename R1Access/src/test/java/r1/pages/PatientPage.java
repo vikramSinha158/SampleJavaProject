@@ -7,12 +7,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.time.LocalDate;
-import java.time.LocalDateTime;   
+import java.time.LocalDateTime;
 import java.util.List;
+
+import org.joda.time.format.DateTimeFormatter;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.support.ui.Select;
-import java.util.Random; 
+import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
@@ -26,18 +28,53 @@ public class PatientPage extends BasePage {
 	Alert alert;
 	CommonMethods commonMethod;
 	static String SearchAccount, admintdate, dischargedate;
-	String patientupdateFirstName, patientupdateLastName, gurantorUpateFirstName, gurantorUpdateLastName, query,status,tabcolor,skipAddress,Address,message;
+	String patientupdateFirstName, patientupdateLastName, gurantorUpateFirstName, gurantorUpdateLastName, query, status,
+			tabcolor, skipAddress, Address, message;
 	boolean checkDisplaySelect = true;
 	R1AccessCommonMethods r1AccessCommonMethod;
 	DataAccess dataAccess;
 	QueryConstantPatient queryConstantPatient;
-	Select select;	
+	Select select;
 	int length;
+
+	@FindBy(xpath = "//*[contains(@id,'_btnShowTrace')]")
+	private WebElementFacade showSkipTrace;
+
+	@FindBy(xpath = "//*[contains(@class,'PanelDetail actionLog')]//tr[contains(@class,'PanelDetail')][1]/td[4]")
+	private WebElementFacade lastStatusLog;
+
+	@FindBy(xpath = "//*[contains(@class,'PanelDetail actionLog')]//tr[contains(@class,'PanelDetail')][1]/td[2]")
+	private WebElementFacade lastTaskLog;
+
+	@FindBy(xpath = "//*[contains(@id,'_btnAddNew')]/img")
+	private List<WebElementFacade> clickAddGurantor;
+
+	@FindBy(xpath = "//*[contains(@id,'_btnAddNew')]/img")
+	private WebElementFacade AddGurantor;
+
+	@FindBy(xpath = "//*[contains(@id,'_lblMessage')]")
+	private WebElementFacade messageRecordUpdate;
+
+	@FindBy(xpath = "//*[contains(@id,'_btnStatusOverrideUpdate')]")
+	private WebElementFacade continueButton;
+
+	@FindBy(xpath = "//*[contains(@id,'_btnStatusOverrideCancel')]")
+	private WebElementFacade continueBCancelutton;
+
+	@FindBy(xpath = "//td[contains(text(),'Are you sure you want to mark the task complete?')]")
+	private WebElementFacade softException;
+
+	@FindBy(xpath = "//*[contains(@id,'_txtSSN')]")
+	private WebElementFacade getSSN;
+
+	@FindBy(xpath = "//*[contains(@id,'_valSSN')]/li")
+	private WebElementFacade ssnMessage;
+
 	@FindBy(xpath = "//SELECT[contains(@id,'_ddlGender')]")
 	private WebElementFacade selectGender;
-	
+
 	@FindBy(xpath = "//SELECT[contains(@id,'_ddlPatientType')]")
-	private WebElementFacade selectPatientType;	
+	private WebElementFacade selectPatientType;
 
 	@FindBy(xpath = "//*[contains(@id,'_grdSkipTrace')]//tr//td")
 	private WebElementFacade skipGridLastName;
@@ -84,8 +121,14 @@ public class PatientPage extends BasePage {
 	@FindBy(xpath = "//input[contains(@id,'_chkAllowUpdate')]")
 	private WebElementFacade checktUpdate;
 
+	@FindBy(xpath = "//input[contains(@id,'_chkAllowUpdate')]")
+	private List<WebElementFacade> checktUpdateList;
+
 	@FindBy(xpath = "//input[contains(@id,'_chkReturnedMail')]")
 	private WebElementFacade checkReturnedMail;
+
+	@FindBy(xpath = "//input[contains(@id,'_chkAllowUpdate')]")
+	private List<WebElementFacade> checktAdmittedList;
 
 	@FindBy(xpath = "//input[contains(@id,'_chkAdmitted')]")
 	private WebElementFacade checkAdmitted;
@@ -122,14 +165,14 @@ public class PatientPage extends BasePage {
 
 	@FindBy(xpath = "//*[contains(@id,'_WorklistPanel_tdBottom')]")
 	private WebElementFacade criticalErrorMessage;
-	
-	@FindBy(xpath = "//input[contains(@id,'_txtSSN')]")
-	private WebElementFacade newSSNText;	
-	
-	@FindBy(xpath = "//input[contains(@id,'_txtAdmitDate')]")
-	private WebElementFacade admitDate;		
 
-    public void clickOnGurantorEditLinkButton() {
+	@FindBy(xpath = "//input[contains(@id,'_txtSSN')]")
+	private WebElementFacade newSSNText;
+
+	@FindBy(xpath = "//input[contains(@id,'_txtAdmitDate')]")
+	private WebElementFacade admitDate;
+
+	public void clickOnGurantorEditLinkButton() {
 		clickOn(gurantorEditLinkButton);
 	}
 	public void clickOnGurantorDeleteLinkButton() {
@@ -149,7 +192,16 @@ public class PatientPage extends BasePage {
 	}
 	public void clickOnUpdateCheckBox() {
 		clickOn(checktUpdate);
-	}	
+	}
+	public void clickCheckUpdate() {
+		length = checktUpdateList.size();
+		if (length > 0) {
+			clickOn(checktUpdate);
+			clickOn(patientUpdate);
+		} else {
+			clickOn(patientUpdate);
+		}
+	}
 	public void clearkPatientAddress() {
 		patientAddress.clear();
 	}
@@ -191,7 +243,6 @@ public class PatientPage extends BasePage {
 	public void setPatientFirstName(String FirstName) {
 		typeInto(patientFirstName, FirstName);
 	}
-
 	public void setPatientLastName(String lastName) {
 		typeInto(patientLastName, lastName);
 	}
@@ -220,7 +271,7 @@ public class PatientPage extends BasePage {
 		SearchAccount = DataAccess.getEncounterId(("encounterid"), query);
 	}
 	public void getPatientCritical() throws ClassNotFoundException, IOException, SQLException {
-		query= QueryConstantPatient.queryPatientGetCricitcalError();
+		query = QueryConstantPatient.queryPatientGetCricitcalError();
 		SearchAccount = DataAccess.getEncounterId(("encounterid"), query);
 	}
 	public void clickOnSearch() {
@@ -235,8 +286,14 @@ public class PatientPage extends BasePage {
 	public void clickPatientTab() {
 		r1AccessCommonMethod.clickR1AccesModulesTab("Patient");
 	}
+	public void clickLogTab() {
+		r1AccessCommonMethod.clickR1AccesModulesTab("Log");
+	}
+	public void clickCompleteButton() {
+		r1AccessCommonMethod.clickActionStatusTab("Complete");
+	}
 	public void verifyGurantorConfirmMessage() {
-	    message = gurantorPopUP.getText();
+		message = gurantorPopUP.getText();
 		Assert.assertTrue("Are you sure? message does not exist", message.contains("Are you sure?"));
 		Assert.assertTrue("Yes No button does not exist", message.contains("YesNo"));
 	}
@@ -248,17 +305,15 @@ public class PatientPage extends BasePage {
 	public void VerifyCheckBox() {
 		checkDisplaySelect = checktUpdate.isSelected();
 		Assert.assertTrue("Checkbox is not disable", checkDisplaySelect == false);
-	    message = updateRecord.getText().trim().trim();
+		message = updateRecord.getText().trim().trim();
 		Assert.assertTrue("Update Patient Record? does not exist", message.equalsIgnoreCase("Update Patient Record?"));
 	}
 	public void verifyPatientExceptionMesssage() {
 		message = patientExceptionPanel.getText();
 		Assert.assertTrue("Patient Address Street Number Not Valid message does not exist",
-				message.contains("Patient Address Street Number Not Valid"));
-		Assert.assertTrue(
-				"Patient Address-Street Address Missing Patient Address-City Missing Patient Address-Zip Missing message does not exist",
-				message.contains(
-						"Patient Address-Street Address Missing Patient Address-City Missing Patient Address-Zip Missing"));
+				message.contains("Patient Address Street Number Not Valid")
+						|| message.contains("Patient Address-Invalid Zip"));
+
 	}
 	public void verifyCriticalExceptionMesssage() {
 		message = criticalErrorMessage.getText();
@@ -266,12 +321,17 @@ public class PatientPage extends BasePage {
 				message.contains("Critical Exceptions Exist - Completion not allowed."));
 	}
 	public void verifyPatientTabcolor() {
-	    tabcolor = r1AccessCommonMethod.checkTabColor("Patient");
+		tabcolor = r1AccessCommonMethod.checkTabColor("Patient");
 		Assert.assertTrue("Patient tab color is not red", tabcolor.equalsIgnoreCase("Red"));
 	}
+	public void verifyPatientTabcolorBlue() {
+		tabcolor = r1AccessCommonMethod.checkTabColor("Patient");
+		Assert.assertTrue("Patient tab color is not Blue", tabcolor.equalsIgnoreCase("Blue"));
+	}
 	public void verifyIncompleteStatus() {
-	   status = r1AccessCommonMethod.chkTabStatusIncompleteComplete();
-	   Assert.assertTrue("Patient tab status is not Incomplete", status.equalsIgnoreCase("Incomplete"));
+		status = r1AccessCommonMethod.chkTabStatusIncompleteComplete();
+		Assert.assertTrue("Patient tab status is not Incomplete",
+				status.equalsIgnoreCase("Incomplete") || status.equalsIgnoreCase("Redo"));
 	}
 	public void verifyCompleteStatus() {
 		status = r1AccessCommonMethod.chkTabStatusIncompleteComplete();
@@ -287,12 +347,14 @@ public class PatientPage extends BasePage {
 		checkDisplaySelect = checkReturnedMail.isSelected();
 		Assert.assertTrue("Checkbox is not disable", checkDisplaySelect == false);
 	}
+
 	public void VerifyAdmitCheckBox() {
 		checkDisplaySelect = checktUpdate.isSelected();
 		Assert.assertTrue("Checkbox is not disable", checkDisplaySelect == false);
 		checkDisplaySelect = checkReturnedMail.isSelected();
 		Assert.assertTrue("Checkbox is not disable", checkDisplaySelect == false);
 	}
+
 	public void VerifyCancelCheckBox() {
 		checkDisplaySelect = checkCancel.isSelected();
 		Assert.assertTrue("Checkbox is not disable", checkDisplaySelect == false);
@@ -352,10 +414,10 @@ public class PatientPage extends BasePage {
 	public void verifySkipGridAddress() {
 		skipAddress = skipGridLAddress.getText().trim();
 		Address = patientAddress.getAttribute("value").trim();
-		Assert.assertTrue("Skip Trace Grid Address does not updated ", skipAddress.equals(Address));
+		Assert.assertTrue("Skip Trace Grid Address does not updated ", skipAddress.equalsIgnoreCase(Address));
 	}
 	public void verifyGurantorTab() {
-	   int count = gurantorTabLastName.size();
+		int count = gurantorTabLastName.size();
 		Assert.assertTrue("Gurantor Tab is visible", count <= 0);
 	}
 	public void EnterInvalidAddress() {
@@ -366,72 +428,72 @@ public class PatientPage extends BasePage {
 		patientZip.clear();
 		patientZip.sendKeys("TestZip");
 	}
-	
-	public void verifyNewPatientFields()
-	{	checkDisplaySelect=patientAddress.isDisplayed();
-		Assert.assertTrue("Address is not visible", checkDisplaySelect == true);		
-		checkDisplaySelect=patientAddress2.isDisplayed();
+	public void verifyNewPatientFields() {
+		checkDisplaySelect = patientAddress.isDisplayed();
+		Assert.assertTrue("Address is not visible", checkDisplaySelect == true);
+		checkDisplaySelect = patientAddress2.isDisplayed();
 		Assert.assertTrue("Address2 is not visible", checkDisplaySelect == true);
-		checkDisplaySelect=patientCity.isDisplayed();
-		Assert.assertTrue("City is not visible", checkDisplaySelect == true);		
-		checkDisplaySelect=patientZip.isDisplayed();
+		checkDisplaySelect = patientCity.isDisplayed();
+		Assert.assertTrue("City is not visible", checkDisplaySelect == true);
+		checkDisplaySelect = patientZip.isDisplayed();
 		Assert.assertTrue("Zip is not visible", checkDisplaySelect == true);
-		checkDisplaySelect=patientLastName.isDisplayed();
+		checkDisplaySelect = patientLastName.isDisplayed();
 		Assert.assertTrue("Last Name is not visible", checkDisplaySelect == true);
-		checkDisplaySelect=patientFirstName.isDisplayed();
+		checkDisplaySelect = patientFirstName.isDisplayed();
 		Assert.assertTrue("First  Name is not visible", checkDisplaySelect == true);
-		checkDisplaySelect=newSSNText.isDisplayed();
+		checkDisplaySelect = newSSNText.isDisplayed();
 		Assert.assertTrue("SSN is not visible", checkDisplaySelect == true);
-		checkDisplaySelect=admitDate.isDisplayed();
-		Assert.assertTrue("Admitn Date is not visible", checkDisplaySelect == true);		
-	}	
-	
-	String NewPatientFistName, NewPatientLastNam, NewPatientCity,NewPatientZip,NewPatientAddress1,NewPatientAddress2;
-	
-    public void addPatient() 
-    {	 selectFromDropdown(selectGender,"Female");
-		 selectFromDropdown(selectPatientType,"S - Outpatient Surgery");
-		 LocalDate futureDate = LocalDate.now().plusDays(16);
-		 System.out.println(futureDate);
-		 admitDate.sendKeys(futureDate.toString());
-		 int randomNumber = CommonMethods.GetRandom(999999999);
-		 int ranValue=CommonMethods.GetRandom(9);
-			newSSNText.sendKeys(String.valueOf(randomNumber));
-		    ranValue=CommonMethods.GetRandom(20);
-		    patientFirstName.clear();
-		    patientFirstName.sendKeys("TESTFIRSTNAME" + Integer.toString(ranValue));		
-          	patientLastName.clear();
-			patientLastName.sendKeys("TESTLASTNAME" + Integer.toString(ranValue));	
-			patientAddress.clear();
-			patientAddress.sendKeys("TESTADDRESS" + Integer.toString(ranValue));	
-			patientAddress2.clear();
-			patientAddress2.sendKeys("TESTADDRESS2" + Integer.toString(ranValue));	
-			patientCity.clear();
-			patientCity.sendKeys("TESTCITY" + Integer.toString(ranValue));	
-			patientZip.clear();
-			patientZip.sendKeys("TESTzip" + Integer.toString(ranValue));			  
-	}	    
-    public void verifyPatientTabcolorRed()
-    {
-      tabcolor=	r1AccessCommonMethod.checkTabColor("Patient");
-      Assert.assertTrue("Admitn Date is not visible", tabcolor.equalsIgnoreCase("Red"));
-    }
-    String sSNnumber;
-    public void changSNNumberLength()
-    { 
-      newSSNText.clear();
-      newSSNText.sendKeys(sSNnumber+"44");
-    }
-    
-    public void repSNNumberLength()
-    {
-      sSNnumber=	newSSNText.getAttribute("value");         
-      length=  sSNnumber.length();
-      sSNnumber=   sSNnumber.substring(1,length-2);  
-      sSNnumber=sSNnumber+"99";
-      newSSNText.clear();
-      newSSNText.sendKeys(sSNnumber);
-    }
+		checkDisplaySelect = admitDate.isDisplayed();
+		Assert.assertTrue("Admitn Date is not visible", checkDisplaySelect == true);
+	}
+	String NewPatientFistName, NewPatientLastNam, NewPatientCity, NewPatientZip, NewPatientAddress1, NewPatientAddress2;
+	public void addPatient() {
+		selectFromDropdown(selectGender, "Female");
+		selectFromDropdown(selectPatientType, "S - Outpatient Surgery");
+		LocalDate futureDate = LocalDate.now().plusDays(16);
+		admitDate.sendKeys(futureDate.toString());
+		int randomNumber = CommonMethods.GetRandom(999999999);
+		int ranValue = CommonMethods.GetRandom(9);
+		newSSNText.sendKeys(String.valueOf(randomNumber));
+		ranValue = CommonMethods.GetRandom(20);
+		patientFirstName.clear();
+		patientFirstName.sendKeys("TESTFIRSTNAME" + Integer.toString(ranValue));
+		patientLastName.clear();
+		patientLastName.sendKeys("TESTLASTNAME" + Integer.toString(ranValue));
+		patientAddress.clear();
+		patientAddress.sendKeys("TESTADDRESS" + Integer.toString(ranValue));
+		patientAddress2.clear();
+		patientAddress2.sendKeys("TESTADDRESS2" + Integer.toString(ranValue));
+		patientCity.clear();
+		patientCity.sendKeys("TESTCITY" + Integer.toString(ranValue));
+		patientZip.clear();
+		patientZip.sendKeys("TESTzip" + Integer.toString(ranValue));
+	}
+	public void verifyPatientTabcolorRed() {
+		tabcolor = r1AccessCommonMethod.checkTabColor("Patient");
+		Assert.assertTrue("Admitn Date is not visible", tabcolor.equalsIgnoreCase("Red"));
+	}
+	String sSNnumber;
+	public void addSNNumber() {
+		newSSNText.clear();
+		newSSNText.sendKeys(sSNnumber + "44");
+	}
+	public void verifyStatusPatientTab() {
+		status = r1AccessCommonMethod.chkTabStatusIncompleteComplete();
+	}
+	String newSSnNumber;
+	public void modifySNNumber() {
+		sSNnumber = getSSN.getAttribute("value");
+		length = sSNnumber.length();
+		sSNnumber = sSNnumber.substring(1, length - 2);
+		getSSN.clear();
+		newSSnNumber = sSNnumber + "55";
+		getSSN.sendKeys(newSSnNumber);
+	}
+	public void verifySSN() {
+		sSNnumber = getSSN.getAttribute("value");
+		Assert.assertTrue("SSN Number is not updated", sSNnumber.equalsIgnoreCase(sSNnumber));
+	}
 	public void verifySSNExceptionForLenth() {
 		message = patientExceptionPanel.getText();
 		Assert.assertTrue("Patient Address Street Number Not Valid message does not exist",
@@ -441,7 +503,6 @@ public class PatientPage extends BasePage {
 				message.contains(
 						"Patient Address-Street Address Missing Patient Address-City Missing Patient Address-Zip Missing"));
 	}
-	
 	public void verifySSNExceptionForChange() {
 		message = patientExceptionPanel.getText();
 		Assert.assertTrue("Patient Address Street Number Not Valid message does not exist",
@@ -449,8 +510,90 @@ public class PatientPage extends BasePage {
 		Assert.assertTrue(
 				"Patient Address-Street Address Missing Patient Address-City Missing Patient Address-Zip Missing message does not exist",
 				message.contains(
-						"Patient Address-Street Address Missing Patient Address-City Missing Patient Address-Zip Missing"));	
-    
-    
-}
+						"Patient Address-Street Address Missing Patient Address-City Missing Patient Address-Zip Missing"));
+	}
+	public void verifySSNMessaage() {
+		message = ssnMessage.getText();
+		Assert.assertTrue("Invalid SSN message does not exist", message.contains("Invalid SSN"));
+	}
+	public void verifySoftException() {
+		message = softException.getText();
+		Assert.assertTrue("Soft Exception message does not exist",
+				message.contains("Exceptions Exist - Are you sure you want to mark the task complete?"));
+	}
+	public void verifyRecordUpdated() {
+		message = messageRecordUpdate.getText();
+		Assert.assertTrue("Record Updated message does not exist", message.contains("Record Updated"));
+	}
+	public void clickContinueutton() {
+		clickOn(continueButton);
+	}
+	public void verifyCancelkContinueutton() {
+		checkDisplaySelect = continueButton.isDisplayed();
+		Assert.assertTrue("Continue button is not disable", checkDisplaySelect == true);
+		checkDisplaySelect = continueBCancelutton.isDisplayed();
+		Assert.assertTrue("Continue Camcel button is not disable", checkDisplaySelect == true);
+	}
+	public void getEncounteridPatientTabRed() throws ClassNotFoundException, IOException, SQLException {
+		query = QueryConstantPatient.queryPatienTabRed();
+		SearchAccount = DataAccess.getEncounterId(("encounterid"), query);
+	}
+	public void getEncounteridPatientTabBlue() throws ClassNotFoundException, IOException, SQLException {
+		query = QueryConstantPatient.queryPatienTabBlue();
+		SearchAccount = DataAccess.getEncounterId(("encounterid"), query);
+	}
+
+	public void getEncounteridPatientSkipTraceGurantor() throws ClassNotFoundException, IOException, SQLException {
+		query = QueryConstantPatient.queryForPatientSkipGurantor();
+		SearchAccount = DataAccess.getEncounterId(("encounterid"), query);
+	}
+
+	public void getEncounteridPatientSkipTraceNotDishcharge() throws ClassNotFoundException, IOException, SQLException {
+		query = QueryConstantPatient.queryForPatientSkipTraceNotDischarge();
+		SearchAccount = DataAccess.getEncounterId(("encounterid"), query);
+	}
+
+	public void getEncounteridPatientSkipTraceWithReturnDays()
+			throws ClassNotFoundException, IOException, SQLException {
+		query = QueryConstantPatient.queryForPatientSkipTraceWithReturnDays();
+		SearchAccount = DataAccess.getEncounterId(("encounterid"), query);
+	}
+	public void getEncounteridPatientBADAddress() throws ClassNotFoundException, IOException, SQLException {
+		query = QueryConstantPatient.queryForPatientForBADAddress();
+		SearchAccount = DataAccess.getEncounterId(("encounterid"), query);
+	}
+	public void getEncounteridPatientException() throws ClassNotFoundException, IOException, SQLException {
+		query = QueryConstantPatient.queryForExceptionID();
+		SearchAccount = DataAccess.getEncounterId(("encounterid"), query);
+	}
+	public void clickAddGurantorButton() {
+		length = clickAddGurantor.size();
+		if (length > 0) {
+			clickOn(AddGurantor);
+		}
+		}
+	public void clickOnShowTrace() {
+		clickOn(showSkipTrace);
+	}
+	public void verifyPatientTab() {
+		length = checktAdmittedList.size();
+		Assert.assertTrue("Patient Tab Exist", length <= 0);
+	}
+	public void verifySkipTraceWithDate() {
+		message = showSkipTrace.getText();
+		Date date = new Date(System.currentTimeMillis());
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+		String s = formatter.format(date);
+		if (s.startsWith("0")) {
+			s = s.substring(1);
+		}
+		Assert.assertTrue("Show Trace does not exist", message.contains("Show Trace"));
+	}
+	public void verifyBadAddress() {
+		message = patientAddress.getAttribute("value");
+		Assert.assertTrue("BAD Address is not reflect", message.equalsIgnoreCase("BAD ADDRESS"));
+	}
+	public void verifyActionlog() {
+		Assert.assertTrue("last status log was not completed", lastStatusLog.getText().contains("Completed"));
+	}
 }
