@@ -31,6 +31,27 @@ public class QueryConstants {
 	
 	public static String queryPatientTypeEncounterID =  "select top 1 * from registrations where patienttype='o' order by NEWID() ";
 	
+	public static String queryConfigRuleEncounterIdPAS() {
+		return "SELECT top 10 EncounterID FROM Registrations r (nolock) where ID in (SELECT RegistrationID FROM Coverages (nolock) where ID in (SELECT c.ID FROM Coverages c\r\n" + 
+				"join BusinessRuleLogs br (nolock) on c.ID=br.RecordID where DataSourceID='64'GROUP BY C.ID)) AND EXISTS (Select 1 from Coverages cov where \r\n" + 
+				"cov.RegistrationID=r.ID and cov.VerificationStatus='1' and cov.CoverageStatus='A') AND r.ID not in (select RecordKey from RecordCheckOut) Order by Id Desc";
+	}
+	
+	public static String queryConfigRuleEncounterIdPCE() {
+		return "Select top 1 EncounterID From Registrations r (nolock) join coverages c (nolock) on r.id = c.registrationid where c.COBOrder = 1 and " +
+				"c.coveragestatus = 'A'and c.id in (Select distinct top 10 RecordID from businessrulelogs bl (nolock) inner join accretive_BusinessRules br (nolock) " +
+				"on bl.BusinessRuleID=br.id and BusinessRuleTypeId=5 where datasourceid = '63' and bl.BusinessRuleID in (select BusinessRuleID from accretive_BusinessRuleProperties (nolock) " +
+				"where PropertyValue='1' and PropertyName='ExceptionLevel')) AND r.ID not in (select RecordKey from RecordCheckOut)";
+	}
+	
+	public static String queryConfigRuleEncounterIdSAR() {
+		return "SELECT distinct Top 10 R.encounterID, R.ID, PatientType FROM " + 
+				"(select ID, EncounterID, PatientType from Registrations R (nolock) " + 
+				"where IsDischarged=0) R Join services s (nolock) on R.ID <> s.RegistrationID";
+	}
+	
+	public static String queryPatientTypeEncounterID =  "select top 1 * from registrations where patienttype='o' order by NEWID() ";
+	
 	
 	
 
