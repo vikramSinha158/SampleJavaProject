@@ -96,7 +96,7 @@ public class CWLPage extends BasePage {
 		for(int i=0;i<size;i++)
 		{
 			String submenu=Setting_submenu.get(i).getText();
-			System.out.println(submenu);
+
 		}
 
 	}
@@ -117,7 +117,7 @@ public class CWLPage extends BasePage {
 		for(int i=0;i<Setting_submenu.size();i++)
 		{
 			String submenu=Setting_submenu.get(i).getText();
-			System.out.println(submenu);
+
 		}
 	}
 
@@ -126,14 +126,13 @@ public class CWLPage extends BasePage {
 		for(int i=0;i<Setting_submenu.size();i++)
 		{
 			String submenu=Setting_submenu.get(i).getText();
-			System.out.println(submenu);
+
 		}
 	}
 
 	public void verifyCPMSize()
 	{
 		int size=conversionPlanList.size();
-		System.out.println(size);
 		Assert.assertFalse(size==0);
 
 	}
@@ -206,8 +205,7 @@ public class CWLPage extends BasePage {
 					Assert.assertTrue(i+" is matching with"+" "+val2, true);
 				}else
 				{
-					System.out.println("PT value is coming"+ i);
-					Assert.assertTrue(false);
+					Assert.assertTrue("PT value is coming"+ i,false);
 				}
 			}}else
 			{
@@ -221,7 +219,6 @@ public class CWLPage extends BasePage {
 		ArrayList<String> NFUdt= common.getTableColValue(followUpWorklistRow,followUpWorklistHeader,"NFU Dt");
 		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("MM/dd/yyyy"); 
 		String currentDate = myDateObj.format(myFormatObj); 
-		System.out.println("current date is: " + currentDate);
 		if(AccountRecords.size()>1) {
 			for(String nfudate:NFUdt)
 			{
