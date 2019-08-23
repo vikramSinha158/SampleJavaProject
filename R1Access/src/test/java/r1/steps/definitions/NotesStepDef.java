@@ -42,7 +42,7 @@ public class NotesStepDef extends BasePage {
 
 	@And("^user clicks on \"([^\"]*)\" link$")
 	public void user_clicks_on_link(String menu) {
-		r1AccessCommonMethod.clickR1HubModulesMenuLink(menu);
+		navigation.clickMenu(menu);
 	}
 
 	@Then("^user should be able to view the \"([^\"]*)\" label on worklist page$")
