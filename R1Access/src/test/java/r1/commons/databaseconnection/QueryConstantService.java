@@ -9,5 +9,10 @@ public class QueryConstantService extends BasePage {
 	 return "select SettingValue from FacilitySettings where settingName ='" + settingName + "'";
 	}
 	
+	public static  String fetchHCPCCodeValue()
+	{
+	 return "SELECT top 1 hcpc_code_id FROM REFERENCE_HCPC_SEARCH WHERE EXPIRATIONDATE < GETDATE()";
+	}
+	
 	
 }

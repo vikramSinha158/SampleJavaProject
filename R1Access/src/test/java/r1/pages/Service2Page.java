@@ -110,10 +110,25 @@ public class Service2Page extends BasePage {
 	@FindBy(xpath = "//table[contains(@id,'grdICD9Selected')]//img[contains(@src,'/images/dn.gif')]")
 
 	private WebElementFacade clickICDCodesIndexValueFromTable;
+				
+	@FindBy(xpath = "//table[@class='PanelTitle']//tr[@class='PanelTitle']")
+
+	private WebElementFacade verifyFinalText;
+	
+	@FindBy(xpath = "//input[contains(@name,'txtSearch')]")
+
+	private WebElementFacade verifySearchTextBox;
+	
+	@FindBy(xpath = "//input[contains(@name,'txtSearch')]")
+
+	private WebElementFacade verifySearchButton;
+	
+	
+	/*............ Service Query ..................................*/
 
 	public void verifyServiceandResidualSettings(String facility, String serviceSetting, String residualSetting)
 			throws ClassNotFoundException, IOException, SQLException {
-		settingValue = Integer.parseInt(retrieveSettingValue(serviceSetting));
+		settingValue = Integer.parseInt(retrieveSettingValue(serviceSetting, facility));
 
 		if (settingValue != 2) {
 			r1AccessCommonMethod.clickFooterR1AccesModulesTab("Settings");
@@ -122,7 +137,7 @@ public class Service2Page extends BasePage {
 			r1AccessCommonMethod.setFacilitySettingVal(facility, serviceSetting, "2");
 		}
 
-		settingValue = Integer.parseInt(retrieveSettingValue(residualSetting));
+		settingValue = Integer.parseInt(retrieveSettingValue(residualSetting,facility));
 
 		if (settingValue != 2) {
 			r1AccessCommonMethod.clickFooterR1AccesModulesTab("Settings");
@@ -133,12 +148,22 @@ public class Service2Page extends BasePage {
 
 	}
 
-	public String retrieveSettingValue(String settingName) throws ClassNotFoundException, IOException, SQLException {
+	public String retrieveSettingValue(String settingName,String facility) throws ClassNotFoundException, IOException, SQLException {
 		query = QueryConstantService.fetchSettingValue(settingName);
-		value = DataAccess.getEncounterId(("SettingValue"), query);
+		value = DataAccess.getColumValue(("SettingValue"), query, facility);
 		return value;
 	}
+	
+	public String retrieveExpiredHCPCValue() throws ClassNotFoundException, IOException, SQLException {
+		query = QueryConstantService.fetchHCPCCodeValue();
+		value = DataAccess.getColumValue(("hcpc_code_id"), query);
+		return value;
+	}
+	
 
+	/*............ Service Query ..................................*/
+
+	
 	public void verifyUpDownArrowKeyIsWorking() {
 		for (int i = 1; i <= verifyServicesGetAdded.size(); i++) {
 			String before = clickICDCodesRowValue.get(i).getText().toString();

@@ -12,6 +12,7 @@ import r1.pages.NotesPage;
 import r1.pages.UserLogin;
 import r1.serenity.steps.NotesSteps;
 import r1.commons.BasePage;
+import r1.commons.R1AccessCommonMethods;
 import r1.commons.databaseconnection.QueryConstants;
 
 public class NotesStepDef extends BasePage {
@@ -20,7 +21,8 @@ public class NotesStepDef extends BasePage {
 	UserLogin userLogin;
 	Navigation navigation;
 	NotesSteps noteSteps;
-
+	R1AccessCommonMethods r1AccessCommonMethod;
+	
 	@Given("^user is on R1 hub page$")
 	public void user_is_on_hub_page() throws IOException {
 		OpenBrowser();
@@ -40,7 +42,7 @@ public class NotesStepDef extends BasePage {
 
 	@And("^user clicks on \"([^\"]*)\" link$")
 	public void user_clicks_on_link(String menu) {
-		navigation.clickMenu(menu);
+		r1AccessCommonMethod.clickR1HubModulesMenuLink(menu);
 	}
 
 	@Then("^user should be able to view the \"([^\"]*)\" label on worklist page$")

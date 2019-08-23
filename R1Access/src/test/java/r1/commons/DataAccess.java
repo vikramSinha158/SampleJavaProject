@@ -14,4 +14,6 @@ public class DataAccess {
 		DatabaseConn.resultSet.next();
 		return DatabaseConn.resultSet.getString(column);
 }
+	
+		
 }
