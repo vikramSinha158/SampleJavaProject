@@ -490,9 +490,6 @@ public class R1AccessCommonMethods extends BasePage {
 	public String checkTabColor(String tab) {
 
 		for (int i = 0; i < tabs.size(); i++) {
-			
-			System.out.println(tabs.get(i).getText() + "\t" + tabs.get(i).getAttribute("class"));
-			System.out.println(tabs.get(i).getAttribute("class").equals("TabBGSelI"));
 			if (tabs.get(i).getText().toString().equalsIgnoreCase(tab)) {
 				if (tabs.get(i).getAttribute("class").equals("TabBGSelI")) {
 					value = "Red";
