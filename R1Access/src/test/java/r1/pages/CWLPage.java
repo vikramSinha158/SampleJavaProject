@@ -237,12 +237,8 @@ public class CWLPage extends BasePage {
 					Assert.assertTrue("current: "+currentDate+" nfudate: "+nfudate, true);
 
 				}
-
-
 			} 
-			{
 
-			}
 		}else
 		{
 			Assert.assertTrue("No Accounts records are present", false);
@@ -266,9 +262,6 @@ public class CWLPage extends BasePage {
 				}else
 				{
 					Assert.assertTrue("total balance is coming "+d,true);
-
-
-
 				}
 			}
 
