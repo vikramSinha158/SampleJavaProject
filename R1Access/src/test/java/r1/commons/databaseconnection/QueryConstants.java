@@ -49,5 +49,4 @@ public class QueryConstants {
 				"(select ID, EncounterID, PatientType from Registrations R (nolock) " + 
 				"where IsDischarged=0) R Join services s (nolock) on R.ID <> s.RegistrationID";
 	}
-
 }
