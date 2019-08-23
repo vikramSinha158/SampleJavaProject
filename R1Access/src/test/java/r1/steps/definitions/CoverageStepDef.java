@@ -316,5 +316,45 @@ public class CoverageStepDef extends BasePage{
 	public void user_should_able_to_view_same_updated_value_in_database() {
 		coveragePage.verifyEditedColValue();
 	}
+	
+	@When("^user run the query and fetched the \"([^\"]*)\" of coverage$")
+	public void user_run_the_query_and_fetched_the_of_coverage(String arg1) throws ClassNotFoundException, SQLException, IOException {
+		coveragePage.fetchEncounterId5();
+	}
+	
+	@When("^user clicks on Run Query button$")
+	public void user_clicks_on_Run_Query_button() {
+		coveragePage.clickRunQuery();
+	}
+
+	@Then("^user should able to view clicked hyperlink as \"([^\"]*)\"$")
+	public void user_should_able_to_view_clicked_hyperlink_as(String status) {
+		coveragePage.verifyClickedHyperlinkStatus(status);
+	}
+	
+	@When("^user click on Passed hyperlink$")
+	public void user_click_on_Passed_hyperlink() {
+		coveragePage.clickHyperlink();
+	}
+
+	@Then("^user should able to view Control number under Trace Number section$")
+	public void user_should_able_to_view_Control_number_under_Trace_Number_section() {
+		coveragePage.verifyControlNum();
+	}
+
+	@Then("^user should able to view REFERENCED TRANSACTION TRACE NUMBERS under Trace Number section$")
+	public void user_should_able_to_view_REFERENCED_TRANSACTION_TRACE_NUMBERS_under_Trace_Number_section() {
+		coveragePage.verifyRefTranTraceNum();	    
+	}
+
+	@Then("^user should able to view CURRENT TRANSACTION TRACE NUMBERS under Trace Number section$")
+	public void user_should_able_to_view_CURRENT_TRANSACTION_TRACE_NUMBERS_under_Trace_Number_section() {
+		coveragePage.verifyCurrTranTraceNum();	    
+	}
+
+	@Then("^user should able to view generated control number under Eligibility log section$")
+	public void user_should_able_to_view_generated_control_number_under_Eligibility_log_section() {
+		coveragePage.verifyCntrllNumInLog();
+	}
 
   }

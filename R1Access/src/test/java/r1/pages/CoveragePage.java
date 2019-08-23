@@ -44,9 +44,12 @@ public class CoveragePage extends BasePage{
 	public String hcpcTableHeader = "//*[contains(@id,'grdHCPCSelected')]/tbody/tr[1]/td";
 	public String hcpcSearchResTableRow = "//*[contains(@id,'grdHCPCSearchResults')]/tbody/tr";
 	public String hcpcSearchResTableHeader = "//*[contains(@id,'grdHCPCSearchResults')]/tbody/tr[1]/td";
+	public String eligibilityLogTableRow = "//*[contains(@id,'EligibilityLog')]/tbody/tr";
+	public String eligibilityLogTableHeader = "//*[contains(@id,'EligibilityLog')]/tbody/tr[1]/td";
 	
 	static ArrayList<String> Encounter_ID,hcpcCode;
 	static int randomNum;
+	static String controlNum;
 	
 	@FindBy(xpath = "//span[contains(@class,'rtbText')][contains(text(),'Searc')]")
 	private WebElementFacade searchTab;
@@ -216,6 +219,20 @@ public class CoveragePage extends BasePage{
 	@FindBy(xpath = "//a[contains(@id,'CoverageDetails_btnUpdate')]")
 	private WebElementFacade updateBtn;
 
+	@FindBy(xpath = "//a[contains(@id,'_btnReQuery')]")
+	private WebElementFacade runQuery;
+	
+	@FindBy(xpath = "//td[contains(text(),'Control Number')]/following-sibling::td")
+	private WebElementFacade cntrlNum;
+	
+	@FindBy(xpath = "//td[contains(text(),'REFERENCED TRANSACTION TRACE NUMBERS')]/following-sibling::td")
+	private WebElementFacade refTraceNum;
+	
+	@FindBy(xpath = "//td[contains(text(),'CURRENT TRANSACTION TRACE NUMBERS')]/following-sibling::td")
+	private WebElementFacade currTraceNum;
+	
+	@FindBy(xpath = "//*[contains(@id,'EligibilityLog')]/tbody/tr[2]/td[2]")
+	private WebElementFacade eligLogCntrlNum;
 	
 	public void fetchEncounterId1() throws ClassNotFoundException, SQLException, IOException
 	{
@@ -235,6 +252,11 @@ public class CoveragePage extends BasePage{
 	public void fetchEncounterId4() throws ClassNotFoundException, SQLException, IOException
 	{
 		Encounter_ID = coverageSteps.getCoverageEncounterID4();
+	}
+	
+	public void fetchEncounterId5() throws ClassNotFoundException, SQLException, IOException
+	{
+		Encounter_ID = coverageSteps.getCoverageEncounterID5();
 	}
 	
 	public void clickSearchBtn()
@@ -943,7 +965,37 @@ public class CoveragePage extends BasePage{
 		CoverageSteps.getEditedColumnValue(ID);
 	}
 	
+	public void clickRunQuery()
+	{
+		clickOn(runQuery);
+	}
 	
+	public void verifyClickedHyperlinkStatus(String status)
+	{
+		Assert.assertTrue(commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"Verified").get(0).toString().contains(status));
+	}
 	
+	public void verifyControlNum()
+	{
+		controlNum = cntrlNum.getText();
+		System.out.println(controlNum);
+		Assert.assertTrue("control number is not visible", cntrlNum.isVisible());
+	}
+	
+	public void verifyRefTranTraceNum()
+	{
+		Assert.assertTrue(refTraceNum.isVisible());
+	}
+	
+	public void verifyCurrTranTraceNum()
+	{
+		Assert.assertTrue(currTraceNum.isVisible());
+	}
+	
+	public void verifyCntrllNumInLog()
+	{
+		System.out.println(controlNum);
+		Assert.assertTrue(eligLogCntrlNum.getText().contains(controlNum));
+	}
 	
 	}

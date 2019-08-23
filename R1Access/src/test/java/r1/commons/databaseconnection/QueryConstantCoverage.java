@@ -39,6 +39,11 @@ public class QueryConstantCoverage {
 				"order by R.ID Desc";
 	}
 	
+	public static String queryCoverageEncounterID5(String facility) {
+		return "select top 10 r.encounterid from Eligibility_HIPAAEligibilityRequests eh \r\n" + 
+				" join registrations r on eh.RegistrationId= r.id where eh.resultcode=1 and eh.FacilityCode='"+facility+"'";
+	}
+	
 	public static String queryHcpcCode() {
 		return "Select top 10 hcpc_code_id,E.Code,E.EstimatedCharges from reference..hcpc_search h (nolock)\r\n" + 
 				" join estimates E (nolock) on h.hcpc_code_id=E.code where h.expirationdate is null";

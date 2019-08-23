@@ -119,6 +119,19 @@ public class CoverageSteps extends BasePage{
 		}
 	
 	@Step
+	public ArrayList<String> getCoverageEncounterID5() throws SQLException, ClassNotFoundException, IOException {
+		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
+		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstantCoverage.queryCoverageEncounterID5(CommonMethods.LoadProperties("facility")));
+		boolean empty = true;
+		while (DatabaseConn.resultSet.next()) {
+		empty = false;
+		Encounter_ID.add(DatabaseConn.resultSet.getString("EncounterID"));
+		}
+		Assert.assertEquals( "There is no records in DataBase",empty, false);
+		return Encounter_ID;
+		}
+	
+	@Step
 	public ArrayList<String> getHcpcCode() throws SQLException, ClassNotFoundException, IOException {
 		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstantCoverage.queryHcpcCode());
