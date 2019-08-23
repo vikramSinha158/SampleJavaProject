@@ -267,8 +267,6 @@ public class CoveragePage extends BasePage{
 	public void enterEncounterID()
 	{
 		randomNum = generateRandomNum(Encounter_ID.size());
-		System.out.println(randomNum);
-		System.out.println(Encounter_ID.get(randomNum));
 		typeInto(visitSearch,Encounter_ID.get(randomNum));
 	}
 	
@@ -331,25 +329,18 @@ public class CoveragePage extends BasePage{
 	public void verifyCovColValue() throws ClassNotFoundException, SQLException, IOException
 	{
 		String ID = Encounter_ID.get(randomNum);
-		System.out.println(ID);
 		CoverageSteps.getCoverageColumnValue(ID);
 		
-		System.out.println(CoverageSteps.FacilityPlanCodeDB.get(0));
 		Assert.assertEquals(facilityPlanCodeUI.replaceAll(" ", "").trim().compareToIgnoreCase(CoverageSteps.FacilityPlanCodeDB.get(0).replaceAll(" ", "").trim()), 0);
 		
-		System.out.println(CoverageSteps.COBDB.get(0));
 		Assert.assertEquals(COBUI.replaceAll(" ", "").trim().compareToIgnoreCase(CoverageSteps.COBDB.get(0).replaceAll(" ", "").trim()), 0);
 		
-		System.out.println(CoverageSteps.payorGroupCodeDB.get(0));
 		Assert.assertEquals(payorGroupCodeUI.replaceAll(" ", "").trim().compareToIgnoreCase(CoverageSteps.payorGroupCodeDB.get(0).replaceAll(" ", "").trim()), 0);
 
-		System.out.println(CoverageSteps.payorPlanNameDB.get(0));
 		Assert.assertEquals(payorPlanNameUI.replaceAll(" ", "").trim().compareToIgnoreCase(CoverageSteps.payorPlanNameDB.get(0).replaceAll(" ", "").trim()), 0);
 		
-		System.out.println(CoverageSteps.subscriberCodeDB.get(0));
 		Assert.assertEquals(subscriberCodeUI.replaceAll(" ", "").trim().compareToIgnoreCase(CoverageSteps.subscriberCodeDB.get(0).replaceAll(" ", "").trim()), 0);
 		
-		System.out.println(CoverageSteps.copayDB.get(0).replaceAll(" ", "").trim().substring(0, 4));
 		match = false;
 		if(copayUI1.replaceAll(" ", "").trim().contains(CoverageSteps.copayDB.get(0).replaceAll(" ", "").trim().substring(0, 4)) || 
 				copayUI2.replaceAll(" ", "").trim().contains(CoverageSteps.copayDB.get(0).replaceAll(" ", "").trim().substring(0, 4)))
@@ -358,7 +349,6 @@ public class CoveragePage extends BasePage{
 		}
 		Assert.assertTrue(match);
 
-		System.out.println(CoverageSteps.ERDB.get(0).replaceAll(" ", "").trim().substring(0, 4));
 		match = false;
 		if(ERUI1.replaceAll(" ", "").trim().contains(CoverageSteps.ERDB.get(0).replaceAll(" ", "").trim().substring(0, 4)) || 
 				ERUI2.replaceAll(" ", "").trim().contains(CoverageSteps.ERDB.get(0).replaceAll(" ", "").trim().substring(0, 4)))
@@ -367,7 +357,6 @@ public class CoveragePage extends BasePage{
 		}
 		Assert.assertTrue(match);
 
-		System.out.println(CoverageSteps.deductDB.get(0).replaceAll(" ", "").trim().substring(0, 4));
 		match = false;
 		if(deductUI1.replaceAll(" ", "").trim().contains(CoverageSteps.deductDB.get(0).replaceAll(" ", "").trim().substring(0, 4)) || 
 				deductUI2.replaceAll(" ", "").trim().contains(CoverageSteps.deductDB.get(0).replaceAll(" ", "").trim().substring(0, 4)))
@@ -376,7 +365,6 @@ public class CoveragePage extends BasePage{
 		}
 		Assert.assertTrue(match);
 		
-		System.out.println(CoverageSteps.coinsDB.get(0).replaceAll(" ", "").trim().substring(0, 3));
 		match = false;
 		if(coinsUI1.replaceAll(" ", "").trim().contains(CoverageSteps.coinsDB.get(0).replaceAll(" ", "").trim().substring(0, 3)) || 
 				coinsUI2.replaceAll(" ", "").trim().contains(CoverageSteps.coinsDB.get(0).replaceAll(" ", "").trim().substring(0, 3)))
@@ -385,7 +373,6 @@ public class CoveragePage extends BasePage{
 		}
 		Assert.assertTrue(match);
 		
-		System.out.println(CoverageSteps.oopDB.get(0).replaceAll(" ", "").trim().substring(0, 4));
 		match = false;
 		if(oopUI1.replaceAll(" ", "").trim().contains(CoverageSteps.oopDB.get(0).replaceAll(" ", "").trim().substring(0, 4)) || 
 				oopUI2.replaceAll(" ", "").trim().contains(CoverageSteps.oopDB.get(0).replaceAll(" ", "").trim().substring(0, 4)))
@@ -400,32 +387,28 @@ public class CoveragePage extends BasePage{
 		if(colName.equalsIgnoreCase("COB"))
 		{
 			COBUI = (String) commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"COB").get(0);
-			System.out.println(COBUI);
+			if(COBUI.contains("-"))
+				COBUI = null;
 		}
 		else if(colName.equalsIgnoreCase("Code"))
 		{
 			facilityPlanCodeUI =  (String) commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"Code").get(0);	
-			System.out.println(facilityPlanCodeUI);
 		}
 		else if(colName.equalsIgnoreCase("Plan"))
 		{
 			payorPlanNameUI = (String) commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"Plan").get(0);	
-			System.out.println(payorPlanNameUI);
 		}
 		else if(colName.equalsIgnoreCase("Group"))
 		{
 			payorGroupCodeUI = (String) commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"Group").get(0);
 			if(payorGroupCodeUI.equals(" "))
 			payorGroupCodeUI = null;
-			System.out.println(payorGroupCodeUI);
-		
 		}
 		else if(colName.equalsIgnoreCase("Subscriber"))
 		{
 			subscriberCodeUI = (String) commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"Subscriber").get(0);	
 			if(subscriberCodeUI.equals(" "))
 			subscriberCodeUI = null;	
-			System.out.println(subscriberCodeUI);
 		}
 		else if(colName.equalsIgnoreCase("Copay"))
 		{
@@ -439,8 +422,7 @@ public class CoveragePage extends BasePage{
 			copayUI1=null;
 			else
 			copayUI1 = copayUI1.replace("$","").trim();
-			System.out.println(copayUI1);
-			System.out.println(copayUI2);
+			copayUI1 = copayUI1.replace(",","").trim();
 		}
 		else if(colName.equalsIgnoreCase("ER"))
 		{
@@ -454,8 +436,7 @@ public class CoveragePage extends BasePage{
 			ERUI1=null;
 			else
 			ERUI1=ERUI1.replace("$","").trim();
-			System.out.println(ERUI1);
-			System.out.println(ERUI2);
+			ERUI1=ERUI1.replace(",","").trim();
 		}
 		else if(colName.equalsIgnoreCase("Deduct"))
 		{
@@ -469,8 +450,7 @@ public class CoveragePage extends BasePage{
 			deductUI1=null;
 			else
 			deductUI1 = deductUI1.replace("$","").trim();
-			System.out.println(deductUI1);
-			System.out.println(deductUI2);
+			deductUI1 = deductUI1.replace(",","").trim();
 		}
 		else if(colName.equalsIgnoreCase("Coins"))
 		{
@@ -491,8 +471,6 @@ public class CoveragePage extends BasePage{
 			coinsr = coinsr/100;
 			coinsUI1 = Double.toString(coinsr);
 			}
-			System.out.println(coinsUI1);
-			System.out.println(coinsUI2);
 		}
 		else if(colName.equalsIgnoreCase("OOP"))
 		{
@@ -513,8 +491,6 @@ public class CoveragePage extends BasePage{
 				oopUI1 = oopUI1.replace("$","").trim();
 				oopUI1 = oopUI1.replace(",","").trim();
 			}
-			System.out.println(oopUI1);
-			System.out.println(oopUI2);
 		 }
 	  }
 	
@@ -522,22 +498,18 @@ public class CoveragePage extends BasePage{
 	{
 			copayUI1 = (String) commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"Copay").get(0);
 			copayUI1 = copayUI1.replace("$","").trim();
-			System.out.println(copayUI1);
 		
 			ERUI1 = (String) commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"ER").get(0);
 			ERUI1=ERUI1.replace("$","").trim();
-			System.out.println(ERUI1);
 		
 			deductUI1 = (String) commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"Deduct").get(0);
 			deductUI1 = deductUI1.replace("$","").trim();
-			System.out.println(deductUI1);
 		
 			coinsUI1 = (String) commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"Coins").get(0);	
 			coinsUI1 = coinsUI1.replace("%","");
 			double coinsr = Double.parseDouble(coinsUI1);
 			coinsr = coinsr/100;
 			coinsUI1 = Double.toString(coinsr);
-			System.out.println(coinsUI1);
 		
 			oopUI1 = (String) commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"OOP").get(0);	
 			if( oopUI1.equals("Unlim"))
@@ -545,10 +517,7 @@ public class CoveragePage extends BasePage{
 				oopUI1="9999999.00";
 				oopUI2 = null ;
 			}
-			System.out.println(oopUI1);
-			System.out.println(oopUI2);
 			
-			System.out.println(CoverageSteps.copayDB.get(0).replaceAll(" ", "").trim().substring(0, 4));
 			match = false;
 			if(copayUI1.replaceAll(" ", "").trim().contains(CoverageSteps.copayDB.get(0).replaceAll(" ", "").trim().substring(0, 4)) || 
 					copayUI2.replaceAll(" ", "").trim().contains(CoverageSteps.copayDB.get(0).replaceAll(" ", "").trim().substring(0, 4)))
@@ -557,7 +526,6 @@ public class CoveragePage extends BasePage{
 			}
 			Assert.assertTrue(match);
 
-			System.out.println(CoverageSteps.ERDB.get(0).replaceAll(" ", "").trim().substring(0, 4));
 			match = false;
 			if(ERUI1.replaceAll(" ", "").trim().contains(CoverageSteps.ERDB.get(0).replaceAll(" ", "").trim().substring(0, 4)) || 
 					ERUI2.replaceAll(" ", "").trim().contains(CoverageSteps.ERDB.get(0).replaceAll(" ", "").trim().substring(0, 4)))
@@ -566,7 +534,6 @@ public class CoveragePage extends BasePage{
 			}
 			Assert.assertTrue(match);
 
-			System.out.println(CoverageSteps.deductDB.get(0).replaceAll(" ", "").trim().substring(0, 4));
 			match = false;
 			if(deductUI1.replaceAll(" ", "").trim().contains(CoverageSteps.deductDB.get(0).replaceAll(" ", "").trim().substring(0, 4)) || 
 					deductUI2.replaceAll(" ", "").trim().contains(CoverageSteps.deductDB.get(0).replaceAll(" ", "").trim().substring(0, 4)))
@@ -575,7 +542,6 @@ public class CoveragePage extends BasePage{
 			}
 			Assert.assertTrue(match);
 			
-			System.out.println(CoverageSteps.coinsDB.get(0).replaceAll(" ", "").trim().substring(0, 3));
 			match = false;
 			if(coinsUI1.replaceAll(" ", "").trim().contains(CoverageSteps.coinsDB.get(0).replaceAll(" ", "").trim().substring(0, 3)) || 
 					coinsUI2.replaceAll(" ", "").trim().contains(CoverageSteps.coinsDB.get(0).replaceAll(" ", "").trim().substring(0, 3)))
@@ -584,7 +550,6 @@ public class CoveragePage extends BasePage{
 			}
 			Assert.assertTrue(match);
 			
-			System.out.println(CoverageSteps.oopDB.get(0).replaceAll(" ", "").trim().substring(0, 4));
 			match = false;
 			if(oopUI1.replaceAll(" ", "").trim().contains(CoverageSteps.oopDB.get(0).replaceAll(" ", "").trim().substring(0, 4)) || 
 					oopUI2.replaceAll(" ", "").trim().contains(CoverageSteps.oopDB.get(0).replaceAll(" ", "").trim().substring(0, 4)))
@@ -615,9 +580,6 @@ public class CoveragePage extends BasePage{
 	public void getExistingPlanCode()
 	{
 		FacilityPlanCodeOnUI = commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"Code");
-		//for checking
-		for(int i = 0 ; i < FacilityPlanCodeOnUI.size(); i++)
-			System.out.println(FacilityPlanCodeOnUI.get(i));
 	}
 	
 	public void clickAddCovPlusIcon()
@@ -637,7 +599,6 @@ public class CoveragePage extends BasePage{
 	
 	public void enterPlanCode()
 	{
-		System.out.println(FacilityPlanCodeOnUI.get(0));
 		typeInto(planTextBox,FacilityPlanCodeOnUI.get(0));
 	}
 
@@ -676,7 +637,6 @@ public class CoveragePage extends BasePage{
 	{
 		int size = commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"Code").size();
 		boolean flag = false;
-		System.out.println(FacilityPlanCodeOnUI.get(0));
 		for(int i = 0; i < size; i++)
 		{
 			if(commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"Code").get(i).toString().contains(FacilityPlanCodeOnUI.get(0)))
@@ -689,8 +649,6 @@ public class CoveragePage extends BasePage{
 	{
 		FacilityPlanCodeInOthers = commonMethodsRef.getTableColValue(OtherCoverageRow,OtherCoverageHeader,"Code");
 		boolean flag = false;
-		System.out.println(FacilityPlanCodeOnUI.get(0));
-		System.out.println(FacilityPlanCodeOnUI.get(0).toString());
 		for(int i = 0 ; i < FacilityPlanCodeInOthers.size() ; i++)
 		{
 			if(FacilityPlanCodeInOthers.get(i).toString().contains(FacilityPlanCodeOnUI.get(0).toString()))
@@ -709,7 +667,6 @@ public class CoveragePage extends BasePage{
 	{
 		FacilityPlanCodeOnUI = commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"Code");
 		boolean flag = false;
-		System.out.println(FacilityPlanCodeInOthers.get(0));
 		for(int i = 0;i<FacilityPlanCodeOnUI.size();i++)
 		{
 			if(FacilityPlanCodeOnUI.get(i).toString().contains(FacilityPlanCodeInOthers.get(0).toString()))
@@ -761,7 +718,6 @@ public class CoveragePage extends BasePage{
 		typeInto(EditGrpTxtBox,grpnum);
 		clickOn(EditSubScribTxtBox);
 		waitForWithRefresh();
-		//Thread.sleep(5000);
 		typeInto(EditSubScribTxtBox,subnum);
 	}
 
@@ -784,9 +740,7 @@ public class CoveragePage extends BasePage{
 	{
 		boolean flag = false;
 		payorGroupCodeUI = commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"Group").get(0).toString();
-		System.out.println(payorGroupCodeUI);
 		subscriberCodeUI = commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"Subscriber").get(0).toString();
-		System.out.println(subscriberCodeUI);
 		if(payorGroupCodeUI.contains(grpnum))
 			if(subscriberCodeUI.contains(subnum))
 				flag = true;
@@ -871,7 +825,6 @@ public class CoveragePage extends BasePage{
 	public void getResidualBal()
 	{
 		estAmount = TtlEstmdAmntTxtBox.getAttribute("value").toString().replaceAll("$", "").trim();
-		System.out.println(estAmount);
 	}
 	
 	public void clickArrow()
@@ -881,8 +834,6 @@ public class CoveragePage extends BasePage{
 	
 	public void verifyResidualBal()
 	{
-		System.out.println(estAmount);
-		System.out.println(TtlEstmdAmntTxtBox.getAttribute("value").toString().replaceAll("$", "").trim());
 		Assert.assertFalse(TtlEstmdAmntTxtBox.getAttribute("value").toString().replaceAll("$", "").trim().equalsIgnoreCase(estAmount));
 	}
 	
@@ -898,38 +849,32 @@ public class CoveragePage extends BasePage{
 	
 	public void verifyEligPanelNotVisible()
 	{
-		System.out.println(eligibilityResPanel.size());
 		Assert.assertTrue("Eligibility result panel is visible for account whose eligibility has never been run previously", eligibilityResPanel.size() == 0);
 	}
 	
 	public void clickUnlimitedCheckBox()
 	{
-		System.out.println(unLimChkBox.isSelected());
 		if(!(unLimChkBox.isSelected()))
 		clickOn(unLimChkBox);
 	}
 	
 	public void verifyLimitTxtBoxVal(String text)
 	{
-		System.out.println(unLimTxtboxVal.getAttribute("value"));
 		Assert.assertTrue("Limit($) textbox does not contain unlimited text after clicking on unlimited checkbox", unLimTxtboxVal.getAttribute("value").contains(text));
 	}
 	
 	public void verifyLimitTxtBoxDisable()
 	{
-		System.out.println(unLimTxtboxVal.isEnabled());
 		Assert.assertFalse("Limit($) textbox is not disabled", unLimTxtboxVal.isEnabled());
 	}
 	
 	public void editPayorName()
 	{
 		payorPlanNameUI = planName.getText();
-		System.out.println(payorPlanNameUI);
 		clickOn(changePlanNameBtn);
 		int rndNum = generateRandomNum(planNameDropDown.getSelectOptions().size());
 		planNameDropDown.selectByIndex(rndNum);
 		payorPlanNameUI =planNameDropDown.getSelectedVisibleTextValue().toString().trim();
-		System.out.println(payorPlanNameUI);
 	}
 	
 	public void editInsVal(DataTable dt)
@@ -948,7 +893,6 @@ public class CoveragePage extends BasePage{
 	
 	public void verifyUpdatedInsFieldVal(DataTable dt)
 	{
-		System.out.println(commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"Plan").get(0));
 		Assert.assertTrue(payorPlanNameUI.contains(commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"Plan").get(0).toString()));
 		payorPlanNameUI = commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"Plan").get(0).toString().trim();
 		List<Map<String,String>> fieldVal = dt.asMaps(String.class, String.class);
@@ -961,7 +905,6 @@ public class CoveragePage extends BasePage{
 	public void fetchEditedColValue() throws ClassNotFoundException, SQLException, IOException
 	{
 		String ID = Encounter_ID.get(randomNum);
-		System.out.println(ID);
 		CoverageSteps.getEditedColumnValue(ID);
 	}
 	
@@ -978,7 +921,6 @@ public class CoveragePage extends BasePage{
 	public void verifyControlNum()
 	{
 		controlNum = cntrlNum.getText();
-		System.out.println(controlNum);
 		Assert.assertTrue("control number is not visible", cntrlNum.isVisible());
 	}
 	
@@ -994,7 +936,6 @@ public class CoveragePage extends BasePage{
 	
 	public void verifyCntrllNumInLog()
 	{
-		System.out.println(controlNum);
 		Assert.assertTrue(eligLogCntrlNum.getText().contains(controlNum));
 	}
 	
