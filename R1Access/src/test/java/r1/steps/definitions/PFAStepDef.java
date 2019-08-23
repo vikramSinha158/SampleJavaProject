@@ -434,7 +434,6 @@ public class PFAStepDef extends BasePage {
 
 	@When("^user select the value Account operator = from filter dropdown and enter encounter id in text box and click filter$")
 	public void user_select_the_value_Account_operator_from_filter_dropdown_and_enter_encounter_id_in_text_box() {
-		System.out.println(visitNo);
 		r1AccessCommonMethods.ddlWorkListFilter("Account", "=", visitNo);
 	}
 
