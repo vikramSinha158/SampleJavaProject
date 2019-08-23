@@ -44,11 +44,14 @@ public class R1NeccessityPage extends BasePage{
 	@FindBy(xpath = "//td[@class='PanelTitle']//tr//input[contains(@id,'txt')]")
 	private List<WebElementFacade> searchedAccountTextBox;
 	
-	@FindBy(xpath = "//div[@align='left'][contains(@id,'M_dnn')]/div[2]/div[not(contains(@id,'M_dnn'))]")
+	@FindBy(xpath = "//div[@align='left'][contains(@id,'M_dnn')]/div[2]/div[not(contains(@id,'M_dnn'))]//span[@igtxt='1']")
 	private List<WebElementFacade> filtersMainMenu;
 	
 	@FindBy(xpath = "//table[@class='worklistTable']//tr")
 	private List<WebElementFacade> necessityRequiredAccounts;
+	
+	@FindBy(xpath = "//span[contains(@id,'lblEncounterNum')]")
+	private WebElementFacade patientVisit;
 	
 	@FindBy(xpath = "//table[contains(@id,'grdHCPCSearchResults')]//table//tr[last()]//td[3]")
 	private List<WebElementFacade> serviceGridAmount;
@@ -240,7 +243,7 @@ public class R1NeccessityPage extends BasePage{
 	}
 	
 	public void verifyAccountsDisplayed() {
-		Assert.assertTrue("There is no accounts for Necessity Required",necessityRequiredAccounts.size()>1);
+		Assert.assertTrue("There is no accounts in the worklist",necessityRequiredAccounts.size()>1);
 	}
 	
 	public void searchService(String serviceText) {
@@ -350,7 +353,6 @@ public class R1NeccessityPage extends BasePage{
 	}
 	
 	public void verifyExceptions(DataTable exceptions) {
-	@SuppressWarnings("unused")
 	List<List<String>> exceptionList = exceptions.raw();
 	for(int i=0;i<2;i++) {
 		 if(exceptionsPanel.getText().contains(exceptionList.get(i).get(0)) && exceptionsPanel.getText().contains(exceptionList.get(i).get(1))) {
@@ -429,4 +431,12 @@ public class R1NeccessityPage extends BasePage{
 	public void patientTypeDemographic() {
 		Assert.assertEquals("Patient Type is not matching", "O", patientTypeDemographic.getText());
 	}
+	
+	public void verifySearchedVisitNumber(String visit) {
+		Assert.assertEquals("Searched visit number is not matching", visit,patientVisit.getText());
+	}
+	
+	
+	
+	
 }

@@ -8,15 +8,37 @@ import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.pages.*;
 import net.thucydides.core.util.*;
 import r1.commons.BasePage;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
 
-public class CommonMethods extends BasePage {
+public class CommonMethods{
 
 	public static void DrpVisibleTxt(WebElementFacade we, String s) {
 		Select drp = new Select(we);
 		drp.selectByVisibleText(s);
+	}
+	
+	public static String selectRandomList(WebElementFacade element) {
+		 Select selectDropdown = new Select(element);
+	     List<WebElement> listOptionDropdown = selectDropdown.getOptions();
+	     int random = (int)(Math.random() * listOptionDropdown.size()-1)+1;
+	     selectDropdown.selectByIndex(random);
+	     return selectDropdown.getFirstSelectedOption().getText();
+	}
+	
+	public static String selectListWithContains(WebElementFacade element, String text) {
+		Select selectDropdown = new Select(element);
+	     List<WebElement> listOptionDropdown = selectDropdown.getOptions();
+	     for(int i=0;i<listOptionDropdown.size();i++) {
+	    	 if(listOptionDropdown.get(i).getText().contains(text)) {
+	    		 selectDropdown.selectByIndex(i);
+	    	 }
+	     }
+	     return selectDropdown.getFirstSelectedOption().getText();
 	}
 	
 	public static int dropDownSize(WebElementFacade list) {
@@ -137,6 +159,12 @@ public class CommonMethods extends BasePage {
 	public static int GetRandom(int all) {
 		Random rnd = new Random();
 		return rnd.nextInt(all);
+	}
+	
+	public static String queryProperties(String input) throws FileNotFoundException, IOException {
+		 Properties prop = new Properties();
+		 prop.load(new FileInputStream("src/test/resources/TestData/Query.properties"));
+		 return prop.getProperty(input);
 	}
 	
 }

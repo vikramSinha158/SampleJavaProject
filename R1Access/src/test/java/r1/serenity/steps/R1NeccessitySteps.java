@@ -13,7 +13,7 @@ import r1.commons.databaseconnection.DatabaseConn;
 import r1.commons.databaseconnection.QueryConstants;
 import r1.commons.utilities.CommonMethods;
 
-public class R1NeccessitySteps extends BasePage{
+public class R1NeccessitySteps{
 
 	@Step
 	public String searchEncounterID(String column) throws IOException, ClassNotFoundException, SQLException{
@@ -40,7 +40,7 @@ public class R1NeccessitySteps extends BasePage{
 	public String getUserDisplayName() throws IOException, ClassNotFoundException, SQLException{
 		DatabaseConn.serverConn(CommonMethods.LoadProperties("bindServer"),"Accretive", QueryConstants.queryUserDisplayName(CommonMethods.LoadProperties("username")));
 		DatabaseConn.resultSet.next();
-		return DatabaseConn.resultSet.getString("DisplayName");
+		return DatabaseConn.resultSet.getString("FirstName");
 	}
 	
 	@Step

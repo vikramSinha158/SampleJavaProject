@@ -1,5 +1,6 @@
 package r1.steps.definitions;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -13,6 +14,7 @@ import r1.pages.UserLogin;
 import r1.serenity.steps.NotesSteps;
 import r1.commons.BasePage;
 import r1.commons.databaseconnection.QueryConstants;
+import r1.commons.utilities.CommonMethods;
 
 public class NotesStepDef extends BasePage {
 
@@ -22,10 +24,15 @@ public class NotesStepDef extends BasePage {
 	NotesSteps noteSteps;
 
 	@Given("^user is on R1 hub page$")
-	public void user_is_on_hub_page() throws IOException {
+	public void user_is_on_R1_hub_page() throws IOException {
 		OpenBrowser();
 		userLogin.EnterCredentials();
 		userLogin.ClickLoginButton();
+	}
+	
+	@Given("^user is on hub page$")
+	public void user_is_on_hub_page() throws IOException {
+		navigation.clickR1Logo();
 	}
 
 	@When("^user clicks on facility list$")
@@ -34,12 +41,12 @@ public class NotesStepDef extends BasePage {
 	}
 
 	@And("^user select the facility \"([^\"]*)\"$")
-	public void user_select_the_facility(String facility) {
+	public void user_select_the_facility(String facility) throws IOException {
 		navigation.selectFacility(facility);
 	}
 
-	@And("^user clicks on \"([^\"]*)\" link$")
-	public void user_clicks_on_link(String menu) {
+	@And("^user clicks on \"([^\"]*)\" menu$")
+	public void user_clicks_on_menu(String menu) {
 		navigation.clickMenu(menu);
 	}
 
@@ -115,10 +122,10 @@ public class NotesStepDef extends BasePage {
 		notesPage.verifyPopup(note);
 	}
 	
-	@Then("^user run the query and fetch the \"([^\"]*)\" and verify with ui$")
+	/*@Then("^user run the query and fetch the \"([^\"]*)\" and verify with ui$")
 	public void user_run_the_query_and_fetch_the_and_verify_with_ui(String note) throws IOException, ClassNotFoundException, SQLException, InterruptedException {
 		notesPage.verifyNoteDB(note);
-	}
+	}*/
 	
 	@And("^user clicks on the Cancel button$")
 	public void user_clicks_on_the_Cancel_button() {
@@ -130,6 +137,14 @@ public class NotesStepDef extends BasePage {
 		notesPage.verifyCancelNote(cancelNote);
 	}
 	
+	@When("^user runs the query \"([^\"]*)\"$")
+	public void user_runs_the_query(String query) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		notesPage.runQuery(query);
+	}
 	
+	@Then("^user verify the database column \"([^\"]*)\" with UI$")
+	public void user_verify_the_database_with_ui(String column) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		notesPage.verifyNoteDB(column);
+	}
 	
 }

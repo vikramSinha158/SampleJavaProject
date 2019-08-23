@@ -599,12 +599,16 @@ public class R1AccessCommonMethods extends BasePage {
 
 		String itemxpath = "//*[contains(text(),'" + item + "')]//..//*[contains(@imgtype , 'exp')]";
 		WebElementFacade mainItem = element(By.xpath(itemxpath));
-		Thread.sleep(1000);
+		Thread.sleep(5000);
 		withAction().moveToElement(mainItem).click().build().perform();
-		Thread.sleep(1000);
-		String subItemxpath = itemxpath + "//..//..//following-sibling::div//*[contains(text() , '" + subItem + "')]";
+		Thread.sleep(5000);
+		String subItemxpath = itemxpath + "//..//..//following-sibling::div//*[text()= '" + subItem + "']";
 		WebElementFacade mainSubItem = element(By.xpath(subItemxpath));
 		withAction().moveToElement(mainSubItem).click().build().perform();
+		Thread.sleep(5000);
+		WebElementFacade mainItem1 = element(By.xpath(itemxpath));
+		withAction().moveToElement(mainItem1).click().build().perform();
+		
 	}
 
 	/*

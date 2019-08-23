@@ -2,6 +2,7 @@ package r1.pages;
 
 
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -11,6 +12,8 @@ import org.junit.Assert;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
+import r1.commons.databaseconnection.DatabaseConn;
+import r1.commons.databaseconnection.QueryExecutor;
 import r1.commons.utilities.CommonMethods;
 import r1.commons.utilities.CommonMethods.common;
 import r1.serenity.steps.NotesSteps;
@@ -89,7 +92,7 @@ public class NotesPage extends BasePage {
 	
 	public void clickAccountDetailMenuLink(String menuName) {
 		for(int i=0;i<accountDetailMenuLinks.size();i++) {
-			if(accountDetailMenuLinks.get(i).getText().contains(menuName)) {
+			if(accountDetailMenuLinks.get(i).getText().equals(menuName) || accountDetailMenuLinks.get(i).getText().equalsIgnoreCase(menuName)) {
 				withAction().moveToElement(accountDetailMenuLinks.get(i)).click().build().perform();
 				break;
 			}
@@ -161,8 +164,18 @@ public class NotesPage extends BasePage {
 		Assert.assertFalse("Note is matching", noteText.getText().contains(text));
 	}
 	
-	public void verifyNoteDB(String column) throws ClassNotFoundException, IOException, SQLException, InterruptedException {
+	/*public void verifyNoteDB(String column) throws ClassNotFoundException, IOException, SQLException, InterruptedException {
 		Assert.assertTrue("Note is not matching with database",noteText.getText().contains(NotesSteps.verifyNewCreatedScope(encounterID.getText(), column)));
+	}*/
+	
+	public void runQuery(String queryName) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		QueryExecutor.runQueryTranParam(queryName,encounterID.getText());
+	}
+	
+	public void verifyNoteDB(String col) throws SQLException{
+		while(DatabaseConn.resultSet.next()) {
+			Assert.assertTrue("Note is not matching with database",noteText.getText().contains(DatabaseConn.resultSet.getString(col)));
+		}
 	}
 	
 	public void verifyWorkListTitle(String worklist) {

@@ -4,8 +4,8 @@ Feature: Verify the workflow of Notes tab
     Given user is on R1 hub page
     When user clicks on facility list
     And user select the facility "SJMA - St. John Macomb-Oakland Hospital"
-    And user clicks on "Patient Access" link
-    And user clicks on "Pre-Registration" link
+    And user clicks on "Patient Access" menu
+    And user clicks on "Pre-Registration" menu
     Then user is on "Pre-Registration" page
     Then user should be able to view Filters in left panel
     And user should be able to view labels NEW,TASK,COLUMNS,SEARCH,EXPORT,SAVE LIST and CONFIG
@@ -26,7 +26,7 @@ Feature: Verify the workflow of Notes tab
   Scenario: Verification of Print ABN English and Print ABN Spanish button functionality
     Given user is on account detail page
     When user clicks on the "Necessity Required" filter
-    Then user should be able to view accounts displayed on the Necessity Required worklist
+    Then user should be able to view records
     When user clicks on any record on the worklist
     And user clicks on the "Services" tab
     And user clicks on "Check Out" button

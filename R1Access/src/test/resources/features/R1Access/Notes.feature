@@ -4,8 +4,8 @@ Feature: Verify the workflow of Notes tab
     Given user is on R1 hub page
     When user clicks on facility list
     And user select the facility "SJMA - St. John Macomb-Oakland Hospital"
-    And user clicks on "Patient Access" link
-    And user clicks on "Pre-Registration" link
+    And user clicks on "Patient Access" menu
+    And user clicks on "Pre-Registration" menu
     Then user should be able to view the "Pre-Registration" label on worklist page
     Then user clicks on any record on the worklist
     
@@ -43,7 +43,7 @@ Feature: Verify the workflow of Notes tab
     Then user should be able to view blank note with date and time stamped 
     
     @406413 @Notes
-    Scenario: Verification of Notes functionality for Note, PatientID and Prescription drop down menu with alphanumeric and special characters and cancel functionality
+    Scenario Outline: Verification of Notes functionality for Note, PatientID and Prescription drop down menu with alphanumeric and special characters and cancel functionality
     Given: user is on account detail page
     When user clicks on the "Notes" tab
     And user clicks on the green + icon
@@ -51,7 +51,9 @@ Feature: Verify the workflow of Notes tab
     And user enters text "Note123Test" into Note text box
     And user clicks on the Add button
     Then user should be able to view note "Note123Test" with date and time stamped
-    Then user run the query and fetch the "Note" and verify with ui
+    #Then user run the query and fetch the "Note" and verify with ui
+    When user runs the query "<query>"
+    Then user verify the database column "<column>" with UI
     When user clicks on the "Notes" tab
     And user clicks on the green + icon
     And user select "Patient ID" menu from drop down
@@ -72,4 +74,8 @@ Feature: Verify the workflow of Notes tab
     And user enters text "NoteTest" into Note text box
     And user clicks on the Cancel button
     Then user should not able to view added note "NoteTest"
+    
+    Examples:
+    |query| column |
+    |queryNote| Note |
   
