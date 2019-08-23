@@ -24,8 +24,11 @@ public class PFAPage extends BasePage {
 	R1AccessCommonMethods commonMethodsR1Access;
 	PFASteps pfaSteps;
 	ArrayList<String> getColValue, getVerifiedColValue;
-	String selPlanCode, payorCode;
+	String selPlanCode, payorCode, visitNo;
 	int count;
+	String ansCodeValue, followUpDate;
+	QueryConstantPFA queryConstantPFA;
+	R1AccessCommonMethods r1Common;
 
 	@FindBy(xpath = "//span[contains(text(),'Unworked')]")
 	private WebElementFacade filterUnworked;
@@ -65,16 +68,10 @@ public class PFAPage extends BasePage {
 
 	public String coveragePlanCodeRow = "//table[contains(@id,'_grdCoverageSelected')]//tr";
 	public String coveragePlanCodeRowHeader = "//table[contains(@id,'_grdCoverageSelected')]//tr[1]/td";
-/*
-	public String ScreenQuesAns1 = "//table[contains(@id,'_grdScreeningQuestions')]//tr[";
-	public String ScreenQuesAns2 = "]//tr[2]/td[2]/table//input";
-*/
-/*	@FindBy(xpath = "//table[contains(@id,'_grdScreeningQuestions')]//tr[contains(@valign,'top')]")
-	private List<WebElementFacade> totalQuestions;
-*/
+
 	@FindBy(xpath = "//input[contains(@id,'_Task826_btnSave')]")
 	private WebElementFacade btnSaveAndContinue;
-	
+
 	@FindBy(xpath = "//input[contains(@id,'_btnClearAnswers')]")
 	private WebElementFacade btnClearAnswers;
 
@@ -101,18 +98,202 @@ public class PFAPage extends BasePage {
 
 	@FindBy(xpath = "//table[contains(@id,'_rblYesNo_11')]//tr//input")
 	private List<WebElementFacade> veteranRadioBtn;
-	
+
 	@FindBy(xpath = "//table[contains(@id,'_grdScreeningQuestions')]//input[contains(@type,'radio')]")
 	private List<WebElementFacade> listRadioButtons;
-	
+
 	@FindBy(xpath = "//span[contains(@class , 'clsUnCoOperative' )]//input")
-	private List<WebElementFacade> screeningQuestionnaireStatus; 
-	
+	private List<WebElementFacade> screeningQuestionnaireStatus;
+
 	@FindBy(xpath = "//span[contains(@class , 'clsUnCoOperative' )]//label")
 	private List<WebElementFacade> screeningQuestionnaireStatusLabel;
-	
+
 	@FindBy(xpath = "//table[contains(@id , 'grdScreeningQuestions' )]//input")
 	private List<WebElementFacade> screeningAnsInputs;
+
+	@FindBy(xpath = "//input[contains(@id , '_chkActions_0')]")
+	private List<WebElementFacade> chkAction;
+
+	@FindBy(xpath = "//span[contains(text() , 'Action successfully updated')]")
+	private WebElementFacade actionUpdateMsg;
+
+	@FindBy(xpath = "//input[contains(@id , '_btnSave_0')]")
+	private WebElementFacade clickSaveActionItem;
+
+	@FindBy(xpath = "//input[contains(@id , '0_txtfollowupdate_0')]")
+	private WebElementFacade txtFollowUpDate;
+
+	@FindBy(xpath = "//input[contains(@id , 'txtQuestionCode')]")
+	private WebElementFacade inputQuesCode;
+
+	@FindBy(xpath = "//textarea[contains(@id , 'txtQuestion')]")
+	private WebElementFacade inputQues;
+
+	@FindBy(xpath = "//input[contains(@id , 'chkActive')]")
+	private WebElementFacade isActiveQuestionChkbox;
+
+	@FindBy(xpath = "//input[contains(@id , 'btnAdd')]")
+	private WebElementFacade addBtn;
+
+	@FindBy(xpath = "//span[contains(@id , 'lblQuestionError')]")
+	private WebElementFacade quesAddedLbl;
+
+	@FindBy(xpath = "//input[contains(@id , 'btnAddNewAnswer')]")
+	private WebElementFacade newAnsBtn;
+
+	@FindBy(xpath = "//input[contains(@id , 'txtAnswerCode')]")
+	private WebElementFacade ansCodeTxtBox;
+
+	@FindBy(xpath = "//textarea[contains(@id , 'txtAnswerText')]")
+	private WebElementFacade ansTxtBox;
+
+	@FindBy(xpath = "//input[contains(@id , 'btnCancelAddNewAnswers')]")
+	private WebElementFacade cancelAnsBtn;
+
+	@FindBy(xpath = "//input[contains(@id , 'btnAddNewAnswers')]")
+	private WebElementFacade addAnsBtn;
+
+	@FindBy(xpath = "//span[contains(@id , 'lblPFAAnswers')]")
+	private WebElementFacade lblPFAAns;
+
+	@FindBy(xpath = "//span[contains(@id , 'lblAnswerError')]")
+	private WebElementFacade lblAnsAdded;
+
+	@FindBy(xpath = "//input[contains(@id , 'btnAddQuestionAnswer')]")
+	private WebElementFacade linkAnsBtn;
+
+	@FindBy(xpath = "//input[contains(@id , 'btnCancelLinkAnswer')]")
+	private WebElementFacade cancelLinkAnsBtn;
+
+	@FindBy(xpath = "//select[contains(@id , 'ddlAnswerList' )]")
+	private WebElementFacade ansDropdwnList;
+
+	@FindBy(xpath = "//input[contains(@id , 'btnLinkAnswer' )]")
+	private WebElementFacade linkNewAnsBtn;
+
+	@FindBy(xpath = "//span[contains(@id , 'lblAnswerCode_0')]")
+	private WebElementFacade linkedAns;
+
+	@FindBy(xpath = "//span[contains(@id , 'lblLinkAnswerError')]")
+	private WebElementFacade ansAddedMsg;
+
+	@FindBy(xpath = "//input[contains(@id , 'btnUnlinkAnswer')]")
+	private WebElementFacade unlinkAnsBtn;
+
+	@FindBy(xpath = "//select[contains(@id , 'ddlUnlinkAnswerlist' )]")
+	private WebElementFacade unlinkAnsDropdown;
+
+	@FindBy(xpath = "//span[contains(@id , 'lblUnlinkAnswerError')]")
+	private WebElementFacade unlinkAnsSuccessMsg;
+
+	@FindBy(xpath = "//input[contains(@id , 'chkAnswerActive')]")
+	private WebElementFacade isActiveAns;
+
+	@FindBy(xpath = "//input[@value = 'Unlink Existing Answer']")
+	private WebElementFacade unlinkExistingAnsBtn;
+
+	@FindBy(xpath = "//span[contains(text() , 'Are you pregnant or is your ')]")
+	private WebElementFacade pregnancyQuestion;
+
+	@FindBy(xpath = "//span[contains(text(), 'Are you pregnant or is your upcoming visit pregnancy related')]//..//..//following-sibling::tr//input")
+	private List<WebElementFacade> pregnancyQuestionAns;
+
+	@FindBy(xpath = "//span[contains(text(), 'Are you pregnant or is your upcoming visit pregnancy related')]//..//..//following-sibling::tr//label")
+	private List<WebElementFacade> pregnancyQuestionAnsLabel;
+
+	@FindBy(xpath = "//span[@id = 'SpnOverride']")
+	private WebElementFacade overrideTab;
+
+	@FindBy(xpath = "//span[contains(@id ,'lblEncounterNum')]")
+	private WebElementFacade encounterId;
+
+	@FindBy(xpath = "//input[contains(@id , 'OverrideQuestionnaire1_txtFollowUpDate')]")
+	private WebElementFacade followUpDateTextbox;
+
+	@FindBy(xpath = "//div[contains(@id, 'OverrideQuestionnaire1_updOverride')]//div")
+	private List<WebElementFacade> followUpDateLabel;
+
+	@FindBy(xpath = "//img[contains(@id , 'OverrideQuestionnaire1_imgOverrideCalendar')]")
+	private WebElementFacade datePicker;
+
+	@FindBy(xpath = "//input[contains(@id , 'OverrideQuestionnaire1_btnSaveCWL')]")
+	private WebElementFacade saveCWLButton;
+
+	@FindBy(xpath = "//span[contains(@id, 'OverrideQuestionnaire1_lblCWLMessage')]")
+	private WebElementFacade errorCWLMessage;
+
+	@FindBy(xpath = "//select[contains(@id , 'ddlFundingSource')]")
+	private WebElementFacade fundingSourceDropdown;
+
+	@FindBy(xpath = "//select[contains(@id , 'ddlAction')]")
+	private WebElementFacade actionDropdown;
+
+	@FindBy(xpath = "//input[contains(@id , 'ChkConfirm')]")
+	private WebElementFacade confirmCheckBOx;
+
+	@FindBy(xpath = "//textarea[contains(@id , 'txtNote')]")
+	private WebElementFacade noteTextbox;
+
+	@FindBy(xpath = "//span[contains(text() , 'Record Added into CWL Successfully')]")
+	private WebElementFacade recordAddedLabel;
+
+	@FindBy(xpath = "//a[contains(text() , 'Auto Insurance')]")
+	private WebElementFacade fundingSourceonCWLWrklst;
+
+	@FindBy(xpath = "//li[contains(@id , 'tabsTask_trTab_0')]")
+	private WebElementFacade pfaTabColor;
+
+	@FindBy(xpath = "//*[contains(text(),'R1 Detect')]//..//*[contains(@imgtype , 'exp')]//..//..//following-sibling::div//*[contains(text() , 'Unworked')]")
+	private WebElementFacade unworkedSubFolder;
+
+	@FindBy(xpath = "//input[@value = 'Save & Continue']")
+	private WebElementFacade saveAndContBtn;
+
+	@FindBy(xpath = "//span[@class= 'tab-span-active']")
+	private WebElementFacade activeTabPFA;
+
+	@FindBy(xpath = "//span[contains(@id , 'lblFundingId')]")
+	private List<WebElementFacade> fundingSourcesScreeningNeeds;
+
+	@FindBy(xpath = "//table[contains(@id,'_grdScreeningQuestions')]//tr[contains(@valign,'top')]")
+	private List<WebElementFacade> totalQuestions;
+
+	public String ScreenQuesAns1 = "//table[contains(@id,'_grdScreeningQuestions')]//tr[";
+
+	public String ScreenQuesAns2 = "]//tr[2]/td[2]/table//input";
+
+	@FindBy(xpath = "//*[contains(text(),'R1 Detect')]//..//*[contains(@imgtype , 'exp')]//..//..//following-sibling::div//*[contains(text() , 'Self Pay L2')]")
+	private WebElementFacade selfPayL2SubFolder;
+
+	@FindBy(xpath = "//span[contains(@id , 'ScreeningNeeds')]")
+	private WebElementFacade screeningNeedsTab;
+
+	@FindBy(xpath = "//span[contains(@id , 'SpnActionItems')]")
+	private WebElementFacade actionItemsTab;
+
+	@FindBy(xpath = "//input[contains(@id , 'NOOFHOUSE_HOLDS')]")
+	private WebElementFacade enterPersonInHousehold;
+
+	@FindBy(xpath = "//input[contains(@id , 'rblEmploymentStatus_0')]")
+	private WebElementFacade fullTimeStatus;
+
+	@FindBy(xpath = "//input[contains(@id , 'btnSubmit')]")
+	private WebElementFacade submitAllFSBtn;
+
+	@FindBy(xpath = "//div[contains(@class, 'DataNeedsPassed')]//span")
+	private WebElementFacade commonDataNeedsPassed;
+
+	@FindBy(xpath = "//input[contains(@id , 'rblEmploymentStatus')]")
+	private List<WebElementFacade> patientEmploymentStatus;
+
+	@FindBy(xpath = "//label[contains(@for , 'rblEmploymentStatus')]")
+	private List<WebElementFacade> patientEmploymentStatusLabel;
+
+	@FindBy(xpath = "//span[contains(text(), 'Are you a resident of:')]//..//..//following-sibling::tr//input")
+	private List<WebElementFacade> residentQuestionAns;
+
+	@FindBy(xpath = "//span[contains(text(), 'Are you a resident of:')]//..//..//following-sibling::tr//label")
+	private List<WebElementFacade> residentQuestionAnsLabel;
 
 	/*********************************************************************************************************************************************************************************************/
 
@@ -147,11 +328,11 @@ public class PFAPage extends BasePage {
 	public void clickSaveAndContinue() {
 		clickOn(btnSaveAndContinue);
 	}
-	
+
 	public void clickClearAnswers() {
 		clickOn(btnClearAnswers);
 	}
-	
+
 	public void clickSearchButton() {
 		clickOn(accountSearchButton);
 	}
@@ -160,8 +341,6 @@ public class PFAPage extends BasePage {
 
 		Assert.assertEquals("Common Data Needs", common_Data_Needs.getText().toString());
 	}
-
-	
 
 	public void fetchPayorCode(String col) throws ClassNotFoundException, SQLException, IOException {
 		payorCode = pfaSteps.getPayorCode(col);
@@ -172,7 +351,6 @@ public class PFAPage extends BasePage {
 	}
 
 	public void verifyTabStatus(String status) {
-		System.out.println(commonMethodsR1Access.chkTabStatusIncompleteComplete());
 		Assert.assertTrue(commonMethodsR1Access.chkTabStatusIncompleteComplete().equals(status));
 	}
 
@@ -182,7 +360,6 @@ public class PFAPage extends BasePage {
 	}
 
 	public void verifyTabColorAndStatus(String moduleTab, String color) {
-		System.out.println(commonMethodsR1Access.checkTabColor(moduleTab));
 		Assert.assertTrue(commonMethodsR1Access.checkTabColor(moduleTab).equalsIgnoreCase(color));
 	}
 
@@ -209,15 +386,7 @@ public class PFAPage extends BasePage {
 			Assert.assertTrue(!veteranRadioBtn.get(i).isSelected());
 		}
 	}
-	
-/*	public void verifyScreeningQuestionsState() {
-		for (int i = 3; i < listRadioButtons.size(); i++) {
-			Assert.assertTrue(!listRadioButtons.get(i).isSelected());
-		}
-		
-	}
-	*/
-	
+
 	@SuppressWarnings("unchecked")
 	public void verifyPlanCodeCoverageTable(String status) {
 		getVerifiedColValue = commonMethodsR1Access.getTableColValue(coveragePlanCodeRow, coveragePlanCodeRowHeader,
@@ -229,654 +398,367 @@ public class PFAPage extends BasePage {
 
 	}
 
-	/*public void verifyScreeningQuestionTab() {
-		count = totalQuestions.size();
+	public void verifyScreeningQuestionTab() {
+		int count = totalQuestions.size();
 		for (int i = 0; i < count; i++) {
 			String Ques = ScreenQuesAns1 + (i + 2) + ScreenQuesAns2;
 			clickOn(element(By.xpath(Ques)));
 
 		}
+	}
+
+	public void checkActionBox() throws InterruptedException {
+
+		for (int i = 0; i < chkAction.size(); i++) {
+			if (!chkAction.get(4).isSelected()) {
+				Thread.sleep(6000);
+				clickOn(chkAction.get(i));
+
+			}
+		}
 
 	}
-	
-	*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
-	String ansCodeValue;
-	QueryConstantPFA queryConstantPFA;
-	R1AccessCommonMethods r1Common;
-	
-	@FindBy(xpath = "//input[contains(@id , 'txtQuestionCode')]")
-	private WebElementFacade inputQuesCode;
-	
-	@FindBy(xpath = "//textarea[contains(@id , 'txtQuestion')]")
-	private WebElementFacade inputQues;
-	
-	@FindBy(xpath = "//input[contains(@id , 'chkActive')]")
-	private WebElementFacade isActiveQuestionChkbox;
-	
-	@FindBy(xpath = "//input[contains(@id , 'btnAdd')]")
-	private WebElementFacade addBtn;
-	
-	@FindBy(xpath = "//span[contains(@id , 'lblQuestionError')]")
-	private WebElementFacade quesAddedLbl;
-	
-	@FindBy(xpath = "//input[contains(@id , 'btnAddNewAnswer')]")
-	private WebElementFacade newAnsBtn;
-	
-	@FindBy(xpath = "//input[contains(@id , 'txtAnswerCode')]")
-	private WebElementFacade ansCodeTxtBox;
-	
-	@FindBy(xpath = "//textarea[contains(@id , 'txtAnswerText')]")
-	private WebElementFacade ansTxtBox;
-	
-	@FindBy(xpath = "//input[contains(@id , 'btnCancelAddNewAnswers')]")
-	private WebElementFacade cancelAnsBtn;
-	
-	@FindBy(xpath = "//input[contains(@id , 'btnAddNewAnswers')]")
-	private WebElementFacade addAnsBtn;
-	
-	@FindBy(xpath = "//span[contains(@id , 'lblPFAAnswers')]")
-	private WebElementFacade lblPFAAns;
-	
-	@FindBy(xpath = "//span[contains(@id , 'lblAnswerError')]")
-	private WebElementFacade lblAnsAdded;
-	
-	@FindBy(xpath = "//input[contains(@id , 'btnAddQuestionAnswer')]")
-	private WebElementFacade linkAnsBtn;
-	
-	@FindBy(xpath = "//input[contains(@id , 'btnCancelLinkAnswer')]")
-	private WebElementFacade cancelLinkAnsBtn;
-	
-	@FindBy(xpath = "//select[contains(@id , 'ddlAnswerList' )]")
-	private WebElementFacade ansDropdwnList;
-	
-	@FindBy(xpath = "//input[contains(@id , 'btnLinkAnswer' )]")
-	private WebElementFacade linkNewAnsBtn;
-	
-	@FindBy(xpath = "//span[contains(@id , 'lblAnswerCode_0')]")
-	private WebElementFacade linkedAns;
-	
-	@FindBy(xpath = "//span[contains(@id , 'lblLinkAnswerError')]")
-	private WebElementFacade ansAddedMsg;
-	
-	@FindBy(xpath = "//input[contains(@id , 'btnUnlinkAnswer')]")
-	private WebElementFacade unlinkAnsBtn;
-	
-	@FindBy(xpath = "//select[contains(@id , 'ddlUnlinkAnswerlist' )]")
-	private WebElementFacade unlinkAnsDropdown;
-	
-	@FindBy(xpath = "//span[contains(@id , 'lblUnlinkAnswerError')]")
-	private WebElementFacade unlinkAnsSuccessMsg;
-	
-	@FindBy(xpath = "//input[contains(@id , 'chkAnswerActive')]")
-	private WebElementFacade isActiveAns;
-	
-	@FindBy(xpath = "//input[@value = 'Unlink Existing Answer']")
-	private WebElementFacade unlinkExistingAnsBtn;
-	
-	@FindBy(xpath = "//span[contains(text() , 'Are you pregnant or is your ')]")
-	private WebElementFacade pregnancyQuestion;
-	
-	@FindBy(xpath = "//span[contains(text(), 'Are you pregnant or is your upcoming visit pregnancy related')]//..//..//following-sibling::tr//input")
-	private List<WebElementFacade> pregnancyQuestionAns;
-	
-	@FindBy(xpath = "//span[contains(text(), 'Are you pregnant or is your upcoming visit pregnancy related')]//..//..//following-sibling::tr//label")
-	private List<WebElementFacade> pregnancyQuestionAnsLabel;
-	
-	@FindBy(xpath = "//span[@id = 'SpnOverride']")
-	private WebElementFacade overrideTab;
+	public void getFollowUpDate() {
+		Assert.assertTrue(!txtFollowUpDate.getText().equals(null));
+		followUpDate = txtFollowUpDate.getText();
 
-	@FindBy(xpath = "//span[contains(@id ,'lblEncounterNum')]")
-	private WebElementFacade encounterId;
-	
-	@FindBy(xpath ="//input[contains(@id , 'OverrideQuestionnaire1_txtFollowUpDate')]")
-	private WebElementFacade followUpDateTextbox;
+	}
 
-	@FindBy(xpath ="//div[contains(@id, 'OverrideQuestionnaire1_updOverride')]//div")
-	private List<WebElementFacade> followUpDateLabel;
+	public void clickSaveActionItems() {
+		clickOn(clickSaveActionItem);
+	}
 
-	@FindBy(xpath = "//img[contains(@id , 'OverrideQuestionnaire1_imgOverrideCalendar')]")
-	private WebElementFacade datePicker;
-	
-	@FindBy(xpath = "//input[contains(@id , 'OverrideQuestionnaire1_btnSaveCWL')]")
-	private WebElementFacade saveCWLButton;
-	
-	@FindBy(xpath = "//span[contains(@id, 'OverrideQuestionnaire1_lblCWLMessage')]")
-	private WebElementFacade errorCWLMessage;
-	
-	@FindBy(xpath = "//select[contains(@id , 'ddlFundingSource')]")
-	private WebElementFacade fundingSourceDropdown;
-	
-	@FindBy(xpath = "//select[contains(@id , 'ddlAction')]")
-	private WebElementFacade actionDropdown;
-	
-	@FindBy(xpath = "//input[contains(@id , 'ChkConfirm')]")
-	private WebElementFacade confirmCheckBOx;
-	
-	@FindBy(xpath = "//textarea[contains(@id , 'txtNote')]")
-	private WebElementFacade noteTextbox;
-	
-	@FindBy(xpath = "//span[contains(text() , 'Record Added into CWL Successfully')]")
-	private WebElementFacade recordAddedLabel;
-	
-	@FindBy(xpath = "//a[contains(text() , 'Auto Insurance')]")
-	private WebElementFacade fundingSourceonCWLWrklst;
-	
-	@FindBy(xpath = "//li[contains(@id , 'tabsTask_trTab_0')]")
-	private WebElementFacade pfaTabColor;
-	
-	@FindBy(xpath = "//*[contains(text(),'R1 Detect')]//..//*[contains(@imgtype , 'exp')]//..//..//following-sibling::div//*[contains(text() , 'Unworked')]")
-	private WebElementFacade unworkedSubFolder;
-	
-	@FindBy(xpath = "//input[@value = 'Save & Continue']")
-	private WebElementFacade saveAndContBtn;
-	
-	@FindBy(xpath = "//span[@class= 'tab-span-active']")
-	private WebElementFacade activeTabPFA;
-	
-	@FindBy(xpath = "//span[contains(@id , 'lblFundingId')]")
-	private List<WebElementFacade> fundingSourcesScreeningNeeds;
-	
-	@FindBy(xpath = "//table[contains(@id,'_grdScreeningQuestions')]//tr[contains(@valign,'top')]")
-	private List<WebElementFacade> totalQuestions; 
-	
-	public String ScreenQuesAns1 = "//table[contains(@id,'_grdScreeningQuestions')]//tr[";
-	
-	public String ScreenQuesAns2 = "]//tr[2]/td[2]/table//input";
-	
-	@FindBy(xpath = "//*[contains(text(),'R1 Detect')]//..//*[contains(@imgtype , 'exp')]//..//..//following-sibling::div//*[contains(text() , 'Self Pay L2')]")
-	private WebElementFacade selfPayL2SubFolder;
-	
-	@FindBy(xpath = "//span[contains(@id , 'ScreeningNeeds')]")
-	private WebElementFacade screeningNeedsTab;
-	
-	@FindBy(xpath = "//input[contains(@id , 'NOOFHOUSE_HOLDS')]")
-	private WebElementFacade enterPersonInHousehold;
-	
-	@FindBy(xpath = "//input[contains(@id , 'rblEmploymentStatus_0')]")
-	private WebElementFacade fullTimeStatus;
-	
-	@FindBy(xpath = "//input[contains(@id , 'btnSubmit')]")
-	private WebElementFacade submitAllFSBtn;
-	
-	@FindBy(xpath = "//div[contains(@class, 'DataNeedsPassed')]//span")
-	private WebElementFacade commonDataNeedsPassed;
-	
-	@FindBy(xpath = "//input[contains(@id , 'rblEmploymentStatus')]")
-	private List<WebElementFacade> patientEmploymentStatus;
-	
-	@FindBy(xpath = "//label[contains(@for , 'rblEmploymentStatus')]")
-	private List<WebElementFacade> patientEmploymentStatusLabel;
-	
-	@FindBy(xpath = "//span[contains(text(), 'Are you a resident of:')]//..//..//following-sibling::tr//input")
-	private List<WebElementFacade> residentQuestionAns;
-	
-	@FindBy(xpath = "//span[contains(text(), 'Are you a resident of:')]//..//..//following-sibling::tr//label")
-	private List<WebElementFacade> residentQuestionAnsLabel;
-	
-	String visitNo;
-	
-	public void inputPFAQues(String code , String question)
-	{
+	public void verifyUpdateActionMessage(String message) {
+		Assert.assertEquals(message, actionUpdateMsg.getText().toString());
+
+	}
+
+	public void inputPFAQues(String code, String question) {
 		typeInto(inputQuesCode, code);
 		typeInto(inputQues, question);
 	}
-	
-	public void clickIsActiveQuesChkbox()
-	{
+
+	public void clickIsActiveQuesChkbox() {
 		clickOn(isActiveQuestionChkbox);
 	}
-	
-	public void clickIsActiveAnsChkbox()
-	{
+
+	public void clickIsActiveAnsChkbox() {
 		clickOn(isActiveAns);
 	}
-	
-	public void addQuestion()
-	{
+
+	public void addQuestion() {
 		clickOn(addBtn);
 	}
-	
-	public void verifyQuesAddedLabel(String msg)
-	{
+
+	public void verifyQuesAddedLabel(String msg) {
 		Assert.assertTrue(quesAddedLbl.getText().equalsIgnoreCase(msg));
 	}
-	
-	public void clickNewAns()
-	{
+
+	public void clickNewAns() {
 		clickOn(newAnsBtn);
 	}
-	
-	public void inputAns(String ansCode , String ansText)
-	{
+
+	public void inputAns(String ansCode, String ansText) {
 		typeInto(ansCodeTxtBox, ansCode);
 		typeInto(ansTxtBox, ansText);
 		ansCodeValue = ansCode;
 	}
-	
-	public void clickcancelAns()
-	{
+
+	public void clickcancelAns() {
 		clickOn(cancelAnsBtn);
 	}
-	
-	public void clickAddAns()
-	{
+
+	public void clickAddAns() {
 		clickOn(addAnsBtn);
 	}
-	
-	public void verifyPFAAnsPanel()
-	{
+
+	public void verifyPFAAnsPanel() {
 		Assert.assertTrue(!lblPFAAns.isVisible());
 	}
-	
-	public void verifyAnsLabelAdded(String info)
-	{
+
+	public void verifyAnsLabelAdded(String info) {
 		Assert.assertTrue(lblAnsAdded.getText().equalsIgnoreCase(info));
 	}
-	
-	public void clickLinkAns()
-	{
+
+	public void clickLinkAns() {
 		clickOn(linkAnsBtn);
 	}
-	
-	public void clickCancelLinkAns()
-	{
+
+	public void clickCancelLinkAns() {
 		clickOn(cancelLinkAnsBtn);
 	}
-	
-	public void verifyFieldsNotVisible()
-	{
+
+	public void verifyFieldsNotVisible() {
 		Assert.assertTrue(!linkNewAnsBtn.isVisible());
 		Assert.assertTrue(!cancelLinkAnsBtn.isVisible());
 		Assert.assertTrue(!ansDropdwnList.isVisible());
 	}
-	
-	public void selectCreatedAns()
-	{
+
+	public void selectCreatedAns() {
 		selectFromDropdown(ansDropdwnList, ansCodeValue);
 	}
-	
-	public void clickLinkNewAns()
-	{
+
+	public void clickLinkNewAns() {
 		clickOn(linkNewAnsBtn);
 	}
-	
-	public void verifyAnsAdded()
-	{
+
+	public void verifyAnsAdded() {
 		Assert.assertTrue(linkedAns.getText().equals(ansCodeValue));
 	}
-	
-	public void verifyAnsAddedMessage(String messg)
-	{
+
+	public void verifyAnsAddedMessage(String messg) {
 		ansAddedMsg.getText().equalsIgnoreCase(messg);
 	}
-	
-	public void clickUnlinkAns()
-	{
+
+	public void clickUnlinkAns() {
 		clickOn(unlinkAnsBtn);
 	}
-	
-	public void selectAnstoUnlink()
-	{
+
+	public void selectAnstoUnlink() {
 		selectFromDropdown(unlinkAnsDropdown, ansCodeValue);
 	}
-	
-	public void clickUnlinkExistingAns()
-	{
+
+	public void clickUnlinkExistingAns() {
 		clickOn(unlinkExistingAnsBtn);
 	}
-	
-	public void verifyAnsUnlinked(String mesg)
-	{
+
+	public void verifyAnsUnlinked(String mesg) {
 		Assert.assertTrue(unlinkAnsSuccessMsg.getText().equalsIgnoreCase(mesg));
 	}
-	
-	public void verifyAnsRemoved()
-	{
+
+	public void verifyAnsRemoved() {
 		Assert.assertTrue(!linkedAns.isVisible());
 	}
-	
-	public String getEncounterIdFor_PFA_419028_SQL10() throws ClassNotFoundException, IOException, SQLException
-	{
+
+	public String getEncounterIdFor_PFA_419028_SQL10() throws ClassNotFoundException, IOException, SQLException {
 		String query = queryConstantPFA.PFA_419028_SQL10();
 		return DataAccess.getEncounterId("EncounterID", query);
 	}
-	
-	public String getEncounterIdFor_PFA_419029_SQL11() throws ClassNotFoundException, IOException, SQLException
-	{
+
+	public String getEncounterIdFor_PFA_419029_SQL11() throws ClassNotFoundException, IOException, SQLException {
 		String query = queryConstantPFA.PFA_419029_SQL11();
 		return DataAccess.getEncounterId("EncounterID", query);
 	}
-	
-	public String getEncounterIdFor_PFA_419030_SQL12() throws ClassNotFoundException, IOException, SQLException
-	{
+
+	public String getEncounterIdFor_PFA_419030_SQL12() throws ClassNotFoundException, IOException, SQLException {
 		String query = queryConstantPFA.PFA_419030_SQL12();
 		return DataAccess.getEncounterId("EncounterID", query);
 	}
-	
-	public void verifyAnsweForPregnancy(String ques )
-	{
+
+	public void verifyAnsweForPregnancy(String ques) {
 		Assert.assertTrue(pregnancyQuestion.getText().equalsIgnoreCase(ques));
-		for(int i= 0; i<pregnancyQuestionAns.size() ; i++)
-		{
+		for (int i = 0; i < pregnancyQuestionAns.size(); i++) {
 			String status = pregnancyQuestionAns.get(i).getAttribute("checked");
-			if(status.equals("true"))
-			{
+			if (status.equals("true")) {
 				Assert.assertTrue(pregnancyQuestionAnsLabel.get(i).getText().equals("No"));
 				break;
 			}
-			
+
 		}
 	}
-	
+
 	public void verifyDefaultAnswerForResident(String ques) {
-		for(int i= 1; i< residentQuestionAns.size() ; i--)
-		{
-			String status =  residentQuestionAns.get(i).getAttribute("checked");
-			if(status.equals("true"))
-			{
+		for (int i = 1; i < residentQuestionAns.size(); i--) {
+			String status = residentQuestionAns.get(i).getAttribute("checked");
+			if (status.equals("true")) {
 				Assert.assertTrue(residentQuestionAnsLabel.get(i).getText().equals("Other"));
 				break;
 			}
-			
+
 		}
 	}
-	
-	public void verifyNoAnswerSelectedforPregnancy(String ques )
-	{
+
+	public void verifyNoAnswerSelectedforPregnancy(String ques) {
 		int count = 0;
 		Assert.assertTrue(pregnancyQuestion.getText().equalsIgnoreCase(ques));
-		for(int i= 0; i<pregnancyQuestionAns.size() ; i++)
-		{
+		for (int i = 0; i < pregnancyQuestionAns.size(); i++) {
 			String status = pregnancyQuestionAns.get(i).getAttribute("checked");
-			if(status.equals("true"))
-			{
+			if (status.equals("true")) {
 				count++;
 				break;
 			}
-			
-			if(count>0)
-			{
+
+			if (count > 0) {
 				Assert.assertTrue(false);
-			}else
-				Assert.assertTrue(true);	
+			} else
+				Assert.assertTrue(true);
 		}
 	}
-	
-	public void clickOverrideTab()
-	{
+
+	public void clickOverrideTab() {
 		clickOn(overrideTab);
-		visitNo = encounterId.getText(); 
+		visitNo = encounterId.getText();
 	}
-	
-	public void verifyFollowUpDateTextBox()
-	{
+
+	public void verifyFollowUpDateTextBox() {
 		String status = followUpDateTextbox.getAttribute("disabled");
-		if(status.equals("true")) {
+		if (status.equals("true")) {
 			Assert.assertTrue(true);
 		}
 	}
-	
-	
-	
-	public void verifyFollowUpLabel()
-	{
-		for(int i= 0 ; i< followUpDateLabel.size() ; i++ ) {
-			if(followUpDateLabel.get(i).getText().trim().equals("* FollowUp Date :")) {
-				Assert.assertTrue(followUpDateLabel.get(i).getText().trim().equals("* FollowUp Date :")); 
+
+	public void verifyFollowUpLabel() {
+		for (int i = 0; i < followUpDateLabel.size(); i++) {
+			if (followUpDateLabel.get(i).getText().trim().equals("* FollowUp Date :")) {
+				Assert.assertTrue(followUpDateLabel.get(i).getText().trim().equals("* FollowUp Date :"));
 			}
 		}
 
 	}
 
-	public void verifyDatePicker() 
-	{
-		Assert.assertTrue(datePicker.isVisible());	
+	public void verifyDatePicker() {
+		Assert.assertTrue(datePicker.isVisible());
 	}
-	
-	public void clicksaveCWLButton()
-	{
+
+	public void clicksaveCWLButton() {
 		clickOn(saveCWLButton);
 	}
 
-	public void verifyCWLErrorMsg(String msg) 
-	{
+	public void verifyCWLErrorMsg(String msg) {
 		Assert.assertTrue(errorCWLMessage.getText().trim().equalsIgnoreCase(msg));
 	}
-	
-	public void selectFundingSource()
-	{
+
+	public void selectFundingSource() {
 		selectFromDropdown(fundingSourceDropdown, "Auto Insurance");
 	}
-	
-	public void selectAction() throws InterruptedException
-	{
+
+	public void selectAction() throws InterruptedException {
 		Thread.sleep(5000);
 		selectFromDropdown(actionDropdown, "Funding Source Identified");
 	}
-	
-	public void checkConfirmChkbox()
-	{
+
+	public void checkConfirmChkbox() {
 		confirmCheckBOx.click();
 	}
-	
-	public void enterText()
-	{
+
+	public void enterText() {
 		noteTextbox.clear();
 		noteTextbox.sendKeys("Patient does NOT have other active insurance that is applicable to this visit");
 	}
-	
-	public void verifyRecordAdded(String msg)
-	{
+
+	public void verifyRecordAdded(String msg) {
 		Assert.assertTrue(recordAddedLabel.getText().equalsIgnoreCase(msg));
 	}
-	
-	public void verifyTabCompleted()
-	{
+
+	public void verifyTabCompleted() {
 		pfaTabColor.getAttribute("class").equals("TabBGSelC");
 		r1Common.chkTabStatusIncompleteComplete();
 	}
-	
-	public String currentWorkingAccount()
-	{
+
+	public String currentWorkingAccount() {
 		return encounterId.getText();
 	}
-	
-	public void verifyAccountinCWLWrklst()
-	{
+
+	public void verifyAccountinCWLWrklst() {
 		fundingSourceonCWLWrklst.getText().equalsIgnoreCase("Auto Insurance");
 	}
-	
-	public void clickUnworkedSubfolder()
-	{
+
+	public void clickUnworkedSubfolder() {
 		clickOn(unworkedSubFolder);
 	}
-	
-	public void clickSaveAndContBtn()
-	{
+
+	public void clickSaveAndContBtn() {
 		clickOn(saveAndContBtn);
 	}
-	
-	public void verifyActiveTab()
-	{
-		System.out.println(activeTabPFA.getText());
+
+	public void verifyActiveTab() {
+		Assert.assertTrue(activeTabPFA.getText().equals("PFA"));
 	}
-	
-	public void verifyScreeningQuestionTab() {
-		int count= totalQuestions.size();
-		for (int i = 0; i < count; i++) {
-			String Ques = ScreenQuesAns1 + (i+2) + ScreenQuesAns2;
-			clickOn(element(By.xpath(Ques)));
 
-		}
-	} 
-	
-
-	public void verifyMultipleFundngSrc()
-	{
+	public void verifyMultipleFundngSrc() {
 		int x = fundingSourcesScreeningNeeds.size();
-		if(x==1)
-		{
+		if (x == 1) {
 			Assert.assertTrue(false);
-		}
-		else
-		{
+		} else {
 			Assert.assertTrue(true);
 		}
 	}
-	public void clickSelfPaySubFolder()
-	{
+
+	public void clickSelfPaySubFolder() {
 		clickOn(selfPayL2SubFolder);
 	}
-	
-	public void clickScreeningNeedsTab()
-	{
+
+	public void clickScreeningNeedsTab() {
 		clickOn(screeningNeedsTab);
 	}
-	
-	public void enterNoOfPersonInHousehold()
-	{
+
+	public void clickActionItemsTab() throws InterruptedException {
+		Thread.sleep(7000);
+		clickOn(actionItemsTab);
+	}
+
+	public void enterNoOfPersonInHousehold() {
 		enterPersonInHousehold.clear();
 		enterPersonInHousehold.sendKeys("3");
 	}
-	
-	public void selectEmpStatus()
-	{
+
+	public void selectEmpStatus() {
 		clickOn(fullTimeStatus);
 	}
-	
-	public void clickSubmitAllBtn()
-	{
+
+	public void clickSubmitAllBtn() {
 		clickOn(submitAllFSBtn);
 	}
-	
-	public void verifycommonDataNeedsTabGreen()
-	{
+
+	public void verifycommonDataNeedsTabGreen() {
 		Assert.assertTrue(commonDataNeedsPassed.getText().equalsIgnoreCase("Common Data Needs"));
 	}
-	
-	public void verifyEmploymentStatusAsFull()
-	{
-		for(int i=0 ; i< patientEmploymentStatus.size() ;i++)
-		{
-			if(patientEmploymentStatusLabel.get(i).getText().equalsIgnoreCase("Full Time"))
-			{
+
+	public void verifyEmploymentStatusAsFull() {
+		for (int i = 0; i < patientEmploymentStatus.size(); i++) {
+			if (patientEmploymentStatusLabel.get(i).getText().equalsIgnoreCase("Full Time")) {
 				Assert.assertTrue(true);
 				break;
 			}
 		}
 	}
-	
-	public void verifyScreeningQuesDeclined(String status)
-	{
-		for(int i=0 ; i<screeningQuestionnaireStatus.size() ; i++)
-		{
-			if(screeningQuestionnaireStatus.get(i).isSelected())
-			{
+
+	public void verifyScreeningQuesDeclined(String status) {
+		for (int i = 0; i < screeningQuestionnaireStatus.size(); i++) {
+			if (screeningQuestionnaireStatus.get(i).isSelected()) {
 				Assert.assertTrue(screeningQuestionnaireStatusLabel.get(i).getText().equalsIgnoreCase(status));
 			}
 		}
 	}
-	
-	public void clickYesForScreeningQuestionnaire()
-	{
-		for(int i= 0 ; i< screeningQuestionnaireStatusLabel.size() ; i++)
-		{
-			if(screeningQuestionnaireStatusLabel.get(i).getText().equalsIgnoreCase("Yes"))
-			{
+
+	public void clickYesForScreeningQuestionnaire() {
+		for (int i = 0; i < screeningQuestionnaireStatusLabel.size(); i++) {
+			if (screeningQuestionnaireStatusLabel.get(i).getText().equalsIgnoreCase("Yes")) {
 				screeningQuestionnaireStatus.get(i).click();
 			}
 		}
 	}
-	
-	public void verifyAnswersDisabledOrEnabled()
-	{
+
+	public void verifyAnswersDisabledOrEnabled() {
 		int count = 0;
-		for(int i=1 ; i<screeningAnsInputs.size() ; i++)
-		{
-			System.out.println(screeningAnsInputs.get(i).getAttribute("disabled"));
-			if(screeningAnsInputs.get(i).getAttribute("disabled") != null)
-			{
+		for (int i = 1; i < screeningAnsInputs.size(); i++) {
+			if (screeningAnsInputs.get(i).getAttribute("disabled") != null) {
 				count++;
 			}
 		}
-		
-		if(count > 0)
-		{
+
+		if (count > 0) {
 			System.out.println("Disabled");
-		}else
-		{
+		} else {
 			System.out.println("Enabled");
 		}
 	}
 
-
-
-	
-	
-	
-	public void verifyAnswersSelected()
-	{
+	public void verifyAnswersSelected() {
 
 		int count = 0;
-		for(int i=2 ; i<screeningAnsInputs.size() ; i++)
-		{
-			System.out.println(screeningAnsInputs.get(i).isSelected());
-			if(screeningAnsInputs.get(i).isSelected())
-			{
+		for (int i = 2; i < screeningAnsInputs.size(); i++) {
+			if (screeningAnsInputs.get(i).isSelected()) {
 				count++;
 			}
 		}
-		
-		if(count > 0)
-		{
-			System.out.println("Selected");
-		}else
-		{
-			System.out.println("Not Selected");
+
+		if (count > 0) {
+			Assert.assertTrue(true);
+		} else {
+			Assert.assertTrue(false);
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 }
