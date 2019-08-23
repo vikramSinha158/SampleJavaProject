@@ -14,6 +14,7 @@ import r1.pages.UserLogin;
 import r1.serenity.steps.NotesSteps;
 import r1.commons.BasePage;
 import r1.commons.databaseconnection.QueryConstants;
+import r1.commons.utilities.CommonMethods;
 
 public class NotesStepDef extends BasePage {
 
@@ -40,7 +41,7 @@ public class NotesStepDef extends BasePage {
 	}
 
 	@And("^user select the facility \"([^\"]*)\"$")
-	public void user_select_the_facility(String facility) {
+	public void user_select_the_facility(String facility) throws IOException {
 		navigation.selectFacility(facility);
 	}
 

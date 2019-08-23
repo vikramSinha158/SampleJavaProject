@@ -30,6 +30,17 @@ public class CommonMethods{
 	     return selectDropdown.getFirstSelectedOption().getText();
 	}
 	
+	public static String selectListWithContains(WebElementFacade element, String text) {
+		Select selectDropdown = new Select(element);
+	     List<WebElement> listOptionDropdown = selectDropdown.getOptions();
+	     for(int i=0;i<listOptionDropdown.size();i++) {
+	    	 if(listOptionDropdown.get(i).getText().contains(text)) {
+	    		 selectDropdown.selectByIndex(i);
+	    	 }
+	     }
+	     return selectDropdown.getFirstSelectedOption().getText();
+	}
+	
 	public static int dropDownSize(WebElementFacade list) {
 		Select drpList = new Select(list);
 		return drpList.getOptions().size();

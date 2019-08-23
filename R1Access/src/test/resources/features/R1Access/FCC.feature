@@ -129,7 +129,7 @@ Feature: Verification of FCC functionality and attributes
     Then user should be able to view the I in PT column
 
   @391673
-  Scenario: Verify that user is able to access filter folder for "FCC Contact" worklist
+  Scenario: Verify that user is able to access filter folder for FCC Contact worklist
     Given user is on R1 FCC menu page
     When user clicks on "FCC Contact" menu
     Then user is on FCC "FCC Contact" worklist
@@ -167,7 +167,7 @@ Feature: Verification of FCC functionality and attributes
     And user should be able to view the "No Pt Liability" title on worklist
 
   @391674
-  Scenario: Verify user is able to take action by using "FCC Contact" worklist
+  Scenario: Verify user is able to take action by using FCC Contact worklist
     Given user is on R1 FCC menu page
     When user clicks on "FCC Contact" menu
     Then user is on FCC "FCC Contact" worklist
@@ -182,7 +182,7 @@ Feature: Verification of FCC functionality and attributes
     Then user should be able to view the added Disposition and FollowUpDate as today's date
 
   @392059
-  Scenario: Verify a task for FCC Contact for Pre-registration worklist is available in Facility Setting Configuration (only for facility OCWI, MCWI or SHWI)
+  Scenario: Verify a task for FCC Contact for Pre-registration worklist is available in Facility Setting Configuration
     Given user is on hub page
     When user clicks on "Settings" menu
     And user clicks on "IT Tools" menu
@@ -196,7 +196,7 @@ Feature: Verification of FCC functionality and attributes
     Then user should be able to view "FCC Contact" in Tasks detail window
 
   @392060
-  Scenario Outline: Verify user should be able to take Activity & Disposition on FCC Contact tab under Pre-Registration worklist. (only for facility OCWI, MCWI or SHWI)
+  Scenario Outline: Verify user should be able to take Activity & Disposition on FCC Contact tab under Pre-Registration worklist
     Given user is on R1 FCC menu page
     When user clicks on "Patient Access" menu
     And user clicks on "Pre-Registration" menu
@@ -221,9 +221,9 @@ Feature: Verification of FCC functionality and attributes
     Examples: 
       | query            | column      |
       | queryEncounterID | EncounterID |
-      
-     @392109 
-    Scenario: Verify Search button  functionality.
+
+  @392109
+  Scenario: Verify Search button  functionality.
     Given user is on R1 FCC menu page
     When user clicks on "Global Coverage Follow Up" menu
     Then user is on FCC "FCC Coverage Workflow" worklist
@@ -232,4 +232,4 @@ Feature: Verification of FCC functionality and attributes
     Then user run the query and fetch the "EncounterID"
     And user enters the EncounterID into search field
     And user clicks on the Search button
-   Then user should be able to view the searched visit number on patient details panel
+    Then user should be able to view the searched visit number on patient details panel
