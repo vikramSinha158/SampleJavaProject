@@ -11,15 +11,14 @@ public class QueryConstantPFA extends BasePage{
 
 	public String PFA_419029_SQL11()
 	{
-		return "\r\n" + 
-				"select top 1 v.encounterid,r.sex, (DATEDIFF(DAY, r.DOB, r.AdmitDate) / 365) as age from vwRegistrationProcessUnscreened v inner join registrations r on  v.encounterid=r.encounterid\r\n" + 
-				"				where r.sex='F' and (DATEDIFF(DAY, r.DOB, r.AdmitDate) / 365) >'54'";
+		return "select top 1 v.encounterid,r.sex, (DATEDIFF(DAY, r.DOB, r.AdmitDate) / 365) as age from vwRegistrationProcessUnscreened v inner join registrations r on  v.encounterid=r.encounterid" + 
+				"where r.sex='F' and (DATEDIFF(DAY, r.DOB, r.AdmitDate) / 365) >'54'";
 
 	}
 
 	public String PFA_419030_SQL12()
 	{
-		return "select v.encounterid,r.sex, (DATEDIFF(DAY, r.DOB, r.AdmitDate) / 365) as age from vwRegistrationProcessUnscreened v inner join registrations r on  v.encounterid=r.encounterid\r\n" + 
+		return "select v.encounterid,r.sex, (DATEDIFF(DAY, r.DOB, r.AdmitDate) / 365) as age from vwRegistrationProcessUnscreened v inner join registrations r on  v.encounterid=r.encounterid" + 
 				"where r.sex='F' and (DATEDIFF(DAY, r.DOB, r.AdmitDate) / 365) <'54'";
 	}
 
