@@ -55,10 +55,40 @@ public class QueryConstantPatient extends BasePage{
  }
  public static String queryForPatientSkipTraceNotDischarge()
  {
-	return "select distinct top 5 r.EncounterID from SkipTraces st Inner Join Persons p on p.ID = st.PersonID Inner Join Registrations r on r.PersonID = p.ID inner join recordtaskexceptions rte on r.id = rte.RecordKey where datediff (dd, st.TraceDate, GetDate()) < = (select settingvalue from facilitysettings where SettingName = 'FRONT_SKIPTRACE_RERUN_DAYS') and p.SSN = st.SSN and r.isdischarged = 0 and rte.RecordExceptionStatusID = 1 and rte.taskexceptionID = 2 ";
+	return "select distinct top 5 r.EncounterID from SkipTraces st Inner Join Persons p on p.ID = st.PersonID Inner Join Registrations r on r.PersonID = p.ID inner join recordtaskexceptions rte on r.id = rte.RecordKey where datediff (dd, st.TraceDate, GetDate()) < = (select settingvalue from facilitysettings where SettingName = 'FRONT_SKIPTRACE_RERUN_DAYS') and r.PatientType is not null and p.SSN = st.SSN and r.isdischarged = 0 and rte.RecordExceptionStatusID = 1 and rte.taskexceptionID = 2 ";
  }
  public static String queryForPatientSkipTraceWithReturnDays()
  {
-	return "select distinct top 5 r.EncounterID from SkipTraces st Inner Join Persons p on p.ID = st.PersonID Inner Join Registrations r on r.PersonID = p.ID inner join recordtaskexceptions rte on r.id = rte.RecordKey where datediff (dd, st.TraceDate, GetDate()) > = (select settingvalue from facilitysettings where SettingName = 'FRONT_SKIPTRACE_RERUN_DAYS') and p.SSN = st.SSN and rte.taskexceptionID = 2 and rte.RecordExceptionStatusID = 1   ";
+	return "select distinct top 5 r.EncounterID from SkipTraces st Inner Join Persons p on p.ID = st.PersonID Inner Join Registrations r on r.PersonID = p.ID inner join recordtaskexceptions rte on r.id = rte.RecordKey where datediff (dd, st.TraceDate, GetDate()) > = (select settingvalue from facilitysettings where SettingName = 'FRONT_SKIPTRACE_RERUN_DAYS') and r.PatientType is not null and p.SSN = st.SSN and rte.taskexceptionID = 2 and rte.RecordExceptionStatusID = 1   ";
+ }
+ 
+ public static String queryForPatientForBADAddress()
+ {
+	return "select encounterid from registrations where id in (select registrationid from coverages where facilityplancode = 'I08') and Address = 'BAD ADDRESS' ";
+ }
+ 
+ public static String queryForExceptionID()
+ {
+    return "with getdata as ( \r\n" + 
+    		"select status, taskid, recordkey, max(updateddatetime) as maxtime \r\n" + 
+    		"from dbo.recordtaskstatus \r\n" + 
+    		"where taskid = 11 \r\n" + 
+    		"group by status, taskid, recordkey \r\n" + 
+    		") \r\n" + 
+    		", \r\n" + 
+    		"getcount as ( \r\n" + 
+    		"select rte.recordkey, sum(rte.RecordExceptionStatusID) as total \r\n" + 
+    		"from dbo.recordtaskexceptions rte \r\n" + 
+    		"join accretive.dbo.taskexceptions te on rte.taskexceptionid = te.id \r\n" + 
+    		"where te.taskid = 11 \r\n" + 
+    		"group by rte.recordkey \r\n" + 
+    		"having sum(rte.recordexceptionstatusid) =0 \r\n" + 
+    		") \r\n" + 
+    		"select r.encounterid, maxtime, g.status \r\n" + 
+    		"from getdata g \r\n" + 
+    		"join getcount c on g.recordkey = c.recordkey \r\n" + 
+    		"join registrations r on g.recordkey = r.id \r\n" + 
+    		"where g.status = -1 \r\n" + 
+    		"order by g.maxtime desc";
  }
 }

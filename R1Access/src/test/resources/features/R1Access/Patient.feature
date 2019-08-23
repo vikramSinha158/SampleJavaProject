@@ -243,13 +243,32 @@ Then Tab will open
   Then user should be able to add values 
   When uhen user clicks on update button
  Then user should be able to updated values
-When user clicks on edit button 
+ When user clicks on edit button 
   Then user should be able to update SSN number
   When user clicks on skip button of gurantor tab
   And user click on ok button
   Then user should be able to view address grid
   When user click lastname link of grid 
   Then user should be able to view lastname updated address
+  
+  @419179 @Patient
+  Scenario: Verify that Patient tab should not automatically reopen without any exception message on front end.
+  When user run the query and fetch the encounterid for exception message
+  And user clicks on search button of menu 
+  And user enter encounterid in search textbox
+  And user clicks on submit button
+  Then user should be able to view on Account Level Details Page
+  When user clicks on Patient tab
+  Then user should be able to clicks on checkout button
+  When user clicks on Complete button 
+  Then Patient Tab turn into Blue 
+  And Patient Tab not load
+  When user clicks on Log Tab 
+  Then use should be verify complete status
+  And user clicks on search button of menu 
+  And user enter encounterid in search textbox
+  And user clicks on submit button
+  And Patient Tab not load
   
   
   

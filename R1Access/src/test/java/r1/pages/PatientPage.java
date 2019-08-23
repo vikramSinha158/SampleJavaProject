@@ -34,12 +34,16 @@ public class PatientPage extends BasePage {
 	DataAccess dataAccess;
 	QueryConstantPatient queryConstantPatient;
 	Select select;	
-	int length;	
-	
-	////*[@id="dnn_ctr1501_WorklistPanel_task_Task11_ctl00_btnShowTrace"]
+	int length;		
 	
 	@FindBy(xpath = "//*[contains(@id,'_btnShowTrace')]")
-	private WebElementFacade showSkipTrace;		
+	private WebElementFacade showSkipTrace;	
+	
+	@FindBy(xpath = "//*[contains(@class,'PanelDetail actionLog')]//tr[contains(@class,'PanelDetail')][1]/td[4]")
+	private WebElementFacade lastStatusLog;
+	
+	@FindBy(xpath = "//*[contains(@class,'PanelDetail actionLog')]//tr[contains(@class,'PanelDetail')][1]/td[2]")
+	private WebElementFacade lastTaskLog;
 	
 	@FindBy(xpath = "//*[contains(@id,'_btnAddNew')]/img")
 	private List<WebElementFacade> clickAddGurantor;	
@@ -121,6 +125,9 @@ public class PatientPage extends BasePage {
 
 	@FindBy(xpath = "//input[contains(@id,'_chkReturnedMail')]")
 	private WebElementFacade checkReturnedMail;
+	
+	@FindBy(xpath = "//input[contains(@id,'_chkAllowUpdate')]")
+	private List<WebElementFacade> checktAdmittedList;
 
 	@FindBy(xpath = "//input[contains(@id,'_chkAdmitted')]")
 	private WebElementFacade checkAdmitted;
@@ -283,6 +290,10 @@ public class PatientPage extends BasePage {
 	public void clickPatientTab() {
 		r1AccessCommonMethod.clickR1AccesModulesTab("Patient");
 	}	
+	
+	public void clickLogTab() {
+		r1AccessCommonMethod.clickR1AccesModulesTab("Log");
+	}
 	public void clickCompleteButton()
 	{
 		r1AccessCommonMethod.clickActionStatusTab("Complete");
@@ -303,15 +314,12 @@ public class PatientPage extends BasePage {
 	    message = updateRecord.getText().trim().trim();
 		Assert.assertTrue("Update Patient Record? does not exist", message.equalsIgnoreCase("Update Patient Record?"));
 	}
-	//	Patient Address-Invalid Zip
+
 	public void verifyPatientExceptionMesssage() {
 		message = patientExceptionPanel.getText();
 		Assert.assertTrue("Patient Address Street Number Not Valid message does not exist",
 				message.contains("Patient Address Street Number Not Valid")|| message.contains("Patient Address-Invalid Zip"));
-	//	Assert.assertTrue(
-				//"Patient Address-Street Address Missing Patient Address-City Missing Patient Address-Zip Missing message does not exist",
-			//	message.contains(
-						//"Patient Address-Street Address Missing Patient Address-City Missing Patient Address-Zip Missing"));
+
 	}
 	public void verifyCriticalExceptionMesssage() {
 		message = criticalErrorMessage.getText();
@@ -321,6 +329,11 @@ public class PatientPage extends BasePage {
 	public void verifyPatientTabcolor() {
 	    tabcolor = r1AccessCommonMethod.checkTabColor("Patient");
 		Assert.assertTrue("Patient tab color is not red", tabcolor.equalsIgnoreCase("Red"));
+	}
+	
+	public void verifyPatientTabcolorBlue() {
+	    tabcolor = r1AccessCommonMethod.checkTabColor("Patient");
+		Assert.assertTrue("Patient tab color is not Blue", tabcolor.equalsIgnoreCase("Blue"));
 	}
 	public void verifyIncompleteStatus() {
 	   status = r1AccessCommonMethod.chkTabStatusIncompleteComplete();
@@ -404,9 +417,7 @@ public class PatientPage extends BasePage {
 	}
 	public void verifySkipGridAddress() {
 		skipAddress = skipGridLAddress.getText().trim();
-		System.out.println(skipAddress);
 		Address = patientAddress.getAttribute("value").trim();
-		System.out.println(Address);
 		Assert.assertTrue("Skip Trace Grid Address does not updated ", skipAddress.equalsIgnoreCase(Address));
 	}
 	public void verifyGurantorTab() {
@@ -569,6 +580,17 @@ public class PatientPage extends BasePage {
 		SearchAccount = DataAccess.getEncounterId(("encounterid"), query);
 	}	
 	
+	public void getEncounteridPatientBADAddress() throws ClassNotFoundException, IOException, SQLException 
+	{	query = QueryConstantPatient.queryForPatientForBADAddress();
+		SearchAccount = DataAccess.getEncounterId(("encounterid"), query);
+	}
+	
+	public void getEncounteridPatientException() throws ClassNotFoundException, IOException, SQLException 
+	{	query = QueryConstantPatient.queryForExceptionID();
+		SearchAccount = DataAccess.getEncounterId(("encounterid"), query);
+	}
+	
+	
 	public void clickAddGurantorButton()
 	{
 		length = clickAddGurantor.size();
@@ -582,20 +604,37 @@ public class PatientPage extends BasePage {
 		clickOn(showSkipTrace);
 	}	
 	
+	public void verifyPatientTab()
+	{		
+		length = checktAdmittedList.size();		
+	   	Assert.assertTrue("Patient Tab Exist",
+	   			length  <=0);		
+	}	
 	
 	public void verifySkipTraceWithDate()
-	{	
-		message=showSkipTrace.getText();
-		int month = LocalDate.now().getDayOfMonth();	
-		 
-		 //SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-		//    String s = formatter.format(current);
-		//    System.out.println(s);
+	{	   	message=showSkipTrace.getText();
+		   	Date date = new Date(System.currentTimeMillis());
+		    SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+		    String s = formatter.format(date);		    
+		    if (s.startsWith("0"))
+		    {		    	
+		     s=s.substring(1);
+		     
+		    }
+		   	Assert.assertTrue("Show Trace does not exist",
+			message.contains("Show Trace"));		
+	}
+	
+	public void verifyBadAddress()
+	{
+	  message=patientAddress.getAttribute("value");
+	  Assert.assertTrue("BAD Address is not reflect", message.equalsIgnoreCase("BAD ADDRESS"));
 		
-		// System.out.print(current.toString());
-		 
-		//	Assert.assertTrue("Record Updated message does not exist",
-				//	message.contains);		
+	}
+	
+	public void verifyActionlog() 
+	{
+		Assert.assertTrue("last status log was not completed", lastStatusLog.getText().contains("Completed"));
 	}
 	
 }
