@@ -50,9 +50,4 @@ public class QueryConstants {
 				"where IsDischarged=0) R Join services s (nolock) on R.ID <> s.RegistrationID";
 	}
 	
-	public static String queryPatientTypeEncounterID =  "select top 1 * from registrations where patienttype='o' order by NEWID() ";
-	
-	
-	
-
 }
