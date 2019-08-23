@@ -156,5 +156,81 @@ public class CWLStepDef extends BasePage {
 	 cwl.verifyTotalzeroBal();
    
   }
-	
+	/*------------------------------------------Test Case 391809:CWL_Verify "Secondary Audit Action" functionality-------------------------------*/
+ 
+ @When("^select any records from conversion followup$")
+ public void select_any_records_from_conversion_followup() {
+     // Write code here that turns the phrase above into concrete actions
+     
+ }
+
+ @Then("^record with \"([^\"]*)\" tab loaded should be opened up$")
+ public void record_with_tab_loaded_should_be_opened_up(String arg1) {
+     // Write code here that turns the phrase above into concrete actions
+     
+ }
+
+ @Then("^verify Secondary Audit Action panel displayed$")
+ public void verify_Secondary_Audit_Action_panel_displayed() {
+     // Write code here that turns the phrase above into concrete actions
+    
+ }
+
+ @When("^save secondary audit action without selecting checkboxes$")
+ public void save_secondary_audit_action_without_selecting_checkboxes() {
+     // Write code here that turns the phrase above into concrete actions
+    
+ }
+
+ @Then("^Please select the action to update should be displayed$")
+ public void please_select_the_action_to_update_should_be_displayed() {
+     // Write code here that turns the phrase above into concrete actions
+    
+ }
+
+ @Then("^No record should get added to the \"([^\"]*)\" panel$")
+ public void no_record_should_get_added_to_the_panel(String arg1) {
+     // Write code here that turns the phrase above into concrete actions
+    
+ }
+
+ @When("^check all the checkboxes and select value from Final status dropdown and save$")
+ public void check_all_the_checkboxes_and_select_value_from_Final_status_dropdown_and_save() {
+     // Write code here that turns the phrase above into concrete actions
+    
+ }
+
+ @Then("^verify \"([^\"]*)\" panel records should be added$")
+ public void verify_panel_records_should_be_added(String arg1) {
+     // Write code here that turns the phrase above into concrete actions
+    
+ }
+
+ @Then("^If \"([^\"]*)\" is\"([^\"]*)\" no log goes for it$")
+ public void if_is_no_log_goes_for_it(String arg1, String arg2) {
+     // Write code here that turns the phrase above into concrete actions
+    
+ }
+
+ @Then("^Verify value in Disposition according to final status$")
+ public void verify_value_in_Disposition_according_to_final_status() {
+     // Write code here that turns the phrase above into concrete actions
+    
+ }
+
+ @Then("^Verify mass-update panel$")
+ public void verify_mass_update_panel() {
+     // Write code here that turns the phrase above into concrete actions
+    
+ }
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 }

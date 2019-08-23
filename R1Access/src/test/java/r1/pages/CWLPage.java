@@ -194,15 +194,15 @@ public class CWLPage extends BasePage {
 			 if(AccountRecords.size()>1) {
 			  for(int k=0;k<ptCol.size();k++)
 				 {
-					 System.out.println(ptCol.size());
+					 
 					 String i=ptCol.get(k);
 					 if(i.contains(val1))
 					 {
-						 System.out.println(i+" is matching with"+val1);
+						 System.out.println(i+" is matching with"+" "+val1);
 						 						
 					 }else if(i.contains(val2))
 					 {
-						 System.out.println(i+" is matching with"+val2);
+						 System.out.println(i+" is matching with"+" "+val2);
 					 }else
 					 {
 						 System.out.println("PT value is coming"+ i);
@@ -220,7 +220,7 @@ public class CWLPage extends BasePage {
 					ArrayList<String> NFUdt= common.getTableColValue(followUpWorklistRow,followUpWorklistHeader,"NFU Dt");
 					DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("MM/dd/yyyy"); 
 				    String currentDate = myDateObj.format(myFormatObj); 
-				    System.out.println("After formatting: " + currentDate);
+				    System.out.println("current date is: " + currentDate);
 				    if(AccountRecords.size()>1) {
 				  	for(String nfudate:NFUdt)
 					{
@@ -235,7 +235,7 @@ public class CWLPage extends BasePage {
 							 
 						}else
 						{
-							System.out.println("nfudate is correct:"+currentDate.compareTo(nfudate));
+							System.out.println("current: "+currentDate+" nfudate: "+nfudate );
 						}
 						
 						
@@ -262,10 +262,10 @@ public class CWLPage extends BasePage {
 					if(d==0.00 || d==0)
 					{
 						
-						Assert.assertTrue("total balance is coming"+d,false);
+						Assert.assertTrue("total balance is coming "+d,false);
 					}else
 					{
-						System.out.println("total balance is coming"+d);
+						System.out.println("total balance is coming "+d);
 						
 						
 					}
@@ -286,7 +286,7 @@ public class CWLPage extends BasePage {
 					double d = Double.parseDouble(TotalopenBal);
 					if(d==0.00 || d==0)
 					{
-						 Assert.assertTrue("Total balnce is coming"+d+"on zero balnce",true);
+						 Assert.assertTrue("Total balnce is coming "+d+"on zero balnce",true);
 						 System.out.println(d);
 					}else
 					{
@@ -359,5 +359,18 @@ public class CWLPage extends BasePage {
 					clickShowAll();
 					zeroBalance.click();
 				}
+	/*---------------------------------------------------------------------Test Case 391809:CWL_Verify "Secondary Audit Action" functionality------------------------------------------------*/
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 				
 }

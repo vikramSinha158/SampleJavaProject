@@ -58,6 +58,34 @@
   And verify total open balance=0
   And LA column<> "Referred to Care Coverage" / "Referred to Supervisor"
  
+@391809
+Scenario: CWL_Verify "Care Coverage" filter folder and it's sub-folders
+ When user click on "Patient Access"
+ And user user clicks on Conversion Follow up
+ And select any records from conversion followup
+ Then record with "Conversion FU" tab loaded should be opened up
+ And verify Secondary Audit Action panel displayed
+ When save secondary audit action without selecting checkboxes
+ Then Please select the action to update should be displayed
+ And No record should get added to the "Action Log" panel
+ When check all the checkboxes and select value from Final status dropdown and save
+ Then verify "Action Log" panel records should be added
+ But If "Audit Completed" is"Unchecked" no log goes for it 
+ And Verify value in Disposition according to final status
+ And Verify mass-update panel
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+  
 
  
  
@@ -113,8 +141,5 @@
 
  
 
-
- 
- 
 
  
