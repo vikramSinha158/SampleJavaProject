@@ -25,6 +25,9 @@ public class Navigation extends BasePage {
 	@FindBy(xpath = "//span[@class='txt'][text()='Settings']")
 	private WebElementFacade settingsLink;
 	
+	@FindBy(xpath = "//a[@class='footer_nav'][text()='Settings']")
+	private WebElementFacade footerSettingsLink;
+	
 	@FindBy(xpath = "//span[@class='txt'][text()='IT Tools']")
 	private WebElementFacade itTools;
 	
@@ -58,7 +61,6 @@ public class Navigation extends BasePage {
 		}
 	}
 	
-	
 	public void clickFacilityList() throws InterruptedException {
 		clickOn(facilityList);
 	}
@@ -73,6 +75,10 @@ public class Navigation extends BasePage {
 	
 	public void clickSettingsLink() {
 		withAction().moveToElement(settingsLink).click().build().perform();
+	}
+	
+	public void clickfooterSettingsLink() {
+		withAction().moveToElement(footerSettingsLink).click().build().perform();
 	}
 	
 	public void clickITToolsLink() {
