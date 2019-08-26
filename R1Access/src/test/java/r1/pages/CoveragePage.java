@@ -455,12 +455,12 @@ public class CoveragePage extends BasePage{
 		else if(colName.equalsIgnoreCase("Coins"))
 		{
 			coinsUI1 = (String) commonMethodsRef.getTableColValue(CoverageSelectedRow,CoverageSelectedHeader,"Coins").get(0);	
-			if(coinsUI1.equals("0.00 %"))
+			if(coinsUI1.equals("0.00 %") || coinsUI1.equals(null))
 			{
 			coinsUI1="0.00";
 			coinsUI2 = null;
 			}
-			else if(coinsUI1.equals(" "))
+			else if(coinsUI1.equals(" ") || coinsUI1.equals(""))
 			{
 			coinsUI1 = null;
 			}

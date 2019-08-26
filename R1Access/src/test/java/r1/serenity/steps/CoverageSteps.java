@@ -34,6 +34,16 @@ public class CoverageSteps extends BasePage{
 		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstantCoverage.queryCoverageColVal(encounterID));
 		boolean empty = false;
+		payorPlanNameDB.clear();
+		COBDB.clear();
+		payorGroupCodeDB.clear();
+		FacilityPlanCodeDB.clear();
+		subscriberCodeDB.clear();
+		copayDB.clear();
+		ERDB.clear();
+		deductDB.clear();
+		coinsDB.clear();
+		oopDB.clear();
 		while (DatabaseConn.resultSet.next()) {
 			empty = true;
 			payorPlanNameDB.add(DatabaseConn.resultSet.getString("PayorPlanName"));
@@ -55,6 +65,12 @@ public class CoverageSteps extends BasePage{
 		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstantCoverage.queryEditedColVal(encounterID));
 		boolean empty = false;
+		payorPlanNameDB.clear();
+		copayDB.clear();
+		ERDB.clear();
+		deductDB.clear();
+		coinsDB.clear();
+		oopDB.clear();
 		while (DatabaseConn.resultSet.next()) {
 			empty = true;
 			payorPlanNameDB.add(DatabaseConn.resultSet.getString("PayorPlanName"));
@@ -71,6 +87,7 @@ public class CoverageSteps extends BasePage{
 		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstantCoverage.queryCoverageEncounterID1());
 		boolean empty = true;
+		Encounter_ID.clear();
 		while (DatabaseConn.resultSet.next()) {
 		empty = false;
 		Encounter_ID.add(DatabaseConn.resultSet.getString("EncounterID"));
@@ -84,6 +101,7 @@ public class CoverageSteps extends BasePage{
 		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstantCoverage.queryCoverageEncounterID2());
 		boolean empty = true;
+		Encounter_ID.clear();
 		while (DatabaseConn.resultSet.next()) {
 		empty = false;
 		Encounter_ID.add(DatabaseConn.resultSet.getString("EncounterID"));
@@ -97,6 +115,7 @@ public class CoverageSteps extends BasePage{
 		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstantCoverage.queryCoverageEncounterID3(CommonMethods.LoadProperties("facility")));
 		boolean empty = true;
+		Encounter_ID.clear();
 		while (DatabaseConn.resultSet.next()) {
 		empty = false;
 		Encounter_ID.add(DatabaseConn.resultSet.getString("EncounterID"));
@@ -110,6 +129,7 @@ public class CoverageSteps extends BasePage{
 		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstantCoverage.queryCoverageEncounterID4());
 		boolean empty = true;
+		Encounter_ID.clear();
 		while (DatabaseConn.resultSet.next()) {
 		empty = false;
 		Encounter_ID.add(DatabaseConn.resultSet.getString("EncounterID"));
@@ -123,6 +143,7 @@ public class CoverageSteps extends BasePage{
 		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstantCoverage.queryCoverageEncounterID5(CommonMethods.LoadProperties("facility")));
 		boolean empty = true;
+		Encounter_ID.clear();
 		while (DatabaseConn.resultSet.next()) {
 		empty = false;
 		Encounter_ID.add(DatabaseConn.resultSet.getString("EncounterID"));
@@ -136,6 +157,7 @@ public class CoverageSteps extends BasePage{
 		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstantCoverage.queryHcpcCode());
 		boolean empty = true;
+		HCPC.clear();
 		while (DatabaseConn.resultSet.next()) {
 		empty = false;
 		HCPC.add(DatabaseConn.resultSet.getString("hcpc_code_id"));
