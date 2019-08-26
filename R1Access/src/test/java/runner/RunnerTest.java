@@ -7,12 +7,10 @@ import net.serenitybdd.cucumber.CucumberWithSerenity;
 
 
 @RunWith(CucumberWithSerenity.class)
-@CucumberOptions(features = { "src/test/resources/features/R1Access" }, 
-//tags = { " @391785 or @391787 or @391788 or @391789 or @391790 },
-tags= {"@CWL"},
-monochrome=true,
-glue = "r1.steps.definitions",
-dryRun=false)
+@CucumberOptions(features = { "src/test/resources/features/R1Access/Patient.feature" }, 
+tags = { "@419179"}, 
+glue = "r1.steps.definitions")
+
 public class RunnerTest {
 
 }
