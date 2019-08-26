@@ -108,15 +108,7 @@ Scenario: Verify user is able to move the services up/down
 	And user add ICD Codes 
 	Then verify that up down arrow key is moving of ICD codes 
 
-#@391873 @Service2
-#Scenario: Verify an expired code
-#	When user clicks on any Unassigned Account 
-#	And user clicked on "Services" tab 
-#	And user clicked on checkout button 
-#	And user clicked on Admitting if exists
-#	Then verify that search label, button, textbox, switch to final is visible 
-#	When  user fetch expired hcpc code and enter it
-#	Then verify error message is coming HCPC found but expired
+
 		
 	
 	

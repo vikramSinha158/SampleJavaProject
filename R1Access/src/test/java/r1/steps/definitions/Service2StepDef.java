@@ -164,19 +164,4 @@ public class Service2StepDef extends BasePage {
 		service2.clickOnICD9Checkbox();
 	}
 
-	
-	@Then("^verify that search label, button, textbox, switch to final is visible$")
-	public void verify_that_search_label_button_textbox_switch_to_final_is_visible() {
-	
-	}
-
-	@When("^user fetch expired hcpc code and enter it$")
-	public void user_fetch_expired_hcpc_code_and_enter_it() {
-
-	}
-
-	@Then("^verify error message is coming HCPC found but expired$")
-	public void verify_error_message_is_coming_HCPC_found_but_expired() {
-
-	}
 }
