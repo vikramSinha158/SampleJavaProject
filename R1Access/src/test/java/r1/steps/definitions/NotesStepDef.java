@@ -13,6 +13,7 @@ import r1.pages.NotesPage;
 import r1.pages.UserLogin;
 import r1.serenity.steps.NotesSteps;
 import r1.commons.BasePage;
+import r1.commons.R1AccessCommonMethods;
 import r1.commons.databaseconnection.QueryConstants;
 import r1.commons.utilities.CommonMethods;
 
@@ -22,7 +23,8 @@ public class NotesStepDef extends BasePage {
 	UserLogin userLogin;
 	Navigation navigation;
 	NotesSteps noteSteps;
-
+	R1AccessCommonMethods r1AccessCommonMethod;
+	
 	@Given("^user is on R1 hub page$")
 	public void user_is_on_R1_hub_page() throws IOException {
 		OpenBrowser();

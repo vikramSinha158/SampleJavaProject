@@ -28,14 +28,14 @@ public class ClearanceIStepDef extends BasePage{
  	//private static final org.apache.logging.log4j.Logger LOGGER = (org.apache.logging.log4j.Logger) Logger.getLogger(AssertValues.class.getName());
 
 	
-
+/*
 @When("^user clicks on \"([^\"]*)\"$")
 public void user_clicks_on(String arg1) {
 	clearancePage.clickPatientAccess();
 	clearancePage.clickPreRegistration();
     
 }
-
+*/
 
 @When("^user clicks on \"([^\"]*)\" expand button$")
 public void user_clicks_on_expand_button(String arg1) {

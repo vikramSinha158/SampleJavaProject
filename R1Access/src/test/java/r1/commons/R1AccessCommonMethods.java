@@ -503,6 +503,8 @@ public class R1AccessCommonMethods extends BasePage {
 		return value;
 	}
 
+
+
 	/*----------------------------CHECK TAB STATUS INCOMPLETE..COMPLETE..REDO..UNDETERMINED--------------*/
 
 	public String chkTabStatusIncompleteComplete() {
@@ -520,7 +522,7 @@ public class R1AccessCommonMethods extends BasePage {
 
 	/*---------------------------- SET FACILITY SETTING VALUE   ------------------------------------*/
 
-	public void setFacilitySettingVal(String facilityCode, String settingName, int val) {
+	public void setFacilitySettingVal(String facilityCode, String settingName, String value) {
 		select = new Select(select_search_field_dropDown);
 		select.selectByValue("Code");
 		search_value_textbox.sendKeys(facilityCode);
@@ -531,8 +533,7 @@ public class R1AccessCommonMethods extends BasePage {
 		search_setting_textbox.sendKeys(settingName);
 		withAction().moveToElement(search_setting_button).click().build().perform();
 		withAction().moveToElement(edit_facility_setting).click().build().perform();
-		text_setting_value.clear();
-		value = Integer.toString(val);
+		text_setting_value.clear();		
 		text_setting_value.sendKeys(value);
 		update_facility_button.click();
 	}
