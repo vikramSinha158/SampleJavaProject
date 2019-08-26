@@ -13,7 +13,7 @@ public class DataAccess {
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, Query);
 		DatabaseConn.resultSet.next();
 		return DatabaseConn.resultSet.getString(column);
-}
-	
-		
+	}
+
+
 }
