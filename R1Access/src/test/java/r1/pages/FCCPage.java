@@ -337,8 +337,8 @@ public class FCCPage extends BasePage{
 				Assert.assertTrue("Worklist FollowUp is not matching",workListDisposition.get(i).getText().contains(new SimpleDateFormat("MM/d/yyyy").format(new Date())));
 				break;
 			}
-			Assert.assertTrue("Visit number is not appearing on the worklist",flag==true);
 		}
+		Assert.assertTrue("Visit number is not appearing on the worklist",flag==true);
 	}
 	
 	
