@@ -131,19 +131,9 @@ public class ConfigRuleStepDef {
 		configRule.verifySelectedCoverage();
 	}
 	
-	@Then("^user delete existing coverage$")
-	public void user_delete_existing_coverage() {
-		configRule.deleteAllCoverage();
-	}
-	
 	@Then("^user verify 'Primary Authorization Suppression' and 'Primary Coverage Exceptions' tab visible \"([^\"]*)\"$")
 	public void user_verify_Primary_Authorization_Suppression_and_Primary_Coverage_Exceptions_tab_visible(String arg1) {
 		configRule.verifyPrimaryAuthAndCoverage(arg1);
-	}
-	
-	@Then("^user clicks on \"([^\"]*)\" btn$")
-	public void user_clicks_on_btn(String text) {
-		common.clickActionStatusTab(text);
 	}
 	
 	@When("^user expand Service Automation Rules tool bar$")
