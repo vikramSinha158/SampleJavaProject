@@ -561,6 +561,7 @@ public class PatientStepDef extends BasePage {
 		QueryExecutor.runQueryTran(query, "Patient");
 		DatabaseConn.resultSet.next();
 		encCounter = DatabaseConn.resultSet.getString("encounterid");
+		System.out.print(encCounter);
 	}
 
 	@Then("^user should be able to clicks on checkout button by run query \"([^\"]*)\"$")
