@@ -161,10 +161,11 @@ public class CommonMethods{
 		return rnd.nextInt(all);
 	}
 	
-	public static String queryProperties(String input) throws FileNotFoundException, IOException {
-		 Properties prop = new Properties();
-		 prop.load(new FileInputStream("src/test/resources/TestData/Query.properties"));
-		 return prop.getProperty(input);
-	}
+	public static String queryProperties(String input,String moduleName) throws FileNotFoundException, IOException {
+        Properties prop = new Properties();        
+        String path="src/test/resources/TestData/Query"+moduleName+".properties";
+        prop.load(new FileInputStream(path));      
+        return prop.getProperty(input);
+ }
 	
 }

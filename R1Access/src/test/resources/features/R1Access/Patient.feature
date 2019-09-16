@@ -79,15 +79,20 @@ Verify for Override functionality when both Exception Level 1 & Level 2 exist on
 	And user should be able to patient tab color as red 
 	
 @393733 @Patient 
-Scenario: Verify checkboxes present in with level of Patient visit and address 
-	When user run the query and fetch the encounteridFifth 
+Scenario Outline: Verify checkboxes present in with level of Patient visit and address 
+	When user runs the query "<QueryForPatientAccount>" for patient deatils  
 	And user clicks on search button of menu 
 	And user enter encounterid in search textbox 
 	And user clicks on submit button 
 	Then user should be able to view on Account Level Details Page 
 	When user clicks on Patient tab 
-	Then user should be able to clicks on checkout button 
-	And user should be able to view patient details 
+	Then user should be able to clicks on checkout button by run query "<QueryForPatientCheckBoxState>" 
+	And user should be able to view patient details 	
+	
+	Examples: 
+		| QueryForPatientAccount                  | QueryForPatientCheckBoxState	   |
+		| r1accessQuery_393733_PatientEncounterid | r1accessQuery_393733_PatientCheckBoxState |
+		
 	
 @391874 @Patient 
 Scenario:
