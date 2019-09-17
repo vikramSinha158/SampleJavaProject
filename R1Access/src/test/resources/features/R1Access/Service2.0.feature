@@ -8,7 +8,7 @@ Background: User should be able to navigate on Account Worklist Grid
 	And user clicks on "Patient Access" link 
 	And user clicks on "Pre-Registration" side sub menu
 	Then user should be able to view Account Worklist Grid
-	Then verify facility "SCFL" service "FRONT_SERVICES_TASK_VERSION" and residual "FRONT_RESIDUAL_TASK_VERSION" has version two
+	Then verify facility "SCFL - St Vincents Medical Center Clay County" service and residual settings has version two and runs the query "r1accessQuery_391637_serviceSettingValue" and "r1accessQuery_391637_residualSettingValue"
 	
 			
 @391637 @391638 @391835 @391837 @391648 @Service2

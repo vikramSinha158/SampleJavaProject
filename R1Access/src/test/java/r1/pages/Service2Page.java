@@ -110,68 +110,60 @@ public class Service2Page extends BasePage {
 	@FindBy(xpath = "//table[contains(@id,'grdICD9Selected')]//img[contains(@src,'/images/dn.gif')]")
 
 	private WebElementFacade clickICDCodesIndexValueFromTable;
-				
+
 	@FindBy(xpath = "//table[@class='PanelTitle']//tr[@class='PanelTitle']")
 
 	private WebElementFacade verifyFinalText;
-	
+
 	@FindBy(xpath = "//input[contains(@name,'txtSearch')]")
 
 	private WebElementFacade verifySearchTextBox;
-	
+
 	@FindBy(xpath = "//input[contains(@name,'txtSearch')]")
 
 	private WebElementFacade verifySearchButton;
-	
-	
-	/*............ Service Query ..................................*/
+
+	/* ............ Service Query .................................. */
 
 	public void verifyServiceandResidualSettings(String facility, String serviceSetting, String residualSetting)
-			throws ClassNotFoundException, IOException, SQLException {
-		settingValue = Integer.parseInt(retrieveSettingValue(serviceSetting, facility));
+			throws ClassNotFoundException, IOException, SQLException, InterruptedException {
+		settingValue = Integer.parseInt(serviceSetting);
+       facility=facility.substring(0, 4);
+       System.out.print(facility);
 		
 		if (settingValue != 2) {
 			r1AccessCommonMethod.clickFooterR1AccesModulesTab("Settings");
 			r1AccessCommonMethod.clickSubSideR1HubModulesMenuLink("IT Tools");
 			r1AccessCommonMethod.clickSubSideR1HubModulesMenuLink("FacilitySetting Configuration");
-			r1AccessCommonMethod.setFacilitySettingVal(facility, serviceSetting, "2");
+			r1AccessCommonMethod.setFacilitySettingVal(facility,"FRONT_SERVICES_TASK_VERSION", "2");
 		}
 
-		settingValue = Integer.parseInt(retrieveSettingValue(residualSetting,facility));
+		settingValue = Integer.parseInt(residualSetting);
 
 		if (settingValue != 2) {
 			r1AccessCommonMethod.clickFooterR1AccesModulesTab("Settings");
 			r1AccessCommonMethod.clickSubSideR1HubModulesMenuLink("IT Tools");
 			r1AccessCommonMethod.clickSubSideR1HubModulesMenuLink("FacilitySetting Configuration");
-			r1AccessCommonMethod.setFacilitySettingVal(facility, residualSetting, "2");
+			r1AccessCommonMethod.setFacilitySettingVal(facility, "FRONT_RESIDUAL_TASK_VERSION", "2");
 		}
-		
-		if (settingValue != 2)
-		{
-		r1AccessCommonMethod.clickFooterR1AccesModulesTab("Settings");
-		r1AccessCommonMethod.clickSubSideR1HubModulesMenuLink("IT Tools");
-		r1AccessCommonMethod.clearCache();
-		r1AccessCommonMethod.clickFooterR1AccesModulesTab("Patient Access");
-		r1AccessCommonMethod.clickSubSideR1HubModulesMenuLink("Pre-Registration");		
+
+		if (settingValue != 2) {
+			r1AccessCommonMethod.clickFooterR1AccesModulesTab("Settings");			
+			r1AccessCommonMethod.clickFacilityList();		
+			r1AccessCommonMethod.selectFacility("SCFL - St Vincents Medical Center Clay County");			
+			r1AccessCommonMethod.clickSubSideR1HubModulesMenuLink("IT Tools");
+			r1AccessCommonMethod.clearCache();
+			r1AccessCommonMethod.clickFooterR1AccesModulesTab("Patient Access");
+			r1AccessCommonMethod.clickSubSideR1HubModulesMenuLink("Pre-Registration");
 		}
 	}
 
-	public String retrieveSettingValue(String settingName,String facility) throws ClassNotFoundException, IOException, SQLException {
-		query = QueryConstantService.fetchSettingValue(settingName);
-		value = DataAccess.getColumValue(("SettingValue"), query, facility);
-		return value;
+	public String getmoduleName() {
+		return "Service2";
 	}
-	
-	public String retrieveExpiredHCPCValue() throws ClassNotFoundException, IOException, SQLException {
-		query = QueryConstantService.fetchHCPCCodeValue();
-		value = DataAccess.getColumValue(("hcpc_code_id"), query);
-		return value;
-	}
-	
 
-	/*............ Service Query ..................................*/
+	/* ............ Service Query .................................. */
 
-	
 	public void verifyUpDownArrowKeyIsWorking() {
 		for (int i = 1; i <= verifyServicesGetAdded.size(); i++) {
 			String before = clickICDCodesRowValue.get(i).getText().toString();
@@ -237,8 +229,7 @@ public class Service2Page extends BasePage {
 	}
 
 	public void addICDDiagnosisCodes() {
-		i = random.nextInt(clickOnICDCodes.size());
-		// abc=clickOnServiceSearchResults.get(i).getText().toString();
+		i = random.nextInt(clickOnICDCodes.size());		
 		withAction().moveToElement(clickOnICDCodes.get(i)).click().build().perform();
 	}
 

@@ -1,5 +1,6 @@
 package r1.steps.definitions;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -10,17 +11,35 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
+import r1.commons.databaseconnection.QueryExecutor;
 import r1.pages.Service2Page;
+import r1.commons.databaseconnection.DatabaseConn;
+import r1.commons.databaseconnection.QueryExecutor;
 
 public class Service2StepDef extends BasePage {
 
 	R1AccessCommonMethods r1AccessCommonMethod;
 	Service2Page service2;
 
-	@Then("^verify facility \"([^\"]*)\" service \"([^\"]*)\" and residual \"([^\"]*)\" has version two$")
-	public void verify_facility_service_and_residual_has_version_two(String facility, String serviceSetting,
-			String residualSetting) throws ClassNotFoundException, IOException, SQLException {
+	@Then("^verify facility \"([^\"]*)\" service and residual settings has version two and runs the query \"([^\"]*)\" and \"([^\"]*)\"$")
+	public void verify_facility_service_and_residual_settings_has_version_two_and_runs_the_query_and(String facility,
+			String serviceQuery, String residualQuery)
+			throws ClassNotFoundException, FileNotFoundException, SQLException, IOException, InterruptedException {
+
+		QueryExecutor.runQueryTran(serviceQuery, service2.getmoduleName());
+		DatabaseConn.resultSet.next();
+		String serviceSetting = DatabaseConn.resultSet.getString("SettingValue");
+		
+		QueryExecutor.runQueryTran(residualQuery, service2.getmoduleName());
+		DatabaseConn.resultSet.next();
+		String residualSetting = DatabaseConn.resultSet.getString("SettingValue");		
 		service2.verifyServiceandResidualSettings(facility, serviceSetting, residualSetting);
+
+	}
+
+	@When("^user clicks on \"([^\"]*)\" link$")
+	public void user_clicks_on_link(String link) {
+		r1AccessCommonMethod.clickFooterR1AccesModulesTab(link);
 	}
 
 	@When("^user select filter \"([^\"]*)\" operator \"([^\"]*)\" value \"([^\"]*)\" from dropdown$")
@@ -163,5 +182,4 @@ public class Service2StepDef extends BasePage {
 	public void user_clicks_on_IcdNine_codes_checkbox() {
 		service2.clickOnICD9Checkbox();
 	}
-
 }

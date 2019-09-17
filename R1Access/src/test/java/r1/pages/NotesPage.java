@@ -167,11 +167,11 @@ public class NotesPage extends BasePage {
 	/*public void verifyNoteDB(String column) throws ClassNotFoundException, IOException, SQLException, InterruptedException {
 		Assert.assertTrue("Note is not matching with database",noteText.getText().contains(NotesSteps.verifyNewCreatedScope(encounterID.getText(), column)));
 	}*/
-	
+	/*
 	public void runQuery(String queryName) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
 		QueryExecutor.runQueryTranParam(queryName,encounterID.getText());
 	}
-	
+	*/
 	public void verifyNoteDB(String col) throws SQLException{
 		while(DatabaseConn.resultSet.next()) {
 			Assert.assertTrue("Note is not matching with database",noteText.getText().contains(DatabaseConn.resultSet.getString(col)));

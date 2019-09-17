@@ -138,12 +138,12 @@ public class NotesStepDef extends BasePage {
 	public void user_should_not_able_to_view_added_note(String cancelNote) {
 		notesPage.verifyCancelNote(cancelNote);
 	}
-	
+	/*
 	@When("^user runs the query \"([^\"]*)\"$")
 	public void user_runs_the_query(String query) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
 		notesPage.runQuery(query);
 	}
-	
+	*/
 	@Then("^user verify the database column \"([^\"]*)\" with UI$")
 	public void user_verify_the_database_with_ui(String column) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
 		notesPage.verifyNoteDB(column);
