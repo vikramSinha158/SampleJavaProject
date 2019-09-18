@@ -4,13 +4,12 @@ Background: User should be able to navigate on Account Worklist Grid
 
 	Given user is on R1 hub page 
 	When user clicks on facility list 
-	And user select the facility "SCFL - St Vincents Medical Center Clay County" 
+	And user select the facility 
 	And user clicks on "Patient Access" link 
 	And user clicks on "Pre-Registration" side sub menu
 	Then user should be able to view Account Worklist Grid
-	Then verify facility "SCFL - St Vincents Medical Center Clay County" service and residual settings has version two and runs the query "r1accessQuery_391637_serviceSettingValue" and "r1accessQuery_391637_residualSettingValue"
-	
-			
+	Then verify service and residual settings has version two by running the query "r1accessQuery_391637_serviceSettingValue" and "r1accessQuery_391637_residualSettingValue"
+				
 @391637 @391638 @391835 @391837 @391648 @Service2
 Scenario: Verify Radio Buttons for Single and multiple pricing modes 
 	When user clicks on any Unassigned Account 

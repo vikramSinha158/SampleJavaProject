@@ -17,24 +17,27 @@ import r1.commons.databaseconnection.DatabaseConn;
 import r1.commons.databaseconnection.QueryExecutor;
 
 public class Service2StepDef extends BasePage {
-
+	
 	R1AccessCommonMethods r1AccessCommonMethod;
 	Service2Page service2;
 
-	@Then("^verify facility \"([^\"]*)\" service and residual settings has version two and runs the query \"([^\"]*)\" and \"([^\"]*)\"$")
-	public void verify_facility_service_and_residual_settings_has_version_two_and_runs_the_query_and(String facility,
-			String serviceQuery, String residualQuery)
-			throws ClassNotFoundException, FileNotFoundException, SQLException, IOException, InterruptedException {
+	@When("^user select the facility$")
+	public void user_select_the_facility() throws IOException {
+		r1AccessCommonMethod.selectFacility();
+	}
 
+	@Then("^verify service and residual settings has version two by running the query \"([^\"]*)\" and \"([^\"]*)\"$")
+	public void verify_service_and_residual_settings_has_version_two_by_running_the_query_and(String serviceQuery,
+			String residualQuery)
+			throws ClassNotFoundException, FileNotFoundException, SQLException, IOException, InterruptedException {
 		QueryExecutor.runQueryTran(serviceQuery, service2.getmoduleName());
 		DatabaseConn.resultSet.next();
 		String serviceSetting = DatabaseConn.resultSet.getString("SettingValue");
-		
+
 		QueryExecutor.runQueryTran(residualQuery, service2.getmoduleName());
 		DatabaseConn.resultSet.next();
-		String residualSetting = DatabaseConn.resultSet.getString("SettingValue");		
-		service2.verifyServiceandResidualSettings(facility, serviceSetting, residualSetting);
-
+		String residualSetting = DatabaseConn.resultSet.getString("SettingValue");
+		service2.verifyServiceandResidualSettings(serviceSetting, residualSetting);
 	}
 
 	@When("^user clicks on \"([^\"]*)\" link$")

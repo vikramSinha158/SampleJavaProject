@@ -1,5 +1,6 @@
 package r1.commons;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.openqa.selenium.support.ui.Select;
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
+import r1.commons.utilities.CommonMethods;
 
 public class R1AccessCommonMethods extends BasePage {
 
@@ -23,7 +25,7 @@ public class R1AccessCommonMethods extends BasePage {
 	/*------------------------- SELECT FACILITY AND CLICK   XPath ---------------------------------------------------*/
 
 	@FindBy(xpath = "//select[contains(@id,'LocationChooser_ddlLocation')]")
-	private WebElementFacade facility;
+	private WebElementFacade facilitylist;
 
 	@FindBy(xpath = "//a[contains(@id,'LocationChooser_hypLoc')]")
 	private WebElementFacade facilityList;
@@ -673,8 +675,11 @@ public class R1AccessCommonMethods extends BasePage {
 		clickOn(facilityList);
 	}
 
-	public void selectFacility(String text) {
-		selectFromDropdown(facility, text);
+	public void selectFacility() throws IOException {
+		String facility=CommonMethods.LoadProperties("facility");			
+		String itemxpath="//select[contains(@id,'LocationChooser_ddlLocation')]//option[contains(text(),'"+facility+"')]";				
+	    WebElementFacade selectXPATH = element(By.xpath(itemxpath));
+		selectFromDropdown(facilitylist, selectXPATH.getText());		
 	}
 
 	/*

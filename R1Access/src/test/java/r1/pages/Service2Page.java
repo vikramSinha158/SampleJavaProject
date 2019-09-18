@@ -125,11 +125,10 @@ public class Service2Page extends BasePage {
 
 	/* ............ Service Query .................................. */
 
-	public void verifyServiceandResidualSettings(String facility, String serviceSetting, String residualSetting)
+	public void verifyServiceandResidualSettings(String serviceSetting, String residualSetting)
 			throws ClassNotFoundException, IOException, SQLException, InterruptedException {
-		settingValue = Integer.parseInt(serviceSetting);
-        String  facility2=facility.substring(0, 4);
-       
+		   settingValue = Integer.parseInt(serviceSetting);       
+	       String facility=CommonMethods.LoadProperties("facility");
 		
 		if (settingValue != 2) {
 			r1AccessCommonMethod.clickFooterR1AccesModulesTab("Settings");
@@ -150,7 +149,7 @@ public class Service2Page extends BasePage {
 		if (settingValue != 2) {
 			r1AccessCommonMethod.clickFooterR1AccesModulesTab("Settings");			
 			r1AccessCommonMethod.clickFacilityList();		
-			r1AccessCommonMethod.selectFacility("SCFL - St Vincents Medical Center Clay County");			
+			r1AccessCommonMethod.selectFacility();			
 			r1AccessCommonMethod.clickSubSideR1HubModulesMenuLink("IT Tools");
 			r1AccessCommonMethod.clearCache();
 			r1AccessCommonMethod.clickFooterR1AccesModulesTab("Patient Access");
