@@ -1,17 +1,15 @@
 package r1.steps.definitions;
 
 import java.io.IOException;
-
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
 import r1.pages.Navigation;
-import r1.pages.NotesPage;
 import r1.pages.PCPPage;
 import r1.pages.UserLogin;
-import r1.serenity.steps.NotesSteps;
+
 
 
 public class PCPStepDef extends BasePage{
@@ -19,7 +17,7 @@ public class PCPStepDef extends BasePage{
 	PCPPage pCPPage;
 	UserLogin userLogin;
 	Navigation navigation;
-	R1AccessCommonMethods R1AccessCommonMethodsRef;
+	R1AccessCommonMethods r1accessCommonMethods;
 	
 		
 	@When("^user clicks on setting link$")
@@ -91,8 +89,8 @@ public class PCPStepDef extends BasePage{
 	}
 
 	@Given("^user is on \"([^\"]*)\" worklist page$") 
-	public void user_is_on_worklist_page(String arg1) {
-		pCPPage.verifyWorkListTitle(arg1);
+	public void user_is_on_worklist_page(String worklist) {
+		pCPPage.verifyWorkListTitle(worklist);
 	}
 
 	@When("^user open any account$")
@@ -107,9 +105,9 @@ public class PCPStepDef extends BasePage{
 	
 	@When("^user checkout the account$")
 	public void user_checkout_the_account() {
-		R1AccessCommonMethodsRef.checkOut();
+		r1accessCommonMethods.checkOut();
 	}
-	//..modified
+	
 	@When("^user click on \"([^\"]*)\" tab$")
 	public void user_click_on_tab(String tab) {
 		pCPPage.clickAccountDetailMenuLink(tab);

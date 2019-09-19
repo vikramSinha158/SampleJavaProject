@@ -1,5 +1,6 @@
 package r1.pages;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.junit.Assert;
@@ -7,6 +8,7 @@ import org.junit.Assert;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
+import r1.commons.utilities.CommonMethods;
 
 public class Navigation extends BasePage {
 
@@ -59,6 +61,10 @@ public class Navigation extends BasePage {
 				break;
 			}
 		}
+	}
+	
+	public void selectFacility() throws IOException {
+		CommonMethods.selectListByContains(facility);
 	}
 	
 	public void clickFacilityList() throws InterruptedException {

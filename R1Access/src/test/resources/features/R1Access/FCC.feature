@@ -4,7 +4,7 @@ Feature: Verification of FCC functionality and attributes
   Background: user navigates to FCC worklist page
     Given user is on R1 hub page
     When user clicks on facility list
-    And user select the facility "SJMA - St. John Macomb-Oakland Hospital"
+    And user select the facility
     And user clicks on "FCC" menu
 
   @391664
@@ -23,7 +23,7 @@ Feature: Verification of FCC functionality and attributes
     Then user is on FCC "FCC Coverage Workflow" worklist
     When user clicks on facility list
     And user select the facility "SJMC - St. John Hospital and Medical Center"
-    Then user should be able to view the selected facility "SJMC - St. John Hospital and Medical Center"
+    Then user should be able to view the selected facility "SJMC"
 
   @391666
   Scenario: Verify User should be able to go to the next FCC tab while clicking Right VCR > button.
@@ -78,13 +78,13 @@ Feature: Verification of FCC functionality and attributes
     When user clicks on "Global Coverage Follow Up" menu
     Then user is on FCC "FCC Coverage Workflow" worklist
     When user clicks on any record on the worklist
-    And user clicks on the "FCC" tab
+    And  user clicks on "FCC" moduleTab
     And user select activity from activity drop down
     And user select disposition from disposition drop down
     And user enters text "Note" into Note text box
     And user clicks on the Add button
     Then user should be able to view the follow up labels with type "Coverage Workflow" and note "Note"
-    When user clicks on the "Log" tab
+    When user clicks on "Log" moduleTab
     Then user should be able to view the action log labels with values and note "Note"
 
   @391671
@@ -198,18 +198,18 @@ Feature: Verification of FCC functionality and attributes
   @392060
   Scenario Outline: Verify user should be able to take Activity & Disposition on FCC Contact tab under Pre-Registration worklist
     Given user is on R1 FCC menu page
-    When user clicks on "Patient Access" menu
-    And user clicks on "Pre-Registration" menu
+    When user clicks on "Patient Access" link 
+	And user clicks on "Pre-Registration" side submenu
     Then user is on "Pre-Registration" page
     When user clicks on facility list
-    And user select the facility "MCWI - St. Marys Milwaukee Campus"
+    And user select the facility "MCWI"
     When user click on the "Search" button on blue ribbon
-    Then user runs the query "<query>" for facility "MCWI - St. Marys Milwaukee Campus"
+    Then user runs the query "<query>" for facility "MCWI"
     And user fetch the encounterID "<column>"
     Then user enters the encounterID into search field
     And user clicks on the Search button
     And user clicks on the "FCC Contact" tab
-    And user clicks on "Check Out" button
+    And  user take checkout on account
     And user select activity from activity drop down
     And user select disposition from disposition drop down
     And user enters text "Note" into Note text box

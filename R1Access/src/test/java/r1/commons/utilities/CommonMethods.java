@@ -15,7 +15,9 @@ import java.io.IOException;
 import java.util.*;
 
 
-public class CommonMethods{
+public class CommonMethods extends PageObject{
+	
+	PageObject page;
 
 	public static void DrpVisibleTxt(WebElementFacade we, String s) {
 		Select drp = new Select(we);
@@ -36,6 +38,18 @@ public class CommonMethods{
 	     for(int i=0;i<listOptionDropdown.size();i++) {
 	    	 if(listOptionDropdown.get(i).getText().contains(text)) {
 	    		 selectDropdown.selectByIndex(i);
+	    	 }
+	     }
+	     return selectDropdown.getFirstSelectedOption().getText();
+	}
+	
+	public static String selectListByContains(WebElementFacade element) throws IOException {
+		Select selectDropdown = new Select(element);
+	     List<WebElement> listOptionDropdown = selectDropdown.getOptions();
+	     for(int i=0;i<listOptionDropdown.size();i++) {
+	    	 if(listOptionDropdown.get(i).getText().contains(CommonMethods.LoadProperties("facility"))) {
+	    		 selectDropdown.selectByIndex(i);
+	    		 break;
 	    	 }
 	     }
 	     return selectDropdown.getFirstSelectedOption().getText();
@@ -161,11 +175,10 @@ public class CommonMethods{
 		return rnd.nextInt(all);
 	}
 	
-	public static String queryProperties(String input,String moduleName) throws FileNotFoundException, IOException {
-        Properties prop = new Properties();        
-        String path="src/test/resources/TestData/Query"+moduleName+".properties";
-        prop.load(new FileInputStream(path));      
-        return prop.getProperty(input);
- }
+	public static String queryProperties(String input) throws FileNotFoundException, IOException {
+		Properties prop = new Properties();
+		prop.load(new FileInputStream("src/test/resources/TestData/Query.properties"));
+		return prop.getProperty(input);
+	}
 	
 }

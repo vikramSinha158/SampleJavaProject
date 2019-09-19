@@ -171,8 +171,9 @@ public class PatientStepDef extends BasePage {
 		patientPage.verifyPatientDetails();
 		patientPage.getPatientAdmitDischargeDateStatus();
 		///
-		QueryExecutor.runQueryTranParam(query, encCounter, "Pstient");
+		QueryExecutor.runQueryTranParam(query, encCounter);
 		DatabaseConn.resultSet.next();
+		@SuppressWarnings("unused")
 		String hippaEligibilityValue = DatabaseConn.resultSet.getString("HIPAARequest");
 	}
 
@@ -558,7 +559,7 @@ public class PatientStepDef extends BasePage {
 	@Then("^user should be able to clicks on checkout button by run query \"([^\"]*)\"$")
 	public void user_should_be_able_to_clicks_on_checkout_button_by_run_query(String query)
 			throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
-		QueryExecutor.runQueryTranParam(query, encCounter, "Patient");
+		QueryExecutor.runQueryTranParam(query, encCounter);
 		DatabaseConn.resultSet.next();
 		encCounter = DatabaseConn.resultSet.getString("encounterid");
 

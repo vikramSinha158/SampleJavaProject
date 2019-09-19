@@ -14,8 +14,7 @@ import r1.pages.UserLogin;
 import r1.serenity.steps.NotesSteps;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
-import r1.commons.databaseconnection.QueryConstants;
-import r1.commons.utilities.CommonMethods;
+
 
 public class NotesStepDef extends BasePage {
 

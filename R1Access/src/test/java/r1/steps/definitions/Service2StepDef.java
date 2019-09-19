@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import org.junit.Assert;
+import org.openqa.selenium.WebDriver.Navigation;
+
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -12,20 +14,21 @@ import cucumber.api.java.en.When;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
 import r1.commons.databaseconnection.QueryExecutor;
+import r1.commons.utilities.CommonMethods;
 import r1.pages.Service2Page;
 import r1.commons.databaseconnection.DatabaseConn;
-import r1.commons.databaseconnection.QueryExecutor;
+
 
 public class Service2StepDef extends BasePage {
 
 	R1AccessCommonMethods r1AccessCommonMethod;
-	Service2Page service2;
+	Service2Page service2;;
 
 	@When("^user select the facility$")
 	public void user_select_the_facility() throws IOException {
 		r1AccessCommonMethod.selectFacility();
 	}
-
+	
 	@When("^user clicks on \"([^\"]*)\" link$")
 	public void user_clicks_on_link(String Text) {
 		r1AccessCommonMethod.clickFooterR1AccesModulesTab(Text);
