@@ -37,16 +37,6 @@ public class LogStepDef extends BasePage {
 		logPage.verifySingleActionType(Type);
 	}
 
-	@When("^user search the service$")
-	public void user_search_the_service() {
-		logPage.searchService();
-	}
-
-	@When("^user clicks on first value of Service search result$")
-	public void user_clicks_on_first_value_of_Service_search_result() {
-		logPage.clickOnSearchedService();
-	}
-	
 	@Then("^user should able to verify a log for last task of performed tasks$")
 	public void user_should_able_to_verify_a_log_for_last_task_of_performed_tasks() {
 		logPage.verifyActionlog();

@@ -89,21 +89,7 @@ public class NotesPage extends BasePage {
 	public List<WebElementFacade> accountDetailMenuLinks() {
 		return accountDetailMenuLinks;
 	}
-	
-	public void clickAccountDetailMenuLink(String menuName) {
-		for(int i=0;i<accountDetailMenuLinks.size();i++) {
-			if(accountDetailMenuLinks.get(i).getText().equals(menuName) || accountDetailMenuLinks.get(i).getText().equalsIgnoreCase(menuName)) {
-				withAction().moveToElement(accountDetailMenuLinks.get(i)).click().build().perform();
-				break;
-			}
-		}
-	}
-	
-	public void clickRecord() {
-		int random = 1+(int)(Math.random() * workListRecord.size());
-		clickOn(workListRecord.get(random-1));
-	}
-	
+					
 	public void clickNotesIcon() {
 		clickOn(notesIcon);
 	}
@@ -164,14 +150,7 @@ public class NotesPage extends BasePage {
 		Assert.assertFalse("Note is matching", noteText.getText().contains(text));
 	}
 	
-	/*public void verifyNoteDB(String column) throws ClassNotFoundException, IOException, SQLException, InterruptedException {
-		Assert.assertTrue("Note is not matching with database",noteText.getText().contains(NotesSteps.verifyNewCreatedScope(encounterID.getText(), column)));
-	}*/
-	/*
-	public void runQuery(String queryName) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
-		QueryExecutor.runQueryTranParam(queryName,encounterID.getText());
-	}
-	*/
+	
 	public void verifyNoteDB(String col) throws SQLException{
 		while(DatabaseConn.resultSet.next()) {
 			Assert.assertTrue("Note is not matching with database",noteText.getText().contains(DatabaseConn.resultSet.getString(col)));
@@ -197,4 +176,13 @@ public class NotesPage extends BasePage {
 	public void verifyAccountDetailPage() {
 		Assert.assertTrue("Patient Visit and Address".equals(accountDetailPage.getText().trim()));
 	}
+	
+	/*public void verifyNoteDB(String column) throws ClassNotFoundException, IOException, SQLException, InterruptedException {
+	  Assert.assertTrue("Note is not matching with database",noteText.getText().contains(NotesSteps.verifyNewCreatedScope(encounterID.getText(), column)));
+	 }*/
+	 /*
+	 public void runQuery(String queryName) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+	  QueryExecutor.runQueryTranParam(queryName,encounterID.getText());
+	 }
+	 */
 }
