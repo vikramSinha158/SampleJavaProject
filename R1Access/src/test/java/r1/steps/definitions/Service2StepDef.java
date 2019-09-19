@@ -17,13 +17,28 @@ import r1.commons.databaseconnection.DatabaseConn;
 import r1.commons.databaseconnection.QueryExecutor;
 
 public class Service2StepDef extends BasePage {
-	
+
 	R1AccessCommonMethods r1AccessCommonMethod;
 	Service2Page service2;
 
 	@When("^user select the facility$")
 	public void user_select_the_facility() throws IOException {
 		r1AccessCommonMethod.selectFacility();
+	}
+
+	@When("^user clicks on \"([^\"]*)\" link$")
+	public void user_clicks_on_link(String Text) {
+		r1AccessCommonMethod.clickFooterR1AccesModulesTab(Text);
+	}
+
+	@When("^user clicks on \"([^\"]*)\" side submenu$")
+	public void user_clicks_on_side_submenu(String Text) {
+		r1AccessCommonMethod.clickSubSideR1HubModulesMenuLink(Text);
+	}
+
+	@When("^user clicks on \"([^\"]*)\" moduleTab$")
+	public void user_clicks_on_moduleTab(String Text) {
+		r1AccessCommonMethod.clickR1AccesModulesTab(Text);
 	}
 
 	@Then("^verify service and residual settings has version two by running the query \"([^\"]*)\" and \"([^\"]*)\"$")
@@ -40,9 +55,29 @@ public class Service2StepDef extends BasePage {
 		service2.verifyServiceandResidualSettings(serviceSetting, residualSetting);
 	}
 
-	@When("^user clicks on \"([^\"]*)\" link$")
-	public void user_clicks_on_link(String link) {
-		r1AccessCommonMethod.clickFooterR1AccesModulesTab(link);
+	@When("^user take checkout on account$")
+	public void user_take_checkout_on_account() {
+		r1AccessCommonMethod.clickOnCheckOut();
+	}
+
+	@When("^user clicks on admitting if exists$")
+	public void user_clicks_on_admitting_if_exists() {
+		service2.clickOnAdmiting();
+	}
+
+	@When("^user clicks on \"([^\"]*)\" button$")
+	public void user_clicks_on_button(String Text) {
+		r1AccessCommonMethod.clickActionStatusTab(Text);
+	}
+
+	@When("^user clicks on the \"([^\"]*)\" link from footerTab$")
+	public void user_clicks_on_the_link_from_footerTab(String Text) {
+		r1AccessCommonMethod.clickFooterR1AccesModulesTab(Text);
+	}
+
+	@When("^user select the second facility \"([^\"]*)\"$")
+	public void user_select_the_second_facility(String Text) {
+
 	}
 
 	@When("^user select filter \"([^\"]*)\" operator \"([^\"]*)\" value \"([^\"]*)\" from dropdown$")
@@ -55,29 +90,9 @@ public class Service2StepDef extends BasePage {
 		r1AccessCommonMethod.clickOnUnassignedAccount();
 	}
 
-	@When("^user clicked on \"([^\"]*)\" tab$")
-	public void user_clicked_on_tab(String Text) {
-		r1AccessCommonMethod.clickR1AccesModulesTab(Text);
-	}
-
-	@When("^user clicks on \"([^\"]*)\" side sub menu$")
-	public void user_clicks_on_side_sub_menu(String Text) {
-		r1AccessCommonMethod.clickSubSideR1HubModulesMenuLink(Text);
-	}
-
 	@Then("^verify the fields before checkout$")
 	public void verify_the_fields_before_checkout() {
 		r1AccessCommonMethod.verifyActionStatusTabBeforeCheckout();
-	}
-
-	@When("^user clicked on checkout button$")
-	public void user_clicked_on_checkout_button() {
-		r1AccessCommonMethod.clickOnCheckOut();
-	}
-
-	@When("^user clicked on Admitting if exists$")
-	public void user_clicked_on_Admitting_if_exists() {
-		service2.clickOnAdmiting();
 	}
 
 	@Then("^verify the fields after the checkout$")
@@ -121,11 +136,6 @@ public class Service2StepDef extends BasePage {
 		service2.verifyServiceGridIsNotDisplayed();
 	}
 
-	@When("^user clicks on \"([^\"]*)\" btn$")
-	public void user_clicks_on_btn(String Text) {
-		r1AccessCommonMethod.clickActionStatusTab(Text);
-	}
-
 	@Then("^single multiple radio buttons of pricing will not be displayed$")
 	public void single_multiple_radio_buttons_of_pricing_will_not_be_displayed() {
 		service2.verifySingleMultipleRadioBtnNotExists();
@@ -149,11 +159,6 @@ public class Service2StepDef extends BasePage {
 	@When("^user clicked on \"([^\"]*)\" btn$")
 	public void user_clicked_on_btn(String Text) {
 		service2.clickOnExceptionContinueButton(Text);
-	}
-
-	@When("^user clicks on the \"([^\"]*)\" link from footer Tab$")
-	public void user_clicks_on_the_link_from_footer_Tab(String Text) {
-		r1AccessCommonMethod.clickFooterR1AccesModulesTab(Text);
 	}
 
 	@When("^user set the facility \"([^\"]*)\" setting name \"([^\"]*)\" setting value \"([^\"]*)\"$")

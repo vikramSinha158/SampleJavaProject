@@ -91,7 +91,7 @@ public class R1NeccessityStepDef extends BasePage{
 	}
 	
 	
-	
+	/*
 	@And("^user clicks on \"([^\"]*)\" button$")
 	public void user_clicks_on_Checkout_button(String menu) throws InterruptedException{
 		if(menu.contains("Check Out")) {
@@ -107,7 +107,7 @@ public class R1NeccessityStepDef extends BasePage{
 		else
 			neccessityPage.clickAccountButton(menu);
 	}
-	
+	*/
 	@And("^user search the service \"([^\"]*)\"$")
 	public void user_search_the_service(String service){
 		neccessityPage.searchService(service);

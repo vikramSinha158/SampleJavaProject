@@ -21,16 +21,7 @@ public class PatientStepDef extends BasePage {
 	UserLogin userLogin;
 	PatientPage patientPage;
 	R1AccessCommonMethods r1AccessCommonMethod;
-
-	@When("^user clicks on Patient Access link$")
-	public void user_clicks_on_Patient_Access_link() {
-		r1AccessCommonMethod.clickR1HubModulesMenuLink("Patient Access");
-	}
-
-	@When("^user clicks on Pre-Registration$")
-	public void user_clicks_on_Pre_Registration() {
-		r1AccessCommonMethod.clickSubSideR1HubModulesMenuLink("Pre-Registration");
-	}
+	
 
 	@When("^user run the query and fetch the encounteridOne$")
 	public void user_run_the_query_and_fetch_the_encounteridOne()
