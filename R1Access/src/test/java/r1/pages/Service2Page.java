@@ -128,7 +128,7 @@ public class Service2Page extends BasePage {
 	public void verifyServiceandResidualSettings(String serviceSetting, String residualSetting)
 			throws ClassNotFoundException, IOException, SQLException, InterruptedException {
 		   settingValue = Integer.parseInt(serviceSetting);       
-	       String facility=CommonMethods.LoadProperties("facility");
+	       String facility=CommonMethods.loadProperties("facility");
 		
 		if (settingValue != 2) {
 			r1AccessCommonMethod.clickFooterR1AccesModulesTab("Settings");

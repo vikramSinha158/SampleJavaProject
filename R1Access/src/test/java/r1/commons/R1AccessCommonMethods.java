@@ -676,7 +676,7 @@ public class R1AccessCommonMethods extends BasePage {
 	}
 
 	public void selectFacility() throws IOException {
-		String facility=CommonMethods.LoadProperties("facility");			
+		String facility=CommonMethods.loadProperties("facility");			
 		String itemxpath="//select[contains(@id,'LocationChooser_ddlLocation')]//option[contains(text(),'"+facility+"')]";				
 	    WebElementFacade selectXPATH = element(By.xpath(itemxpath));
 		selectFromDropdown(facilitylist, selectXPATH.getText());		

@@ -15,9 +15,9 @@ import java.io.IOException;
 import java.util.*;
 
 
-public class CommonMethods extends PageObject{
+public class CommonMethods extends BasePage{
 	
-	PageObject page;
+	
 
 	public static void DrpVisibleTxt(WebElementFacade we, String s) {
 		Select drp = new Select(we);
@@ -47,7 +47,7 @@ public class CommonMethods extends PageObject{
 		Select selectDropdown = new Select(element);
 	     List<WebElement> listOptionDropdown = selectDropdown.getOptions();
 	     for(int i=0;i<listOptionDropdown.size();i++) {
-	    	 if(listOptionDropdown.get(i).getText().contains(CommonMethods.LoadProperties("facility"))) {
+	    	 if(listOptionDropdown.get(i).getText().contains(CommonMethods.loadProperties("facility"))) {
 	    		 selectDropdown.selectByIndex(i);
 	    		 break;
 	    	 }
@@ -165,7 +165,7 @@ public class CommonMethods extends PageObject{
 	 * @Author AmeyaS - Read parameters from serenity.properties file
 	 * 
 	 */
-	public static String LoadProperties(String input) throws IOException {
+	public static String loadProperties(String input) throws IOException {
 		EnvironmentVariables variables = SystemEnvironmentVariables.createEnvironmentVariables();
 		return variables.getProperty(input);
 	}
@@ -175,10 +175,10 @@ public class CommonMethods extends PageObject{
 		return rnd.nextInt(all);
 	}
 	
-	public static String queryProperties(String input) throws FileNotFoundException, IOException {
+	public static String queryProperties(String dbPropertiesFileName, String input) throws FileNotFoundException, IOException {
 		Properties prop = new Properties();
-		prop.load(new FileInputStream("src/test/resources/TestData/Query.properties"));
-		return prop.getProperty(input);
-	}
+			prop.load(new FileInputStream("src/test/resources/TestData/"+dbPropertiesFileName+".properties"));
+				return prop.getProperty(input);
+	} 
 	
 }

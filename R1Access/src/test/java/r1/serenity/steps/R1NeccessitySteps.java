@@ -17,7 +17,7 @@ public class R1NeccessitySteps{
 
 	@Step
 	public String searchEncounterID(String column) throws IOException, ClassNotFoundException, SQLException{
-		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
+		DatabaseConn.getServerDBName(CommonMethods.loadProperties("webdriver.base.url"), CommonMethods.loadProperties("facility"));
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstants.queryWorklistAccount);
 		DatabaseConn.resultSet.next();
 		return DatabaseConn.resultSet.getString(column);
@@ -26,7 +26,7 @@ public class R1NeccessitySteps{
 	
 	@Step
 	public String searchNecessityEncounterID(String column) throws IOException, ClassNotFoundException, SQLException{
-		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
+		DatabaseConn.getServerDBName(CommonMethods.loadProperties("webdriver.base.url"), CommonMethods.loadProperties("facility"));
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstants.neccessityRegistrationID);
 		DatabaseConn.resultSet.next();
 		String registrationID =  DatabaseConn.resultSet.getString("RegistrationID");
@@ -38,7 +38,7 @@ public class R1NeccessitySteps{
 	
 	@Step
 	public String getUserDisplayName() throws IOException, ClassNotFoundException, SQLException{
-		DatabaseConn.serverConn(CommonMethods.LoadProperties("bindServer"),"Accretive", QueryConstants.queryUserDisplayName(CommonMethods.LoadProperties("username")));
+		DatabaseConn.serverConn(CommonMethods.loadProperties("bindServer"),"Accretive", QueryConstants.queryUserDisplayName(CommonMethods.loadProperties("username")));
 		DatabaseConn.resultSet.next();
 		return DatabaseConn.resultSet.getString("FirstName");
 	}
@@ -46,7 +46,7 @@ public class R1NeccessitySteps{
 	@Step
 	public ArrayList<String> getNecessityEncounterID(String column) throws IOException, ClassNotFoundException, SQLException{
 		ArrayList<String> necessityEncounterID = new ArrayList<String>();
-		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
+		DatabaseConn.getServerDBName(CommonMethods.loadProperties("webdriver.base.url"), CommonMethods.loadProperties("facility"));
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstants.queryNecessityEncounterID());
 		while(DatabaseConn.resultSet.next()) {
 			necessityEncounterID.add(DatabaseConn.resultSet.getString(column));
@@ -56,7 +56,7 @@ public class R1NeccessitySteps{
 	
 	@Step
 	public String getPatientEncounterID(String column) throws IOException, ClassNotFoundException, SQLException{
-		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
+		DatabaseConn.getServerDBName(CommonMethods.loadProperties("webdriver.base.url"), CommonMethods.loadProperties("facility"));
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstants.queryPatientTypeEncounterID);
 		DatabaseConn.resultSet.next();
 		return DatabaseConn.resultSet.getString(column);

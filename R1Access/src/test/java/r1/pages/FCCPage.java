@@ -322,7 +322,7 @@ public class FCCPage extends BasePage{
 		Assert.assertTrue("Activity Log header Date/Time is not matching", actionLogLabels.get(5).getText().contains("Date/Time"));
 		Assert.assertTrue("Activity Log value Type/Disposition is not matching", actionLogValues.get(0).getText().contains("Task"));
 		Assert.assertTrue("Activity Log value Task is not matching", actionLogValues.get(1).getText().contains("Take Action"));
-		Assert.assertTrue("Activity Log value Updated By is not matching", actionLogValues.get(2).getText().toLowerCase().contains(CommonMethods.LoadProperties("username").toLowerCase()));
+		Assert.assertTrue("Activity Log value Updated By is not matching", actionLogValues.get(2).getText().toLowerCase().contains(CommonMethods.loadProperties("username").toLowerCase()));
 		Assert.assertTrue("Activity Log value Status is not matching", actionLogValues.get(3).getText().contains("Incomplete"));
 		Assert.assertTrue("Activity Log value Note is not matching", actionLogValues.get(4).getText().contains(note));
 		Assert.assertTrue("Activity Log value Date/Time is not matching", actionLogValues.get(5).getText().contains(new SimpleDateFormat("M/d/yyyy").format(new Date())));

@@ -12,6 +12,7 @@ public class DatabaseConn {
 	public static ResultSet resultSet;
 	public static String serverName;
 	public static String databaseName;
+	public static Connection conn;
 
 	public static void getServerDBName(String url, String facility) {
 
@@ -102,7 +103,7 @@ public class DatabaseConn {
 			String dbUrl = "jdbc:sqlserver://" + serverHost + ";databaseName=" + dbName + ";integratedSecurity=true";
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
-			Connection conn = DriverManager.getConnection(dbUrl);
+		    Connection conn = DriverManager.getConnection(dbUrl);
 			Statement stmt = conn.createStatement();
 			resultSet = stmt.executeQuery(query);
 

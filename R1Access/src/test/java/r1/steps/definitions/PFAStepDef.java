@@ -1,5 +1,6 @@
 package r1.steps.definitions;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -9,6 +10,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
+import r1.commons.databaseconnection.DatabaseConn;
 import r1.pages.Navigation;
 import r1.pages.PFAPage;
 import r1.pages.UserLogin;
@@ -21,7 +23,7 @@ public class PFAStepDef extends BasePage {
 	UserLogin userLogin;
 	Navigation navigation;
 	R1AccessCommonMethods r1AccessCommonMethods;
-	String encounterId, eId, visitNo;
+	String encounterId, payorCode, eId, visitNo;
 
 	@Then("^\"([^\"]*)\" tab color should be visible \"([^\"]*)\"$")
 	public void tab_color_should_be_visible(String moduleTab, String color) {
@@ -39,9 +41,16 @@ public class PFAStepDef extends BasePage {
 		r1AccessCommonMethods.clickOnCheckOut();
 	}
 
-	@When("^user run the query and fetch \"([^\"]*)\"$")
-	public void user_run_the_query_and_fetch(String col) throws ClassNotFoundException, SQLException, IOException {
-		pfaPage.fetchPayorCode(col);
+//	@When("^user run the query and fetch \"([^\"]*)\"$")
+//	public void user_run_the_query_and_fetch(String col) throws ClassNotFoundException, SQLException, IOException {
+//		pfaPage.fetchPayorCode(col);
+//	}
+	
+	@When("^user run the query \"([^\"]*)\"$")
+	public void user_run_the_query(String query) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		pfaPage.runQueryTranServer(query);
+		DatabaseConn.resultSet.next();
+		payorCode = DatabaseConn.resultSet.getString("PayorCode");
 	}
 
 	@When("^add coverage by click on plus button$")
@@ -52,7 +61,7 @@ public class PFAStepDef extends BasePage {
 
 	@When("^user enters the payor code in search text box$")
 	public void user_enters_the_payor_code_in_search_text_box() {
-		pfaPage.enterPayorCode();
+		pfaPage.enterPayorCode(payorCode);
 	}
 
 	@When("^user clicks on find button$")
@@ -84,11 +93,30 @@ public class PFAStepDef extends BasePage {
 	}
 
 	@When("^user fetch the \"([^\"]*)\" from Query PFA_418876_SQL1$")
-	public void user_fetch_the_from_Query_PFA_418876_SQL1(String col)
+	public void user_fetch_the_from_Query_PFA_418876_SQL1(String query)
 			throws ClassNotFoundException, SQLException, IOException {
-		encounterId = pfaSteps.getEncounterdIDForResident(col);
+		pfaPage.runQueryTranServer(query);
+		DatabaseConn.resultSet.next();
+		encounterId = DatabaseConn.resultSet.getString("encounterid");
+		
 	}
-
+	
+	@When("^user fetch the \"([^\"]*)\" from Query PFA_419028_SQL10$")
+	public void user_fetch_the_from_Query_PFA_419028_SQL10(String query)
+			throws ClassNotFoundException, SQLException, IOException {
+		pfaPage.runQueryTranServer(query);
+		DatabaseConn.resultSet.next();
+		encounterId = DatabaseConn.resultSet.getString("EncounterID");
+		
+	}
+	
+	@When("^user fetch the \"([^\"]*)\" from Query PFA_419029_SQL11$")
+	public void user_fetch_the_from_Query_PFA_419029_SQL11(String query)
+			throws ClassNotFoundException, SQLException, IOException {
+		pfaPage.runQueryTranServer(query);
+		DatabaseConn.resultSet.next();
+		encounterId = DatabaseConn.resultSet.getString("encounterid");
+	}
 	@When("^user enters the encounterid in visit Text field$")
 	public void user_enters_the_encounterid_in_visit_Text_field() {
 		pfaPage.enterEncounterID(encounterId);
@@ -100,9 +128,11 @@ public class PFAStepDef extends BasePage {
 	}
 
 	@When("^user fetch the \"([^\"]*)\" from Query PFA_419018_SQL1$")
-	public void user_fetch_the_from_Query_PFA_419018_SQL1(String col)
+	public void user_fetch_the_from_Query_PFA_419018_SQL1(String query)
 			throws ClassNotFoundException, SQLException, IOException {
-		encounterId = pfaSteps.getEncounterdIDAgeLessThanEighteen(col);
+		pfaPage.runQueryTranServer(query);
+		DatabaseConn.resultSet.next();
+		encounterId = DatabaseConn.resultSet.getString("EncounterID");
 	}
 
 	@Then("^there should be no answer selected as default$")
@@ -112,9 +142,11 @@ public class PFAStepDef extends BasePage {
 	}
 
 	@When("^user fetch the \"([^\"]*)\" from Query PFA_419018_SQL2$")
-	public void user_fetch_the_from_Query_PFA_419018_SQL2(String col)
+	public void user_fetch_the_from_Query_PFA_419018_SQL2(String query)
 			throws ClassNotFoundException, SQLException, IOException {
-		encounterId = pfaSteps.getEncounterdIDAgeGreaterThanEighteen(col);
+		pfaPage.runQueryTranServer(query);
+		DatabaseConn.resultSet.next();
+		encounterId = DatabaseConn.resultSet.getString("EncounterID");
 	}
 
 	@When("^user fill all the L1 Screening Questions$")
@@ -129,13 +161,11 @@ public class PFAStepDef extends BasePage {
 
 	@Then("^all selected answers should be clear appear$")
 	public void all_selected_answers_should_be_clear_appear() throws InterruptedException {
-		Thread.sleep(4000);
 		pfaPage.verifyAnswersSelected();
 	}
 
 	@Then("^First question Did the patient decline the screening questionnaire answer should be by deafult \"([^\"]*)\" selected$")
-	public void first_question_Did_the_patient_decline_the_screening_questionnaire_answer_should_be_by_deafult_selected(
-			String status) {
+	public void first_question_Did_the_patient_decline_the_screening_questionnaire_answer_should_be_by_deafult_selected(String status) {
 		pfaPage.verifyScreeningQuesDeclined(status);
 
 	}

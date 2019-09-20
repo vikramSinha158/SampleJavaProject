@@ -12,7 +12,7 @@ public class NotesSteps {
 	
 	@Step
 	public static String verifyNewCreatedScope(String encounterid, String column) throws IOException, ClassNotFoundException, SQLException{
-		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
+		DatabaseConn.getServerDBName(CommonMethods.loadProperties("webdriver.base.url"), CommonMethods.loadProperties("facility"));
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstants.queryNote(encounterid));
 		DatabaseConn.resultSet.next();
 		return DatabaseConn.resultSet.getString(column);

@@ -31,7 +31,7 @@ public class CoverageSteps extends BasePage{
 	@Step
 	public static void getCoverageColumnValue(String encounterID) throws ClassNotFoundException, SQLException, IOException {
 		
-		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
+		DatabaseConn.getServerDBName(CommonMethods.loadProperties("webdriver.base.url"), CommonMethods.loadProperties("facility"));
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstantCoverage.queryCoverageColVal(encounterID));
 		boolean empty = false;
 		payorPlanNameDB.clear();
@@ -62,7 +62,7 @@ public class CoverageSteps extends BasePage{
 	@Step
 	public static void getEditedColumnValue(String encounterID) throws ClassNotFoundException, SQLException, IOException {
 		
-		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
+		DatabaseConn.getServerDBName(CommonMethods.loadProperties("webdriver.base.url"), CommonMethods.loadProperties("facility"));
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstantCoverage.queryEditedColVal(encounterID));
 		boolean empty = false;
 		payorPlanNameDB.clear();
@@ -84,7 +84,7 @@ public class CoverageSteps extends BasePage{
 	
 	@Step
 	public ArrayList<String> getCoverageEncounterID1() throws SQLException, ClassNotFoundException, IOException {
-		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
+		DatabaseConn.getServerDBName(CommonMethods.loadProperties("webdriver.base.url"), CommonMethods.loadProperties("facility"));
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstantCoverage.queryCoverageEncounterID1());
 		boolean empty = true;
 		Encounter_ID.clear();
@@ -98,7 +98,7 @@ public class CoverageSteps extends BasePage{
 	
 	@Step
 	public ArrayList<String> getCoverageEncounterID2() throws SQLException, ClassNotFoundException, IOException {
-		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
+		DatabaseConn.getServerDBName(CommonMethods.loadProperties("webdriver.base.url"), CommonMethods.loadProperties("facility"));
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstantCoverage.queryCoverageEncounterID2());
 		boolean empty = true;
 		Encounter_ID.clear();
@@ -112,8 +112,8 @@ public class CoverageSteps extends BasePage{
 	
 	@Step
 	public ArrayList<String> getCoverageEncounterID3() throws SQLException, ClassNotFoundException, IOException {
-		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
-		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstantCoverage.queryCoverageEncounterID3(CommonMethods.LoadProperties("facility")));
+		DatabaseConn.getServerDBName(CommonMethods.loadProperties("webdriver.base.url"), CommonMethods.loadProperties("facility"));
+		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstantCoverage.queryCoverageEncounterID3(CommonMethods.loadProperties("facility")));
 		boolean empty = true;
 		Encounter_ID.clear();
 		while (DatabaseConn.resultSet.next()) {
@@ -126,7 +126,7 @@ public class CoverageSteps extends BasePage{
 	
 	@Step
 	public ArrayList<String> getCoverageEncounterID4() throws SQLException, ClassNotFoundException, IOException {
-		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
+		DatabaseConn.getServerDBName(CommonMethods.loadProperties("webdriver.base.url"), CommonMethods.loadProperties("facility"));
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstantCoverage.queryCoverageEncounterID4());
 		boolean empty = true;
 		Encounter_ID.clear();
@@ -140,8 +140,8 @@ public class CoverageSteps extends BasePage{
 	
 	@Step
 	public ArrayList<String> getCoverageEncounterID5() throws SQLException, ClassNotFoundException, IOException {
-		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
-		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstantCoverage.queryCoverageEncounterID5(CommonMethods.LoadProperties("facility")));
+		DatabaseConn.getServerDBName(CommonMethods.loadProperties("webdriver.base.url"), CommonMethods.loadProperties("facility"));
+		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstantCoverage.queryCoverageEncounterID5(CommonMethods.loadProperties("facility")));
 		boolean empty = true;
 		Encounter_ID.clear();
 		while (DatabaseConn.resultSet.next()) {
@@ -154,7 +154,7 @@ public class CoverageSteps extends BasePage{
 	
 	@Step
 	public ArrayList<String> getHcpcCode() throws SQLException, ClassNotFoundException, IOException {
-		DatabaseConn.getServerDBName(CommonMethods.LoadProperties("webdriver.base.url"), CommonMethods.LoadProperties("facility"));
+		DatabaseConn.getServerDBName(CommonMethods.loadProperties("webdriver.base.url"), CommonMethods.loadProperties("facility"));
 		DatabaseConn.serverConn(DatabaseConn.serverName,DatabaseConn.databaseName, QueryConstantCoverage.queryHcpcCode());
 		boolean empty = true;
 		HCPC.clear();

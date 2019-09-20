@@ -682,7 +682,7 @@ public class CoveragePage extends BasePage{
 		navigation.clickITToolsLink();
 		navigation.clickFacilitySettingConfiguration();
 		selectFromDropdown(searchList,"Code");
-		typeInto(searchTextBox,CommonMethods.LoadProperties("facility"));
+		typeInto(searchTextBox,CommonMethods.loadProperties("facility"));
 		clickOn(searchButton);
 		clickOn(gridView);
 		selectFromDropdown(searchListFacilitySettings,"Setting Name");

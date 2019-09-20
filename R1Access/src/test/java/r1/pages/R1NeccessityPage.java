@@ -310,7 +310,7 @@ public class R1NeccessityPage extends BasePage{
 																 actionLog.get(0).getText().contains("Date/Time"));
 		Assert.assertTrue("Type/Disposition is not matching", actionLog.get(1).getText().contains("Task"));
 		Assert.assertTrue("Task is not matching", actionLog.get(1).getText().contains("R1 Necessity™"));
-		Assert.assertTrue("Updated By is not matching", actionLog.get(1).getText().toLowerCase().contains(CommonMethods.LoadProperties("username").toLowerCase()));
+		Assert.assertTrue("Updated By is not matching", actionLog.get(1).getText().toLowerCase().contains(CommonMethods.loadProperties("username").toLowerCase()));
 		Assert.assertTrue("Type/Disposition is not matching", actionLog.get(1).getText().contains("Completed") || actionLog.get(1).getText().contains("Incomplete") || actionLog.get(1).getText().contains("Assigned") || actionLog.get(1).getText().contains("Redo") || actionLog.get(1).getText().contains("Unassigned"));
 		Assert.assertTrue("Type/Disposition is not matching", actionLog.get(1).getText().contains(new SimpleDateFormat("M/d/yyyy").format(new Date())));
 	}

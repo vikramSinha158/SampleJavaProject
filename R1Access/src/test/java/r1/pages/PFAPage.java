@@ -1,5 +1,6 @@
 package r1.pages;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import r1.commons.BasePage;
 import r1.commons.DataAccess;
 import r1.commons.R1AccessCommonMethods;
 import r1.commons.databaseconnection.QueryConstantPFA;
+import r1.commons.databaseconnection.QueryExecutor;
 import r1.serenity.steps.PFASteps;
 
 public class PFAPage extends BasePage {
@@ -297,7 +299,7 @@ public class PFAPage extends BasePage {
 
 	/*********************************************************************************************************************************************************************************************/
 
-	public void enterPayorCode() {
+	public void enterPayorCode(String payorCode) {
 		typeInto(txtSearchPayors, payorCode);
 	}
 
@@ -335,6 +337,11 @@ public class PFAPage extends BasePage {
 
 	public void clickSearchButton() {
 		clickOn(accountSearchButton);
+	}
+	
+	public void runQueryTranServer(String queryName)
+			throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		QueryExecutor.runQueryTran(this.getClass().getSimpleName().replace("Page", ""),queryName);
 	}
 
 	public void verifyCommonDataNeeds() {
@@ -745,9 +752,9 @@ public class PFAPage extends BasePage {
 		}
 	}
 
-	public void verifyAnswersSelected() {
-
+	public void verifyAnswersSelected() throws InterruptedException {
 		int count = 0;
+		Thread.sleep(4000);
 		for (int i = 2; i < screeningAnsInputs.size(); i++) {
 			if (screeningAnsInputs.get(i).isSelected()) {
 				count++;
