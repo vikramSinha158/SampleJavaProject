@@ -15,14 +15,14 @@ import r1.commons.BasePage;
 import r1.commons.databaseconnection.DatabaseConn;
 import r1.commons.databaseconnection.QueryExecutor;
 import r1.commons.utilities.CommonMethods;
-import r1.commons.utilities.CommonMethods.common;
+
 
 
 
 
 public class NotesPage extends BasePage {
 	
-	common common;
+	CommonMethods commonMethods;
 	
 	@FindBy(xpath = "//span[@class='subHead']/preceding-sibling::span")
 	private WebElementFacade workListTitle;
@@ -117,7 +117,7 @@ public class NotesPage extends BasePage {
 		String admitdate = new SimpleDateFormat("M/d/yyyy").format(new Date(patientAdmitDate.getText()));
 		String account = patientAccount.getText();		
 		
-		common.switchWindow();
+		commonMethods.switchWindow();
 		Assert.assertTrue("Pop up labels are not matching",popUp.getText().contains("Name:") &&
 				popUp.getText().contains("DOB:") &&
 				popUp.getText().contains("Service Date:") &&
@@ -130,8 +130,8 @@ public class NotesPage extends BasePage {
 		Assert.assertTrue("Patient Account is not matching on pop up",popUp.getText().contains(account));		
 		Assert.assertTrue("Note Note is not matching on pop up",popUp.getText().contains(note));
 		
-		common.closeWindow();
-		common.switchWindow();
+		commonMethods.closeWindow();
+		commonMethods.switchWindow();
 	}
 	
 	public void runQueryTranServer(String queryName)

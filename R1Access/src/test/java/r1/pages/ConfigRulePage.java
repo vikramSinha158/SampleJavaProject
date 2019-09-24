@@ -6,13 +6,14 @@ import java.sql.SQLException;
 import java.util.List;
 import org.junit.Assert;
 import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
 import r1.commons.databaseconnection.DatabaseConn;
 import r1.commons.databaseconnection.QueryExecutor;
 
-public class ConfigRulePage extends BasePage {
+public class ConfigRulePage extends PageObject {
 
 	R1AccessCommonMethods r1AccessCommonMethods;
 	String encounterId;

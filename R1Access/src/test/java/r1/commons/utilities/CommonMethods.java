@@ -3,19 +3,18 @@ package r1.commons.utilities;
 import org.openqa.selenium.NoSuchFrameException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.pages.*;
 import net.thucydides.core.util.*;
-import r1.commons.BasePage;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
 
-public class CommonMethods extends BasePage{
+public class CommonMethods extends PageObject {
+	
+	PageObject page;
 	
 	
 
@@ -75,10 +74,7 @@ public class CommonMethods extends BasePage{
 		drp.selectByIndex(i);
 	}
 
-	public class common extends BasePage {
-		PageObject page;
-
-		// Click on Ok or accept on Alter message box
+	// Click on Ok or accept on Alter message box
 		public void HandleAlertsAccept() {
 			page.getAlert().accept();
 		}
@@ -158,7 +154,7 @@ public class CommonMethods extends BasePage{
 		public int getElementsSize(String xpath) {
 			return getDriver().findElements(By.xpath(xpath)).size();
 		}
-	}
+	
 
 	/**
 	 * 

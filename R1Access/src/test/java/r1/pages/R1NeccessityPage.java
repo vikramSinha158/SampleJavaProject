@@ -15,14 +15,14 @@ import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
 import r1.commons.databaseconnection.QueryExecutor;
 import r1.commons.utilities.CommonMethods;
-import r1.commons.utilities.CommonMethods.common;
+
 
 
 public class R1NeccessityPage extends BasePage{
 	
 	
 	R1AccessCommonMethods r1AccessCommonMethods;
-	common common;
+	CommonMethods commonMethods;
 	String serviceCode;
 	
 	@FindBy(xpath = "//span[@class='subHead']/preceding-sibling::span")
@@ -286,7 +286,7 @@ public class R1NeccessityPage extends BasePage{
 	}
 
 	public void verifyDispositionHide() throws InterruptedException {
-		Assert.assertTrue("Disposition is not getting hide",common.getElementsSize(dispositionDropDown)>0);
+		Assert.assertTrue("Disposition is not getting hide",commonMethods.getElementsSize(dispositionDropDown)>0);
 	}
 	
 	public void clickABNEnglish() {
@@ -298,17 +298,17 @@ public class R1NeccessityPage extends BasePage{
 	}
 	
 	public void verifyABNEnglishPdf() {
-		common.switchWindow();
-		Assert.assertTrue(common.getWindowTitle().contains("Advance Beneficiary"));
-		common.closeWindow();
-		common.switchWindow();
+		commonMethods.switchWindow();
+		Assert.assertTrue(commonMethods.getWindowTitle().contains("Advance Beneficiary"));
+		commonMethods.closeWindow();
+		commonMethods.switchWindow();
 	}
 	
 	public void verifyABNSpanishPdf() {
-		common.switchWindow();
-		Assert.assertTrue(common.getWindowTitle().contains("Notificación previa"));
-		common.closeWindow();
-		common.switchWindow();
+		commonMethods.switchWindow();
+		Assert.assertTrue(commonMethods.getWindowTitle().contains("Notificación previa"));
+		commonMethods.closeWindow();
+		commonMethods.switchWindow();
 	}
 	
 	public void verifyActivityLog() throws IOException {

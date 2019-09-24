@@ -9,12 +9,10 @@ import java.util.Date;
 import java.util.List;
 import org.junit.Assert;
 import cucumber.api.DataTable;
-import cucumber.api.java.en.And;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
-import r1.commons.databaseconnection.DatabaseConn;
 import r1.commons.databaseconnection.QueryExecutor;
 import r1.commons.utilities.CommonMethods;
 
@@ -23,6 +21,7 @@ public class FCCPage extends BasePage{
 	
 	
 	R1AccessCommonMethods r1AccessCommonMethods;
+	
 	List<String> fccWorkListAccounts;
 	String patientPagevisitNumber,workListDataAsc,visit;
 	
@@ -417,17 +416,20 @@ public class FCCPage extends BasePage{
 	}
 	
 	public void runQuery(String queryName, String facility) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
-		QueryExecutor.runQueryTran(queryName,facility.split(" - ")[0]);
+		QueryExecutor.runQueryTran(queryName,facility);
 	}
 	
-	public String getEncounterID(String col) throws SQLException{
-		DatabaseConn.resultSet.next();
-		return DatabaseConn.resultSet.getString(col);
-	}
-	
-	public void enterSearchText(String id) {
+    public void enterSearchText(String id) {
 		typeInto(searchedAccountTextBox.get(4),id);
 	}
 	
+	public void runQueryTranServer(String queryName,String facility)
+			throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		QueryExecutor.runQueryTran(this.getClass().getSimpleName().replace("Page", ""),queryName,facility);
+	}
 	
+	public void runQueryTranServer(String queryName)
+			throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		QueryExecutor.runQueryTran(this.getClass().getSimpleName().replace("Page", ""),queryName);
+	}
 }
