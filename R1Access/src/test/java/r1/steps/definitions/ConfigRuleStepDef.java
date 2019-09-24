@@ -25,8 +25,8 @@ public class ConfigRuleStepDef {
 	}
 	
 	@When("^user search \"([^\"]*)\" account using query$")
-	public void user_search_account_using_query(String rule) throws ClassNotFoundException, IOException, SQLException {
-		configRule.enter_encounter_id(rule);
+	public void user_search_account_using_query(String rule,String query) throws ClassNotFoundException, IOException, SQLException {
+		configRule.enter_encounter_id(rule,query);
 	}
 	
 	@When("^user clicks on 'Search' tab$")

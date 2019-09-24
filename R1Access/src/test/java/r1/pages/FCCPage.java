@@ -17,13 +17,12 @@ import r1.commons.R1AccessCommonMethods;
 import r1.commons.databaseconnection.DatabaseConn;
 import r1.commons.databaseconnection.QueryExecutor;
 import r1.commons.utilities.CommonMethods;
-import r1.serenity.steps.R1NeccessitySteps;
+
 
 public class FCCPage extends BasePage{
 	
-	R1NeccessitySteps neccessitySteps;
-	R1AccessCommonMethods r1AccessCommonMethods;
 	
+	R1AccessCommonMethods r1AccessCommonMethods;
 	List<String> fccWorkListAccounts;
 	String patientPagevisitNumber,workListDataAsc,visit;
 	
@@ -301,9 +300,7 @@ public class FCCPage extends BasePage{
 		Assert.assertTrue("Followup History label Next Action Date is not matching",followupHistoryLabel.get(6).getText().contains("Next Action Date"));
 		Assert.assertTrue("Followup History label Updated Date is not matching",followupHistoryLabel.get(7).getText().contains("Updated Date"));
 			
-		neccessitySteps = new R1NeccessitySteps();
 		
-		Assert.assertTrue("Follow Up History Value Updated By is not matching",followupHistoryValue.get(0).getText().contains(neccessitySteps.getUserDisplayName()));
 		Assert.assertTrue("Follow Up History Value Type is not matching",followupHistoryValue.get(1).getText().contains(type));
 		Assert.assertTrue("Follow Up History Value Action is not matching",followupHistoryValue.get(2).getText().contains(activity));
 		Assert.assertTrue("Follow Up History Value Disposition is not matching",followupHistoryValue.get(3).getText().contains(disposition));

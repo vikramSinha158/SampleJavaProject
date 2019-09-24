@@ -1,5 +1,6 @@
 package r1.pages;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -8,11 +9,13 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
-import r1.serenity.steps.ConfigRulesStep;
+import r1.commons.databaseconnection.DatabaseConn;
+import r1.commons.databaseconnection.QueryExecutor;
 
 public class ConfigRulePage extends BasePage {
 
 	R1AccessCommonMethods r1AccessCommonMethods;
+	String encounterId;
 
 	@FindBy(xpath = "//a[contains(text(),'Configuration Rules')]")
 	private WebElementFacade configurationRulesLink;
@@ -128,20 +131,26 @@ public class ConfigRulePage extends BasePage {
 		configurationRulesLink.click();
 	}
 
-	public void enter_encounter_id(String rule) throws ClassNotFoundException, IOException, SQLException {
-		String id = "";
+	public void runQueryTranServer(String queryName)
+			throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		QueryExecutor.runQueryTran(this.getClass().getSimpleName().replace("Page", ""), queryName);
+	}
+
+	public void enter_encounter_id(String rule, String query) throws ClassNotFoundException, IOException, SQLException {
 		switch (rule) {
 		case "PAS":
-			id = ConfigRulesStep.searchEncounterIDPAS("EncounterID");
+			runQueryTranServer(query);
+			DatabaseConn.resultSet.next();
+			encounterId = DatabaseConn.resultSet.getString("EncounterID");
 			break;
 		case "PCE":
-			id = ConfigRulesStep.searchEncounterIDPCE("EncounterID");
+			encounterId = DatabaseConn.resultSet.getString("EncounterID");
 			break;
 		case "SAR":
-			id = ConfigRulesStep.searchEncounterIDSAR("EncounterID");
+			encounterId = DatabaseConn.resultSet.getString("encounterID");
 			break;
 		}
-		r1AccessCommonMethods.enterVisitNumber(id);
+		r1AccessCommonMethods.enterVisitNumber(encounterId);
 		r1AccessCommonMethods.clickOnSearchButton();
 	}
 

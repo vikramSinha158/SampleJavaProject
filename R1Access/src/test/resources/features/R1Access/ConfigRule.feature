@@ -15,7 +15,7 @@ Feature: ConfigRule
  @391608
  Scenario: Config-Rule_Verify User is able to see Configuration Rules tab
  Given user is able to view Pre-Registration page
- When user clicks on any record on the worklist
+ When user clicks on any Unassigned Account
  Then user is able to verify and click on Configuration Rules tab
  
  @391610
@@ -68,7 +68,7 @@ Scenario: Config-Rule_Verify details under Service Automation Rule
  @391614
  Scenario: Config-Rule_Verify Primary Authorization Suppression and Primary Coverage Exceptions section is only displayed when coverage is complete for a patient
  Given user is able to view Pre-Registration page
- When user clicks on any record on the worklist
+ When user clicks on any Unassigned Account
  And user is able to verify and click on Configuration Rules tab
  And user clicks on "Coverage" moduleTab
  And user click on Redo button

@@ -1,5 +1,6 @@
 package r1.pages;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -12,13 +13,14 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
+import r1.commons.databaseconnection.QueryExecutor;
 import r1.commons.utilities.CommonMethods;
 import r1.commons.utilities.CommonMethods.common;
-import r1.serenity.steps.R1NeccessitySteps;
+
 
 public class R1NeccessityPage extends BasePage{
 	
-	R1NeccessitySteps neccessitySteps;
+	
 	R1AccessCommonMethods r1AccessCommonMethods;
 	common common;
 	String serviceCode;
@@ -261,7 +263,15 @@ public class R1NeccessityPage extends BasePage{
 		}
 	}
 	
+	public void runQueryTranServer(String queryName)
+			throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		QueryExecutor.runQueryTran(this.getClass().getSimpleName().replace("Page", ""),queryName);
+	}
 	
+	public void runQueryTranServerParam(String queryName, String registrationID)
+			throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		QueryExecutor.runQueryTranParam(this.getClass().getSimpleName().replace("Page", ""),queryName,registrationID);
+	}
 	
 	public void clickDiagnosisLink() {
 		clickOn(diagonisCode);
@@ -325,20 +335,10 @@ public class R1NeccessityPage extends BasePage{
 						  followupHistory.get(0).getText().contains("Next Action Date") &&
 						  followupHistory.get(0).getText().contains("Updated Date"));
 		
-		Assert.assertTrue(followupHistory.get(1).getText().contains(neccessitySteps.getUserDisplayName()) &&
-				followupHistory.get(1).getText().contains("Medical Necessity") &&
-				followupHistory.get(1).getText().contains("ABN Printed") &&
-				followupHistory.get(1).getText().contains("N/A") &&
-				followupHistory.get(1).getText().contains("Medical Necessity") &&
-				followupHistory.get(1).getText().contains(serviceCode) &&
-				followupHistory.get(1).getText().contains(new SimpleDateFormat("MM/d/yyyy").format(new Date())));
+		
 	}
 
-	public void verifyNecessityIncompleteAccounts(String column) throws ClassNotFoundException, IOException, SQLException {
-		for(int i=0;i<necessityAccountUI.size();i++) {
-			Assert.assertTrue("Account--"+necessityAccountUI.get(i).getText()+"--is not matching.",neccessitySteps.getNecessityEncounterID(column).contains(necessityAccountUI.get(i).getText()));
-		}
-	}
+
 	
 	public void clickNecessityRequiredDrillDown() throws InterruptedException {
 		r1AccessCommonMethods.subFolderClick("Necessity Required", "Necessity Incomplete");

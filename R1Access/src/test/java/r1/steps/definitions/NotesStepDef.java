@@ -11,9 +11,9 @@ import cucumber.api.java.en.When;
 import r1.pages.Navigation;
 import r1.pages.NotesPage;
 import r1.pages.UserLogin;
-import r1.serenity.steps.NotesSteps;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
+import r1.commons.databaseconnection.DatabaseConn;
 
 
 public class NotesStepDef extends BasePage {
@@ -21,8 +21,8 @@ public class NotesStepDef extends BasePage {
 	NotesPage notesPage;
 	UserLogin userLogin;
 	Navigation navigation;
-	NotesSteps noteSteps;
 	R1AccessCommonMethods r1AccessCommonMethod;
+	String encounterId;
 
 	@Given("^user is on R1 hub page$")
 	public void user_is_on_R1_hub_page() throws IOException {
@@ -55,6 +55,13 @@ public class NotesStepDef extends BasePage {
 	public void user_should_be_able_to_view_the_label_on_worklist_page(String worklist) {
 		notesPage.verifyWorkListTitle(worklist);
 	}
+	
+    @Then("^user fetch the \"([^\"]*)\" from Query$")
+    public void user_fetch_the_from_Query(String query) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+    	notesPage.runQueryTranServer(query);
+		DatabaseConn.resultSet.next();
+		encounterId = DatabaseConn.resultSet.getString("encounterid");
+    }
 
 	@Given("^user is on account detail page$")
 	public void user_is_on_account_detail_page() {
@@ -113,13 +120,6 @@ public class NotesStepDef extends BasePage {
 		notesPage.verifyPopup(note);
 	}
 
-	/*
-	 * @Then("^user run the query and fetch the \"([^\"]*)\" and verify with ui$")
-	 * public void user_run_the_query_and_fetch_the_and_verify_with_ui(String note)
-	 * throws IOException, ClassNotFoundException, SQLException,
-	 * InterruptedException { notesPage.verifyNoteDB(note); }
-	 */
-
 	@And("^user clicks on the Cancel button$")
 	public void user_clicks_on_the_Cancel_button() {
 		notesPage.clickCancelButton();
@@ -130,12 +130,6 @@ public class NotesStepDef extends BasePage {
 		notesPage.verifyCancelNote(cancelNote);
 	}
 
-	/*
-	 * @When("^user runs the query \"([^\"]*)\"$") public void
-	 * user_runs_the_query(String query) throws ClassNotFoundException,
-	 * FileNotFoundException, SQLException, IOException { notesPage.runQuery(query);
-	 * }
-	 */
 	@Then("^user verify the database column \"([^\"]*)\" with UI$")
 	public void user_verify_the_database_with_ui(String column)
 			throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {

@@ -5,31 +5,23 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import org.junit.Assert;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.FindBy;
-
-import cucumber.api.DataTable;
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
-import r1.commons.DataAccess;
 import r1.commons.R1AccessCommonMethods;
-import r1.commons.databaseconnection.QueryConstantPFA;
 import r1.commons.databaseconnection.QueryExecutor;
-import r1.serenity.steps.PFASteps;
+
 
 public class PFAPage extends BasePage {
 
 	R1AccessCommonMethods commonMethodsR1Access;
-	PFASteps pfaSteps;
+	
 	ArrayList<String> getColValue, getVerifiedColValue;
 	String selPlanCode, payorCode, visitNo;
 	int count;
 	String ansCodeValue, followUpDate;
-	QueryConstantPFA queryConstantPFA;
 	R1AccessCommonMethods r1Common;
 
 	@FindBy(xpath = "//span[contains(text(),'Unworked')]")
@@ -349,10 +341,6 @@ public class PFAPage extends BasePage {
 		Assert.assertEquals("Common Data Needs", common_Data_Needs.getText().toString());
 	}
 
-	public void fetchPayorCode(String col) throws ClassNotFoundException, SQLException, IOException {
-		payorCode = pfaSteps.getPayorCode(col);
-	}
-
 	public void enterEncounterID(String id) {
 		typeInto(searchedAccountTextBox.get(4), id);
 	}
@@ -420,8 +408,7 @@ public class PFAPage extends BasePage {
 			if (!chkAction.get(4).isSelected()) {
 				Thread.sleep(6000);
 				clickOn(chkAction.get(i));
-
-			}
+            }
 		}
 
 	}
@@ -538,21 +525,7 @@ public class PFAPage extends BasePage {
 		Assert.assertTrue(!linkedAns.isVisible());
 	}
 
-	public String getEncounterIdFor_PFA_419028_SQL10() throws ClassNotFoundException, IOException, SQLException {
-		String query = queryConstantPFA.PFA_419028_SQL10();
-		return DataAccess.getEncounterId("EncounterID", query);
-	}
-
-	public String getEncounterIdFor_PFA_419029_SQL11() throws ClassNotFoundException, IOException, SQLException {
-		String query = queryConstantPFA.PFA_419029_SQL11();
-		return DataAccess.getEncounterId("EncounterID", query);
-	}
-
-	public String getEncounterIdFor_PFA_419030_SQL12() throws ClassNotFoundException, IOException, SQLException {
-		String query = queryConstantPFA.PFA_419030_SQL12();
-		return DataAccess.getEncounterId("EncounterID", query);
-	}
-
+	
 	public void verifyAnsweForPregnancy(String ques) {
 		Assert.assertTrue(pregnancyQuestion.getText().equalsIgnoreCase(ques));
 		for (int i = 0; i < pregnancyQuestionAns.size(); i++) {

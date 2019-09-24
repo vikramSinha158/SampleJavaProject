@@ -3,8 +3,6 @@ package r1.steps.definitions;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
-
-import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -14,12 +12,11 @@ import r1.commons.databaseconnection.DatabaseConn;
 import r1.pages.Navigation;
 import r1.pages.PFAPage;
 import r1.pages.UserLogin;
-import r1.serenity.steps.PFASteps;
+
 
 public class PFAStepDef extends BasePage {
 
 	PFAPage pfaPage;
-	PFASteps pfaSteps;
 	UserLogin userLogin;
 	Navigation navigation;
 	R1AccessCommonMethods r1AccessCommonMethods;
@@ -41,10 +38,7 @@ public class PFAStepDef extends BasePage {
 		r1AccessCommonMethods.clickOnCheckOut();
 	}
 
-//	@When("^user run the query and fetch \"([^\"]*)\"$")
-//	public void user_run_the_query_and_fetch(String col) throws ClassNotFoundException, SQLException, IOException {
-//		pfaPage.fetchPayorCode(col);
-//	}
+
 	
 	@When("^user run the query \"([^\"]*)\"$")
 	public void user_run_the_query(String query) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
@@ -167,45 +161,37 @@ public class PFAStepDef extends BasePage {
 	@Then("^First question Did the patient decline the screening questionnaire answer should be by deafult \"([^\"]*)\" selected$")
 	public void first_question_Did_the_patient_decline_the_screening_questionnaire_answer_should_be_by_deafult_selected(String status) {
 		pfaPage.verifyScreeningQuesDeclined(status);
-
 	}
 
 	@When("^user clicks on Action Items tab$")
 	public void user_clicks_on_Action_Items_tab() throws InterruptedException {
 		pfaPage.clickActionItemsTab();
-
-	}
+    }
 
 	@When("^user select one or more checkboxes under column Completed corresponding to the funding source$")
 	public void user_select_one_or_more_checkboxes_under_column_Completed_corresponding_to_the_funding_source() throws InterruptedException {
 		pfaPage.checkActionBox();
-
 	}
 
 	@Then("^FollowUp Date should get appeared with every selection$")
 	public void followup_Date_should_get_appeared_with_every_selection() {
 		pfaPage.getFollowUpDate();
-
-	}
+    }
 
 	@Then("^user clicks on save button after addding action items$")
 	public void user_clicks_on_save_button_after_addding_action_items() {
 		pfaPage.clickSaveActionItems();
-
-	}
+    }
 
 	@Then("^Action should get saved with message \"([^\"]*)\"$")
 	public void action_should_get_saved_with_message(String message) {
-
-		pfaPage.verifyUpdateActionMessage(message);
-
+       pfaPage.verifyUpdateActionMessage(message);
 	}
 
 	@Given("^user clicks on Settings link$")
 	public void user_clicks_on_Settings_link() {
 		r1AccessCommonMethods.clickFooterR1AccesModulesTab("Settings");
-
-	}
+    }
 
 	@Given("^user clicks on PFA Configuration link$")
 	public void user_clicks_on_PFA_Configuration_link() {
@@ -342,25 +328,7 @@ public class PFAStepDef extends BasePage {
 		r1AccessCommonMethods.clickSubSideR1HubModulesMenuLink("R1 Detect");
 	}
 
-	@When("^user fetch the encounterid from Query PFA_419028_SQL10$")
-	public void user_fetch_the_encounterid_from_Query_PFA_SQL10()
-			throws ClassNotFoundException, IOException, SQLException {
-		eId = pfaPage.getEncounterIdFor_PFA_419028_SQL10();
-	}
-
-	@When("^user fetch the encounterid from Query PFA_419029_SQL11$")
-	public void user_fetch_the_encounterid_from_Query_PFA_SQL11()
-			throws ClassNotFoundException, IOException, SQLException {
-		eId = pfaPage.getEncounterIdFor_PFA_419029_SQL11();
-	}
-
-	@When("^user fetch the encounterid from Query PFA_419030_SQL12$")
-	public void user_fetch_the_encounterid_from_Query_PFA_SQL12()
-			throws ClassNotFoundException, IOException, SQLException {
-		eId = pfaPage.getEncounterIdFor_PFA_419030_SQL12();
-	}
-
-	@When("^user clicks on SEARCH link$")
+    @When("^user clicks on SEARCH link$")
 	public void user_clicks_on_SEARCH_link() {
 		r1AccessCommonMethods.clickUpperHeaderLink("Search");
 	}

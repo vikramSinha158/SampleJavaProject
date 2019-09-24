@@ -2,26 +2,15 @@ package r1.pages;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.Assert;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.support.ui.Select;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
 import r1.commons.utilities.CommonMethods;
-import r1.commons.databaseconnection.DataAccess;
-import r1.commons.databaseconnection.QueryConstantService;
 
-import java.util.Random;
 
 public class Service2Page extends BasePage {
 	Random random = new Random();

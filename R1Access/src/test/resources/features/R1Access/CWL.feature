@@ -18,13 +18,13 @@
  @391787
  Scenario: CWL_Verify the filter folders in the worklist
  When user clicks on "Patient Access" link 
- And user user clicks on Conversion Follow up
+ And user clicks on "Conversion Followup" side submenu
  Then verify following filter folder lists
  
  @391788
  Scenario: CWL_Verify records in I/S at Risk filter folder
  When user clicks on "Patient Access" link 
- And user user clicks on Conversion Follow up
+ And user clicks on "Conversion Followup" side submenu
  Then user clicks "I/S at Risk"
  And verify "PT" value
  And Verify NFU date
@@ -34,7 +34,7 @@
  @391789
  Scenario: CWL_Verify records in E/O at Risk filter folder
  When user clicks on "Patient Access" link
- And user user clicks on Conversion Follow up
+ And user clicks on "Conversion Followup" side submenu
  Then user clicks E/O at Risk
  And verify "PT" value as 'E' OR 'O' 
  And Verify NFU date
@@ -43,8 +43,8 @@
   
  @391790
  Scenario: CWL_Verify records in Future Follow Up filter folder
-When user clicks on "Patient Access" link
- And user user clicks on Conversion Follow up
+ When user clicks on "Patient Access" link
+ And user clicks on "Conversion Followup" side submenu
  Then user clicks Future Follow Up 
  And Verify NFU date
  And Verify Total Open Balance value
@@ -53,7 +53,7 @@ When user clicks on "Patient Access" link
  @391791
  Scenario: CWL_Verify records in Zero Balance filter folder
  When user clicks on "Patient Access" link
- And user user clicks on Conversion Follow up
+ And user clicks on "Conversion Followup" side submenu
  Then user clicks Zero Balance 
  And verify total open balance=0
  And LA column<> "Referred to Care Coverage" / "Referred to Supervisor"

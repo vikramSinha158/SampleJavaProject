@@ -16,7 +16,7 @@ import r1.commons.databaseconnection.DatabaseConn;
 import r1.commons.databaseconnection.QueryExecutor;
 import r1.commons.utilities.CommonMethods;
 import r1.commons.utilities.CommonMethods.common;
-import r1.serenity.steps.NotesSteps;
+
 
 
 
@@ -110,6 +110,7 @@ public class NotesPage extends BasePage {
 		typeInto(noteTextBox,text);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void verifyPopup(String note) {
 		String name = patientName.getText();
 		String dob = new SimpleDateFormat("M/d/yyyy").format(new Date(patientDob.getText()));
@@ -132,6 +133,12 @@ public class NotesPage extends BasePage {
 		common.closeWindow();
 		common.switchWindow();
 	}
+	
+	public void runQueryTranServer(String queryName)
+			throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		QueryExecutor.runQueryTran(this.getClass().getSimpleName().replace("Page", ""),queryName);
+	}
+
 	
 	public void verifyNotesDateTime() throws IOException {
 		Assert.assertTrue("Note's date and time stamped is not matching",notesDateTime.getText().contains(new SimpleDateFormat("M/d/yyyy").format(new Date()).toString()));
@@ -177,12 +184,5 @@ public class NotesPage extends BasePage {
 		Assert.assertTrue("Patient Visit and Address".equals(accountDetailPage.getText().trim()));
 	}
 	
-	/*public void verifyNoteDB(String column) throws ClassNotFoundException, IOException, SQLException, InterruptedException {
-	  Assert.assertTrue("Note is not matching with database",noteText.getText().contains(NotesSteps.verifyNewCreatedScope(encounterID.getText(), column)));
-	 }*/
-	 /*
-	 public void runQuery(String queryName) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
-	  QueryExecutor.runQueryTranParam(queryName,encounterID.getText());
-	 }
-	 */
+	
 }
