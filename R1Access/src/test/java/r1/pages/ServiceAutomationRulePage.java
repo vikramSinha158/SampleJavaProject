@@ -11,12 +11,13 @@ import org.junit.Assert;
 import org.openqa.selenium.support.FindBy;
 
 import au.com.bytecode.opencsv.CSVReader;
+import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
 import r1.commons.utilities.CommonMethods;
 
-public class ServiceAutomationRulePage extends BasePage {
+public class ServiceAutomationRulePage extends PageObject {
 
 	R1AccessCommonMethods commonMethodsR1Access;
 	String textRuleName, taskId, facilityName;

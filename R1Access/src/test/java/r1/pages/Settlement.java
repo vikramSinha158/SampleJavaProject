@@ -10,12 +10,13 @@ import java.util.List;
 import org.junit.Assert;
 import org.openqa.selenium.support.FindBy;
 
+import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 
 import r1.commons.databaseconnection.QueryExecutor;
 
-public class Settlement extends BasePage {
+public class Settlement extends PageObject {
 
 	List<String> tabList;
 	@FindBy(xpath = "//A[contains(@class,'footer_nav')][contains(@href,'Patient-Access')]")

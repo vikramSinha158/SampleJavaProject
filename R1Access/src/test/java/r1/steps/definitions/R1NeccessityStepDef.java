@@ -14,7 +14,7 @@ import r1.pages.R1NeccessityPage;
 import r1.pages.UserLogin;
 
 
-public class R1NeccessityStepDef extends BasePage{
+public class R1NeccessityStepDef{
 	
 	R1NeccessityPage neccessityPage;
 	UserLogin userLogin;

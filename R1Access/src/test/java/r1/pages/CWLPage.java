@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Assert;
 import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
 
-public class CWLPage extends BasePage {
+public class CWLPage extends PageObject {
 	String encounterId;
 	R1AccessCommonMethods common;
 	LocalDateTime myDateObj = LocalDateTime.now();

@@ -6,11 +6,12 @@ import org.junit.Assert;
 import org.openqa.selenium.support.FindBy;
 
 import cucumber.api.DataTable;
+import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
 
-public class LogPage extends BasePage {
+public class LogPage extends PageObject {
 
 	R1AccessCommonMethods R1AccessCommonMethodsRef;
 	ArrayList<String> columnValue1;

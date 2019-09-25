@@ -5,7 +5,7 @@ import cucumber.api.java.en.When;
 import r1.commons.BasePage;
 import r1.pages.CWLPage;
 
-public class CWLStepDef extends BasePage {
+public class CWLStepDef{
 
 	CWLPage cwl;
 

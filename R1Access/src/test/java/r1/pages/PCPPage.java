@@ -2,15 +2,13 @@ package r1.pages;
 
 import java.io.IOException;
 import java.util.List;
-
 import org.junit.Assert;
 import org.openqa.selenium.support.FindBy;
-
+import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
-import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
 
-public class PCPPage extends BasePage {
+public class PCPPage extends PageObject {
 
 	String AccountNum;
 	int size;

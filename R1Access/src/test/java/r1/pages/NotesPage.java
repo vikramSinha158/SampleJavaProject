@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 import org.junit.Assert;
 import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.databaseconnection.DatabaseConn;
@@ -20,7 +21,7 @@ import r1.commons.utilities.CommonMethods;
 
 
 
-public class NotesPage extends BasePage {
+public class NotesPage extends PageObject {
 	
 	CommonMethods commonMethods;
 	

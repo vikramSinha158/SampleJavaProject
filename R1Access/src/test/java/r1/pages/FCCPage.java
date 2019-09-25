@@ -10,14 +10,14 @@ import java.util.List;
 import org.junit.Assert;
 import cucumber.api.DataTable;
 import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
-import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
 import r1.commons.databaseconnection.QueryExecutor;
 import r1.commons.utilities.CommonMethods;
 
 
-public class FCCPage extends BasePage{
+public class FCCPage extends PageObject{
 	
 	
 	R1AccessCommonMethods r1AccessCommonMethods;

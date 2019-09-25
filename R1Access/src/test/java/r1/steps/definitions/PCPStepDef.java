@@ -12,7 +12,7 @@ import r1.pages.UserLogin;
 
 
 
-public class PCPStepDef extends BasePage{
+public class PCPStepDef{
 
 	PCPPage pCPPage;
 	UserLogin userLogin;

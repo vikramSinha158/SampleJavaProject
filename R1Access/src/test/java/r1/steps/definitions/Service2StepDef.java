@@ -19,7 +19,7 @@ import r1.pages.Service2Page;
 import r1.commons.databaseconnection.DatabaseConn;
 
 
-public class Service2StepDef extends BasePage {
+public class Service2StepDef{
 
 	R1AccessCommonMethods r1AccessCommonMethod;
 	Service2Page service2;;
