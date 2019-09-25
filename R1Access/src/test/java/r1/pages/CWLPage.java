@@ -1,38 +1,24 @@
 package r1.pages;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import com.gargoylesoftware.htmlunit.javascript.host.Set;
-import com.ibm.icu.text.SimpleDateFormat;
-
-import cucumber.api.java.it.Date;
-import junit.framework.Assert;
-import net.serenitybdd.core.annotations.findby.By;
+import org.junit.Assert;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
-import r1.commons.databaseconnection.QueryConstantCwl;
-
 
 public class CWLPage extends BasePage {
 	String encounterId;
 	R1AccessCommonMethods common;
-	QueryConstantCwl cwlQuery;
-	LocalDateTime myDateObj=LocalDateTime.now();
+	LocalDateTime myDateObj = LocalDateTime.now();
 
 	public String followUpWorklistRow = "//*[contains(@id,'grdWorklist')]/tbody/tr";
 	public String followUpWorklistHeader = "//*[contains(@id,'grdWorklist')]/tbody/tr[1]/td";
 
-	@FindBy(xpath ="//*[contains(@id,'grdWorklist')]/tbody/tr")
+	@FindBy(xpath = "//*[contains(@id,'grdWorklist')]/tbody/tr")
 	private List<WebElementFacade> AccountRecords;
 
 	@FindBy(xpath = "//td[contains(text(),'Patient Visit and Address')]")
@@ -48,323 +34,231 @@ public class CWLPage extends BasePage {
 	private List<WebElementFacade> conversionPlanList;
 
 	@FindBy(xpath = "//div[@class='side_nav']//a /following-sibling::span[@class='txt']")
-	private List<WebElementFacade> Setting_submenu;	
+	private List<WebElementFacade> Setting_submenu;
 
 	@FindBy(xpath = "//span[@igtxt='1']")
 	private List<WebElementFacade> conversionFollowList;
 
-	@FindBy(xpath="//span[text()='I/S at Risk']")
+	@FindBy(xpath = "//span[text()='I/S at Risk']")
 	private WebElementFacade ISRisk;
 
-	@FindBy(xpath="//span[text()='E/O at Risk']")
+	@FindBy(xpath = "//span[text()='E/O at Risk']")
 	private WebElementFacade EORisk;
 
-	@FindBy(xpath="//span[text()='Future Follow Up']")
+	@FindBy(xpath = "//span[text()='Future Follow Up']")
 	private WebElementFacade FutureFollowUp;
 
-	@FindBy(xpath="//span[text()='Zero Balance']")
+	@FindBy(xpath = "//span[text()='Zero Balance']")
 	private WebElementFacade zeroBalance;
 
-	String[] conversionList = {"Conversion Followup","Pending","","","","","","","","On-Deck","I/S at Risk","E/O at Risk","Future Follow Up","Zero Balance","Supervisor Worklist","Care Coverage","","","BSO"};
+	String[] conversionList = { "Conversion Followup", "Pending", "", "", "", "", "", "", "", "On-Deck", "I/S at Risk",
+			"E/O at Risk", "Future Follow Up", "Zero Balance", "Supervisor Worklist", "Care Coverage", "", "", "BSO" };
 	ArrayList<String> namesList = new ArrayList<String>();
 
 	@FindBy(xpath = "//table[@class='worklistTable']/tbody/tr")
 	private List<WebElementFacade> conversionFollowtableRows;
 
-	@FindBy(xpath="//a[contains(@id,'_grid_lnkClear')]")
-	private List<WebElementFacade>  showAll;
+	@FindBy(xpath = "//a[contains(@id,'_grid_lnkClear')]")
+	private List<WebElementFacade> showAll;
 
-
-	@FindBy(xpath="//table[@class='worklistTable']/tbody/tr[")
+	@FindBy(xpath = "//table[@class='worklistTable']/tbody/tr[")
 	private WebElementFacade beforeXpath;
 
-	@FindBy(xpath="]/td[5]/a")
+	@FindBy(xpath = "]/td[5]/a")
 	private WebElementFacade afterXpath;
 
-
-	public void click_setting()
-	{
+	public void click_setting() {
 		Settings.click();
 
 	}
 
-	public void submenuList()
-	{
-		int size=Setting_submenu.size();
+	public void submenuList() {
+		int size = Setting_submenu.size();
 
-
-		for(int i=0;i<size;i++)
-		{
-			String submenu=Setting_submenu.get(i).getText();
+		for (int i = 0; i < size; i++) {
+			@SuppressWarnings("unused")
+			String submenu = Setting_submenu.get(i).getText();
 
 		}
 
 	}
-	public void select_submenu( String menu)
-	{
-		common.clickSubSideR1HubModulesMenuLink(menu);
 
-	}
-	public void payorcon_submenu( String menu)
-	{
+	public void payorcon_submenu(String menu) {
 		common.clickSubSideR1HubModulesMenuLink(menu);
 	}
 
-
-
-	public void settingSubmenuList()
-	{
-		for(int i=0;i<Setting_submenu.size();i++)
-		{
-			String submenu=Setting_submenu.get(i).getText();
+	public void settingSubmenuList() {
+		for (int i = 0; i < Setting_submenu.size(); i++) {
+			@SuppressWarnings("unused")
+			String submenu = Setting_submenu.get(i).getText();
 
 		}
 	}
 
-	public void payorConfiglist()
-	{
-		for(int i=0;i<Setting_submenu.size();i++)
-		{
-			String submenu=Setting_submenu.get(i).getText();
+	public void payorConfiglist() {
+		for (int i = 0; i < Setting_submenu.size(); i++) {
+			@SuppressWarnings("unused")
+			String submenu = Setting_submenu.get(i).getText();
 
 		}
 	}
 
-	public void verifyCPMSize()
-	{
-		int size=conversionPlanList.size();
-		Assert.assertFalse(size==0);
+	public void verifyCPMSize() {
+		int size = conversionPlanList.size();
+		Assert.assertFalse(size == 0);
 
 	}
-	/*-------------------------------------------------------------Test Case 391787:CWL_Verify the filter folders in the worklist-------------------------------------------------------------*/
 
+	public void filterList() {
 
-	// click on patient access
-	public void clickOnpatientAccess()
-	{
-		common.clickFooterR1AccesModulesTab("PATIENT ACCESS");
-	}
-	public void clickConversionfollowup()
-	{
-		common.clickSubSideR1HubModulesMenuLink("Conversion Followup");
-	}
+		for (int i = 0; i < conversionFollowList.size(); i++) {
+			String optionValue = conversionFollowList.get(i).getText();
 
-	// Verify Conversion Follow up filter folder lists
-
-	public void filterList()
-	{
-
-		for(int i=0;i<conversionFollowList.size();i++) {
-			String optionValue=conversionFollowList.get(i).getText();
-
-			if(optionValue.equals(""))
-			{
+			if (optionValue.equals("")) {
 				continue;
-			}
-			else if(optionValue.equals(conversionList[i]))
-			{
+			} else if (optionValue.equals(conversionList[i])) {
 				Assert.assertTrue("passed on: " + optionValue, true);
-			}
-			else
-			{
+			} else {
 
 				Assert.assertTrue("failed on: " + optionValue, false);
-			}}
+			}
+		}
 	}
 
-
-	/*-------------------------------------------------------------Test Case 391788:CWL_Verify records in "I/S at Risk" filter folder-------------------------------------------------------------*/
-
-
-	public void clickOnIsRisk()
-	{
+	public void clickOnIsRisk() {
 		clickShowAll();
 		ISRisk.click();
 	}
 
+	@SuppressWarnings({ "unchecked" })
+	public void conversiontable(String val1, String val2) {
+		ArrayList<String> ptCol = common.getTableColValue(followUpWorklistRow, followUpWorklistHeader, "PT");
+		if (AccountRecords.size() > 1) {
+			for (int k = 0; k < ptCol.size(); k++) {
 
-	@SuppressWarnings("deprecation")
+				String i = ptCol.get(k);
+				if (i.contains(val1)) {
+					Assert.assertTrue(i + " is matching with" + " " + val1, true);
 
-	// verify PT value on Conversion Followup > I/S at Risk 
-
-	public void conversiontable(String val1, String val2)
-	{
-		ArrayList<String> ptCol= common.getTableColValue(followUpWorklistRow,followUpWorklistHeader,"PT");
-		if(AccountRecords.size()>1) {
-			for(int k=0;k<ptCol.size();k++)
-			{
-
-				String i=ptCol.get(k);
-				if(i.contains(val1))
-				{
-					Assert.assertTrue(i+" is matching with"+" "+val1, true);
-
-
-				}else if(i.contains(val2))
-				{
-					Assert.assertTrue(i+" is matching with"+" "+val2, true);
-				}else
-				{
-					Assert.assertTrue("PT value is coming"+ i,false);
+				} else if (i.contains(val2)) {
+					Assert.assertTrue(i + " is matching with" + " " + val2, true);
+				} else {
+					Assert.assertTrue("PT value is coming" + i, false);
 				}
-			}}else
-			{
-				Assert.assertTrue("No Accounts records are present", false);
 			}
+		} else {
+			Assert.assertTrue("No Accounts records are present", false);
+		}
 	}
 
-	// verify NFU date on Conversion Followup > I/S at Risk 
-	public void verifyNfuDt() 
-	{
-		ArrayList<String> NFUdt= common.getTableColValue(followUpWorklistRow,followUpWorklistHeader,"NFU Dt");
-		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("MM/dd/yyyy"); 
-		String currentDate = myDateObj.format(myFormatObj); 
-		if(AccountRecords.size()>1) {
-			for(String nfudate:NFUdt)
-			{
-				if(currentDate.compareTo(nfudate)<=0)
-				{
-					Assert.assertTrue("nfudate is not correct "+currentDate.compareTo(nfudate),false);
+	public void verifyNfuDt() {
+		@SuppressWarnings("unchecked")
+		ArrayList<String> NFUdt = common.getTableColValue(followUpWorklistRow, followUpWorklistHeader, "NFU Dt");
+		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		String currentDate = myDateObj.format(myFormatObj);
+		if (AccountRecords.size() > 1) {
+			for (String nfudate : NFUdt) {
+				if (currentDate.compareTo(nfudate) <= 0) {
+					Assert.assertTrue("nfudate is not correct " + currentDate.compareTo(nfudate), false);
 
-				}
-				else if(nfudate.isEmpty())
-				{
+				} else if (nfudate.isEmpty()) {
 
 					Assert.assertTrue("nfudate is empty", true);
 
-				}else
-				{
-					Assert.assertTrue("current: "+currentDate+" nfudate: "+nfudate, true);
+				} else {
+					Assert.assertTrue("current: " + currentDate + " nfudate: " + nfudate, true);
 
 				}
-			} 
+			}
 
-		}else
-		{
+		} else {
 			Assert.assertTrue("No Accounts records are present", false);
 		}
 	}
-
-
-	// Verify total balance on Conversion Followup > I/S at Risk
 
 	public void verifyTotalBal() {
-		ArrayList<String> openBal=  common.getTableColValue(followUpWorklistRow,followUpWorklistHeader,"Total Open Bal");
-		if(AccountRecords.size()>1) {
-			for(String TotalopenBal:openBal)
-			{
+		@SuppressWarnings("unchecked")
+		ArrayList<String> openBal = common.getTableColValue(followUpWorklistRow, followUpWorklistHeader,
+				"Total Open Bal");
+		if (AccountRecords.size() > 1) {
+			for (String TotalopenBal : openBal) {
 
 				double d = Double.parseDouble(TotalopenBal);
-				if(d==0.00 || d==0)
-				{
+				if (d == 0.00 || d == 0) {
 
-					Assert.assertTrue("total balance is coming "+d,false);
-				}else
-				{
-					Assert.assertTrue("total balance is coming "+d,true);
+					Assert.assertTrue("total balance is coming " + d, false);
+				} else {
+					Assert.assertTrue("total balance is coming " + d, true);
 				}
 			}
 
-		}else {
+		} else {
 			Assert.assertTrue("No Accounts records are present", false);
 		}
 	}
 
-	// Verify total zero balance on Conversion Followup
+	@SuppressWarnings("unchecked")
 	public void verifyTotalzeroBal() {
-		ArrayList<String> openBal=  common.getTableColValue(followUpWorklistRow,followUpWorklistHeader,"Total Open Bal");
-		if(AccountRecords.size()>1) {
-			for(String TotalopenBal:openBal)
-			{
+		ArrayList<String> openBal = common.getTableColValue(followUpWorklistRow, followUpWorklistHeader,
+				"Total Open Bal");
+		if (AccountRecords.size() > 1) {
+			for (String TotalopenBal : openBal) {
 
 				double d = Double.parseDouble(TotalopenBal);
-				if(d==0.00 || d==0)
-				{
-					Assert.assertTrue("Total balnce is coming "+d+"on zero balnce",true);
+				if (d == 0.00 || d == 0) {
+					Assert.assertTrue("Total balnce is coming " + d + "on zero balnce", true);
 
-				}else
-				{
-					Assert.assertTrue("Total balance is coming "+d,false);
+				} else {
+					Assert.assertTrue("Total balance is coming " + d, false);
 				}
 			}
 
-		}else {
+		} else {
 			Assert.assertTrue("No Accounts records are present", false);
 		}
 	}
 
-
-
-
-	// Verify LA values on 	Conversion Followup > I/S at Risk
 	public void verifyLA() {
-		ArrayList<String> LA=  common.getTableColValue(followUpWorklistRow,followUpWorklistHeader,"LA");
-		if(AccountRecords.size()>1)
-		{
-			for(String LAvalue:LA)
-			{
-				if(LAvalue.contains("Referred to Care Coverage"))
-				{
-					Assert.assertTrue("LA values is "+LAvalue,false);
-				}
-				else if(LAvalue.contains("Referred to Supervisor"))
-				{
-					Assert.assertTrue("LA values is "+LAvalue,false);
+		@SuppressWarnings("unchecked")
+		ArrayList<String> LA = common.getTableColValue(followUpWorklistRow, followUpWorklistHeader, "LA");
+		if (AccountRecords.size() > 1) {
+			for (String LAvalue : LA) {
+				if (LAvalue.contains("Referred to Care Coverage")) {
+					Assert.assertTrue("LA values is " + LAvalue, false);
+				} else if (LAvalue.contains("Referred to Supervisor")) {
+					Assert.assertTrue("LA values is " + LAvalue, false);
 
-				}else {
-					Assert.assertTrue("LA value is "+LAvalue,true);
+				} else {
+					Assert.assertTrue("LA value is " + LAvalue, true);
 
 				}
-			}}else
-			{
-				Assert.assertTrue("No Accounts records are present", false);
 			}
+		} else {
+			Assert.assertTrue("No Accounts records are present", false);
+		}
 
 	}
 
-	public void clickShowAll()
-	{
-		int k=showAll.size();
+	public void clickShowAll() {
+		int k = showAll.size();
 		if (k > 0) {
 			showAll.get(0).click();
 		}
 	}
 
-
-	/*-------------------------------------------------------------Test Case 391788:CWL_Verify records in "E/O" at Risk" filter folder------------------------------------------------------------*/
-
-
-	public void clickEoRisk()
-	{
+	public void clickEoRisk() {
 		clickShowAll();
 		EORisk.click();
 	}
 
-	/*----------------Test Case 391788:CWL_Verify records in "Future Follow Up" filter folder--------------------------*/			
-
-	public void clickFutureFollowUp()
-	{
+	public void clickFutureFollowUp() {
 		clickShowAll();
 		FutureFollowUp.click();
 	}
-	/*----------------Test Case 422404:CWL_Verify records in "Zero Balance" filter folder--------------------------*/
-	public void clickZeroBalance()
-	{
+
+	public void clickZeroBalance() {
 		clickShowAll();
 		zeroBalance.click();
 	}
-	/*---------------------------------------------------------------------Test Case 391809:CWL_Verify "Secondary Audit Action" functionality------------------------------------------------*/
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

@@ -4,23 +4,23 @@ Feature: ConfigRule
   Background: user navigates to Residual tab 
   Given user is on R1 hub page
   When user clicks on facility list
-  And user select the facility "SJMC - St. John Hospital and Medical Center"
-  When user clicks on "Patient Access"
-  And user clicks on "Pre-registration"
+  And user select the facility
+  And user clicks on "Patient Access" link 
+  And user clicks on "Pre-Registration" side submenu
  
  @391606
  Scenario: Config-Rule_Verify that end user is able to login into application and can navigate to the worklist
- Given user is able to view "Pre-Registration" page
+ Given user is able to view Pre-Registration page
 
  @391608
  Scenario: Config-Rule_Verify User is able to see Configuration Rules tab
- Given user is able to view "Pre-Registration" page
- When user clicks on any record on the worklist
+ Given user is able to view Pre-Registration page
+ When user clicks on any Unassigned Account
  Then user is able to verify and click on Configuration Rules tab
  
  @391610
- Scenario: Config-Rule_Verify details under "Primary Authorization Suppression" panel
- Given user is able to view "Pre-Registration" page
+ Scenario: Config-Rule_Verify details under Primary Authorization Suppression panel
+ Given user is able to view Pre-Registration page
  When user clicks on 'Search' tab
  And user search "PAS" account using query
  And user is able to verify and click on Configuration Rules tab
@@ -35,8 +35,8 @@ Feature: ConfigRule
  And user collapse Primary Authorization Suppression tool bar
  
  @391611
- Scenario: Config_Rule_ Verify details under "Primary Coverage Exceptions" panel
- Given user is able to view "Pre-Registration" page
+ Scenario: Config_Rule_ Verify details under Primary Coverage Exceptions panel
+ Given user is able to view Pre-Registration page
  When user clicks on 'Search' tab
  And user search "PCE" account using query
  And user is able to verify and click on Configuration Rules tab
@@ -51,8 +51,8 @@ Feature: ConfigRule
  And user collapse Primary Coverage Exceptions tool bar
 
 @394149 @test
-Scenario: Config-Rule_Verify details under 'Service Automation Rule'
- Given user is able to view "Pre-Registration" page
+Scenario: Config-Rule_Verify details under Service Automation Rule
+ Given user is able to view Pre-Registration page
  When user clicks on 'Search' tab
  And user search "SAR" account using query
  And user is able to verify and click on Configuration Rules tab
@@ -66,17 +66,17 @@ Scenario: Config-Rule_Verify details under 'Service Automation Rule'
  And user expand Service Automation Rule tool bar
  
  @391614
- Scenario: Config-Rule_Verify "Primary Authorization Suppression" and "Primary Coverage Exceptions" section is only displayed when coverage is complete for a patient
- Given user is able to view "Pre-Registration" page
- When user clicks on any record on the worklist
+ Scenario: Config-Rule_Verify Primary Authorization Suppression and Primary Coverage Exceptions section is only displayed when coverage is complete for a patient
+ Given user is able to view Pre-Registration page
+ When user clicks on any Unassigned Account
  And user is able to verify and click on Configuration Rules tab
- And user click on "Coverage" tab
+ And user clicks on "Coverage" moduleTab
  And user click on Redo button
- Then user verify 'Coverage Section'
+ Then user verify Coverage Section
  And user delete existing coverage
  And user is able to verify and click on Configuration Rules tab
  And user verify 'Primary Authorization Suppression' and 'Primary Coverage Exceptions' tab visible "False"
- And user click on "Coverage" tab
- And user clicks on "Complete" btn
+ And user clicks on "Coverage" moduleTab
+ And user clicks on "Complete" button
  And user is able to verify and click on Configuration Rules tab
  And user verify 'Primary Authorization Suppression' and 'Primary Coverage Exceptions' tab visible "True"

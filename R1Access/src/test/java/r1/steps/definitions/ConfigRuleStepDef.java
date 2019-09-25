@@ -2,6 +2,8 @@ package r1.steps.definitions;
 
 import java.io.IOException;
 import java.sql.SQLException;
+
+import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import r1.commons.R1AccessCommonMethods;
@@ -9,10 +11,11 @@ import r1.pages.ConfigRulePage;
 
 public class ConfigRuleStepDef {
 	ConfigRulePage configRule;
-	R1AccessCommonMethods common;
+	R1AccessCommonMethods r1AccessCommonMethod;
 	
-	@Then("^user is able to view \"([^\"]*)\" page$")
-	public void user_is_able_to_view_page(String title) {
+	
+	@Given("^user is able to view Pre-Registration page$")
+	public void user_is_able_to_view_Pre_Registration_page() {
 		configRule.verifyWorkList();
 	}
 	
@@ -22,8 +25,8 @@ public class ConfigRuleStepDef {
 	}
 	
 	@When("^user search \"([^\"]*)\" account using query$")
-	public void user_search_account_using_query(String rule) throws ClassNotFoundException, IOException, SQLException {
-		configRule.enter_encounter_id(rule);
+	public void user_search_account_using_query(String rule,String query) throws ClassNotFoundException, IOException, SQLException {
+		configRule.enter_encounter_id(rule,query);
 	}
 	
 	@When("^user clicks on 'Search' tab$")
@@ -123,17 +126,17 @@ public class ConfigRuleStepDef {
 	
 	@When("^user click on Redo button$")
 	public void user_click_on_Redo_button() {
-	    common.clickOnCheckOut();
+	    r1AccessCommonMethod.clickOnCheckOut();
 	}
 	
-	@Then("^user verify 'Coverage Section'$")
+	@Then("^user verify Coverage Section$")
 	public void user_verify_Coverage_Section() {
 		configRule.verifySelectedCoverage();
 	}
 	
 	@Then("^user verify 'Primary Authorization Suppression' and 'Primary Coverage Exceptions' tab visible \"([^\"]*)\"$")
-	public void user_verify_Primary_Authorization_Suppression_and_Primary_Coverage_Exceptions_tab_visible(String arg1) {
-		configRule.verifyPrimaryAuthAndCoverage(arg1);
+	public void user_verify_Primary_Authorization_Suppression_and_Primary_Coverage_Exceptions_tab_visible(String status) {
+		configRule.verifyPrimaryAuthAndCoverage(status);
 	}
 	
 	@When("^user expand Service Automation Rules tool bar$")

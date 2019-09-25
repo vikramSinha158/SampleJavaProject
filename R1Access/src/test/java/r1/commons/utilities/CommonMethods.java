@@ -3,19 +3,20 @@ package r1.commons.utilities;
 import org.openqa.selenium.NoSuchFrameException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.pages.*;
 import net.thucydides.core.util.*;
-import r1.commons.BasePage;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
 
-public class CommonMethods{
+public class CommonMethods extends PageObject {
+	
+	PageObject page;
+	
+	
 
 	public static void DrpVisibleTxt(WebElementFacade we, String s) {
 		Select drp = new Select(we);
@@ -41,6 +42,18 @@ public class CommonMethods{
 	     return selectDropdown.getFirstSelectedOption().getText();
 	}
 	
+	public static String selectListByContains(WebElementFacade element) throws IOException {
+		Select selectDropdown = new Select(element);
+	     List<WebElement> listOptionDropdown = selectDropdown.getOptions();
+	     for(int i=0;i<listOptionDropdown.size();i++) {
+	    	 if(listOptionDropdown.get(i).getText().contains(CommonMethods.loadProperties("facility"))) {
+	    		 selectDropdown.selectByIndex(i);
+	    		 break;
+	    	 }
+	     }
+	     return selectDropdown.getFirstSelectedOption().getText();
+	}
+	
 	public static int dropDownSize(WebElementFacade list) {
 		Select drpList = new Select(list);
 		return drpList.getOptions().size();
@@ -61,10 +74,7 @@ public class CommonMethods{
 		drp.selectByIndex(i);
 	}
 
-	public class common extends BasePage {
-		PageObject page;
-
-		// Click on Ok or accept on Alter message box
+	// Click on Ok or accept on Alter message box
 		public void HandleAlertsAccept() {
 			page.getAlert().accept();
 		}
@@ -144,14 +154,14 @@ public class CommonMethods{
 		public int getElementsSize(String xpath) {
 			return getDriver().findElements(By.xpath(xpath)).size();
 		}
-	}
+	
 
 	/**
 	 * 
 	 * @Author AmeyaS - Read parameters from serenity.properties file
 	 * 
 	 */
-	public static String LoadProperties(String input) throws IOException {
+	public static String loadProperties(String input) throws IOException {
 		EnvironmentVariables variables = SystemEnvironmentVariables.createEnvironmentVariables();
 		return variables.getProperty(input);
 	}
@@ -161,11 +171,10 @@ public class CommonMethods{
 		return rnd.nextInt(all);
 	}
 	
-	public static String queryProperties(String input,String moduleName) throws FileNotFoundException, IOException {
-        Properties prop = new Properties();        
-        String path="src/test/resources/TestData/Query"+moduleName+".properties";
-        prop.load(new FileInputStream(path));      
-        return prop.getProperty(input);
- }
+	public static String queryProperties(String dbPropertiesFileName, String input) throws FileNotFoundException, IOException {
+		Properties prop = new Properties();
+			prop.load(new FileInputStream("src/test/resources/TestData/"+dbPropertiesFileName+".properties"));
+				return prop.getProperty(input);
+	} 
 	
 }

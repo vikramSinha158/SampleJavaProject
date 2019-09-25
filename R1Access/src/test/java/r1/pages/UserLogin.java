@@ -31,8 +31,8 @@ public class UserLogin extends BasePage {
 	}
 
 	public void EnterCredentials() throws IOException {
-		String email = CommonMethods.LoadProperties("username");
-		String passwd = CommonMethods.LoadProperties("password");
+		String email = CommonMethods.loadProperties("username");
+		String passwd = CommonMethods.loadProperties("password");
 		username.type(email);
 		password.type(passwd);
 	}

@@ -9,19 +9,17 @@ import java.util.Date;
 import java.util.List;
 import org.junit.Assert;
 import cucumber.api.DataTable;
-import cucumber.api.java.en.And;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
-import r1.commons.databaseconnection.DatabaseConn;
 import r1.commons.databaseconnection.QueryExecutor;
 import r1.commons.utilities.CommonMethods;
-import r1.serenity.steps.R1NeccessitySteps;
+
 
 public class FCCPage extends BasePage{
 	
-	R1NeccessitySteps neccessitySteps;
+	
 	R1AccessCommonMethods r1AccessCommonMethods;
 	
 	List<String> fccWorkListAccounts;
@@ -301,9 +299,7 @@ public class FCCPage extends BasePage{
 		Assert.assertTrue("Followup History label Next Action Date is not matching",followupHistoryLabel.get(6).getText().contains("Next Action Date"));
 		Assert.assertTrue("Followup History label Updated Date is not matching",followupHistoryLabel.get(7).getText().contains("Updated Date"));
 			
-		neccessitySteps = new R1NeccessitySteps();
 		
-		Assert.assertTrue("Follow Up History Value Updated By is not matching",followupHistoryValue.get(0).getText().contains(neccessitySteps.getUserDisplayName()));
 		Assert.assertTrue("Follow Up History Value Type is not matching",followupHistoryValue.get(1).getText().contains(type));
 		Assert.assertTrue("Follow Up History Value Action is not matching",followupHistoryValue.get(2).getText().contains(activity));
 		Assert.assertTrue("Follow Up History Value Disposition is not matching",followupHistoryValue.get(3).getText().contains(disposition));
@@ -322,7 +318,7 @@ public class FCCPage extends BasePage{
 		Assert.assertTrue("Activity Log header Date/Time is not matching", actionLogLabels.get(5).getText().contains("Date/Time"));
 		Assert.assertTrue("Activity Log value Type/Disposition is not matching", actionLogValues.get(0).getText().contains("Task"));
 		Assert.assertTrue("Activity Log value Task is not matching", actionLogValues.get(1).getText().contains("Take Action"));
-		Assert.assertTrue("Activity Log value Updated By is not matching", actionLogValues.get(2).getText().toLowerCase().contains(CommonMethods.LoadProperties("username").toLowerCase()));
+		Assert.assertTrue("Activity Log value Updated By is not matching", actionLogValues.get(2).getText().toLowerCase().contains(CommonMethods.loadProperties("username").toLowerCase()));
 		Assert.assertTrue("Activity Log value Status is not matching", actionLogValues.get(3).getText().contains("Incomplete"));
 		Assert.assertTrue("Activity Log value Note is not matching", actionLogValues.get(4).getText().contains(note));
 		Assert.assertTrue("Activity Log value Date/Time is not matching", actionLogValues.get(5).getText().contains(new SimpleDateFormat("M/d/yyyy").format(new Date())));
@@ -420,17 +416,20 @@ public class FCCPage extends BasePage{
 	}
 	
 	public void runQuery(String queryName, String facility) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
-		QueryExecutor.runQueryTran(queryName,facility.split(" - ")[0]);
+		QueryExecutor.runQueryTran(queryName,facility);
 	}
 	
-	public String getEncounterID(String col) throws SQLException{
-		DatabaseConn.resultSet.next();
-		return DatabaseConn.resultSet.getString(col);
-	}
-	
-	public void enterSearchText(String id) {
+    public void enterSearchText(String id) {
 		typeInto(searchedAccountTextBox.get(4),id);
 	}
 	
+	public void runQueryTranServer(String queryName,String facility)
+			throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		QueryExecutor.runQueryTran(this.getClass().getSimpleName().replace("Page", ""),queryName,facility);
+	}
 	
+	public void runQueryTranServer(String queryName)
+			throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		QueryExecutor.runQueryTran(this.getClass().getSimpleName().replace("Page", ""),queryName);
+	}
 }

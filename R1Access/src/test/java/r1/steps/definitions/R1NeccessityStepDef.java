@@ -1,26 +1,26 @@
 package r1.steps.definitions;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
-
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import r1.commons.BasePage;
+import r1.commons.databaseconnection.DatabaseConn;
 import r1.pages.Navigation;
 import r1.pages.R1NeccessityPage;
 import r1.pages.UserLogin;
-import r1.serenity.steps.R1NeccessitySteps;
+
 
 public class R1NeccessityStepDef extends BasePage{
 	
 	R1NeccessityPage neccessityPage;
-	R1NeccessitySteps neccessitySteps;
 	UserLogin userLogin;
 	Navigation navigation;
 	
-	String encounterID;
+	String encounterID,registrationID;
 	
 	@Then("^user is on \"([^\"]*)\" page$")
 	public void user_is_on_page(String pageTitle) {
@@ -42,18 +42,17 @@ public class R1NeccessityStepDef extends BasePage{
 		neccessityPage.verifyTabsColor();
 	}
 	
-	@Then("^user run the query and fetch the \"([^\"]*)\"$")
-	public void user_run_the_query_and_fetch_encounterid(String col) throws ClassNotFoundException, IOException, SQLException {
-		neccessitySteps = new R1NeccessitySteps();
-		encounterID = neccessitySteps.searchEncounterID(col);
+   @When("^user fetch the \"([^\"]*)\" from Query for FCC$")
+	public void user_fetch_the_from_Query_for_FCC(String query) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		neccessityPage.runQueryTranServer(query);
+		DatabaseConn.resultSet.next();
+		encounterID = DatabaseConn.resultSet.getString("encounterID");
 	}
-	
+
 	@Then("^user should be able to view the searched visit number on patient details panel$")
 	public void user_should_be_able_to_see_the_searched_visit_number() throws ClassNotFoundException, IOException, SQLException {
 		neccessityPage.verifySearchedVisitNumber(encounterID);
 	}
-	
-	
 	
 	@When("^user click on the \"([^\"]*)\" button on blue ribbon$")
 	public void user_click_on_the_button_on_blue_ribbon(String label) throws ClassNotFoundException, IOException, SQLException {
@@ -90,24 +89,6 @@ public class R1NeccessityStepDef extends BasePage{
 		neccessityPage.verifyAccountsDisplayed();
 	}
 	
-	
-	
-	@And("^user clicks on \"([^\"]*)\" button$")
-	public void user_clicks_on_Checkout_button(String menu) throws InterruptedException{
-		if(menu.contains("Check Out")) {
-		neccessityPage.verifyReleaseButton();
-		neccessityPage.clickAccountButton(menu);
-		neccessityPage.verifyRedoButton();
-		neccessityPage.verifyAdmittingLink();
-		}
-		else if(menu.contains("Complete")) {
-			neccessityPage.verifyRedoButton();
-			neccessityPage.clickAccountButton(menu);
-		}
-		else
-			neccessityPage.clickAccountButton(menu);
-	}
-	
 	@And("^user search the service \"([^\"]*)\"$")
 	public void user_search_the_service(String service){
 		neccessityPage.searchService(service);
@@ -123,12 +104,26 @@ public class R1NeccessityStepDef extends BasePage{
 		neccessityPage.clickDiagnosisLink();
 	}
 	
-	@Then("^user run the query and fetch the neccessity encounterID \"([^\"]*)\"$")
-	public void user_run_the_query_and_fetch_the_neccessity_encounterID(String column) throws ClassNotFoundException, IOException, SQLException{
-		neccessitySteps = new R1NeccessitySteps();
-		encounterID = neccessitySteps.searchNecessityEncounterID(column);
-	}
+//	@Then("^user run the query and fetch the neccessity encounterID \"([^\"]*)\"$")
+//	public void user_run_the_query_and_fetch_the_neccessity_encounterID(String column) throws ClassNotFoundException, IOException, SQLException{
+//		neccessitySteps = new R1NeccessitySteps();
+//		encounterID = neccessitySteps.searchNecessityEncounterID(column);
+//	}
 	
+	@When("^user fetch the \"([^\"]*)\" get registrationID$")
+	public void user_fetch_the_get_registrationID(String query ) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		neccessityPage.runQueryTranServer(query);
+		DatabaseConn.resultSet.next();
+	    registrationID =  DatabaseConn.resultSet.getString("RegistrationID");
+	   }
+	
+	@When("^user fetch the \"([^\"]*)\" get EncounterID$")
+	public void user_fetch_the_get_EncounterID(String query, String registrationID) throws SQLException, ClassNotFoundException, FileNotFoundException, IOException {
+		neccessityPage.runQueryTranServerParam(query, registrationID);
+		DatabaseConn.resultSet.next();
+		encounterID =  DatabaseConn.resultSet.getString("EncounterID");
+		}
+
 	@And("^user select activity \"([^\"]*)\" from activity drop down$")
 	public void user_select_activity(String activity){
 		neccessityPage.selectActivity(activity);
@@ -175,11 +170,13 @@ public class R1NeccessityStepDef extends BasePage{
 		neccessityPage.verifyFollowUp();
 	}
 	
-	@Then("^user run the query and fetch the neccessity incomplete encounterID \"([^\"]*)\" and verify with UI$")
-	public void user_run_the_query_and_fetch_the_neccessity_incomplete_encounterID(String columnName) throws ClassNotFoundException, IOException, SQLException{
-		neccessityPage.verifyNecessityIncompleteAccounts(columnName);
-	}
-	
+	@When("^user fetch the \"([^\"]*)\" and verify with UI$")
+    public void user_fetch_the_and_verify_with_UI(String query) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+    	neccessityPage.runQueryTranServer(query);
+		DatabaseConn.resultSet.next();
+		encounterID =  DatabaseConn.resultSet.getString("EncounterID");
+    }
+
 	@Then("^user clicks on the Necessity Incomplete filter$")
 	public void user_clicks_on_the_Necessity_Required_drill_down_filter() throws InterruptedException{
 		neccessityPage.clickNecessityRequiredDrillDown();
@@ -225,16 +222,16 @@ public class R1NeccessityStepDef extends BasePage{
 		neccessityPage.verifyExceptionsNecessityService(exception);
 	}
 	
-	
 	@And("^user should be able to view Necessity tab color in BLUE$")
 	public void user_should_be_able_to_view_Necessity_tab_color_in_BLUE() {
 		neccessityPage.verifyNecessityColorBlue();
 	}
 	
-	@Then("^user run the query and fetch the outpatient \"([^\"]*)\"$")
-	public void user_run_the_query_and_fetch_the_outpatient_encounterID(String column) throws ClassNotFoundException, IOException, SQLException {
-		neccessitySteps = new R1NeccessitySteps();
-		encounterID = neccessitySteps.getPatientEncounterID(column);
+	@Then("^user fetch the outpatient \"([^\"]*)\"$")
+	public void user_fetch_the_outpatient(String query) throws SQLException, ClassNotFoundException, FileNotFoundException, IOException {
+		neccessityPage.runQueryTranServer(query);
+		DatabaseConn.resultSet.next();
+		encounterID =  DatabaseConn.resultSet.getString("EncounterID");
 	}
 	
 	@Then("^Necessity tab should not be visible$")

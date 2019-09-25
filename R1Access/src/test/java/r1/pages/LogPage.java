@@ -97,13 +97,7 @@ public class LogPage extends BasePage {
 		R1AccessCommonMethodsRef.verifySorting(actionLogTableRow,actionLogTableHeader,colName);
 	}
 	
-	public void clickRelease() 
-	{
-		if(release.isVisible())
-		{
-		clickOn(release);
-		}
-	}
+	
 
 	public void clickActionType(String button) 
 	{
@@ -157,16 +151,7 @@ public class LogPage extends BasePage {
 		Assert.assertTrue("ActionLog type mis matched", flag);
 	}
 	
-	public void searchService()
-	{
-		typeInto(serviceSearchTxtBox,"skin");
-		clickOn(srvcSrchBtn);
-	}
-
-	public void clickOnSearchedService()
-	{
-		clickOn(srvcSearchedRes);
-	}
+	
 	
 	public void verifyActionlog() 
 	{

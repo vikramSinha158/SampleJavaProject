@@ -8,11 +8,12 @@ import org.openqa.selenium.support.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
-import r1.commons.utilities.CommonMethods.common;
+
+
 
 public class ProspectivePatientEstimatesPage extends BasePage{
 	
-	common common;
+	
 	ArrayList<String> getColValue;
 	String selPayorCode,selPlanCode,selSubscriberID,selCopay,selCoIns,selDeduct,selOOPRemaining,selVerified;
 	int count;

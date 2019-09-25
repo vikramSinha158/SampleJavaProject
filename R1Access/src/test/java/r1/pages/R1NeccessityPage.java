@@ -1,5 +1,6 @@
 package r1.pages;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -12,15 +13,16 @@ import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
+import r1.commons.databaseconnection.QueryExecutor;
 import r1.commons.utilities.CommonMethods;
-import r1.commons.utilities.CommonMethods.common;
-import r1.serenity.steps.R1NeccessitySteps;
+
+
 
 public class R1NeccessityPage extends BasePage{
 	
-	R1NeccessitySteps neccessitySteps;
+	
 	R1AccessCommonMethods r1AccessCommonMethods;
-	common common;
+	CommonMethods commonMethods;
 	String serviceCode;
 	
 	@FindBy(xpath = "//span[@class='subHead']/preceding-sibling::span")
@@ -261,7 +263,15 @@ public class R1NeccessityPage extends BasePage{
 		}
 	}
 	
+	public void runQueryTranServer(String queryName)
+			throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		QueryExecutor.runQueryTran(this.getClass().getSimpleName().replace("Page", ""),queryName);
+	}
 	
+	public void runQueryTranServerParam(String queryName, String registrationID)
+			throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		QueryExecutor.runQueryTranParam(this.getClass().getSimpleName().replace("Page", ""),queryName,registrationID);
+	}
 	
 	public void clickDiagnosisLink() {
 		clickOn(diagonisCode);
@@ -276,7 +286,7 @@ public class R1NeccessityPage extends BasePage{
 	}
 
 	public void verifyDispositionHide() throws InterruptedException {
-		Assert.assertTrue("Disposition is not getting hide",common.getElementsSize(dispositionDropDown)>0);
+		Assert.assertTrue("Disposition is not getting hide",commonMethods.getElementsSize(dispositionDropDown)>0);
 	}
 	
 	public void clickABNEnglish() {
@@ -288,17 +298,17 @@ public class R1NeccessityPage extends BasePage{
 	}
 	
 	public void verifyABNEnglishPdf() {
-		common.switchWindow();
-		Assert.assertTrue(common.getWindowTitle().contains("Advance Beneficiary"));
-		common.closeWindow();
-		common.switchWindow();
+		commonMethods.switchWindow();
+		Assert.assertTrue(commonMethods.getWindowTitle().contains("Advance Beneficiary"));
+		commonMethods.closeWindow();
+		commonMethods.switchWindow();
 	}
 	
 	public void verifyABNSpanishPdf() {
-		common.switchWindow();
-		Assert.assertTrue(common.getWindowTitle().contains("Notificación previa"));
-		common.closeWindow();
-		common.switchWindow();
+		commonMethods.switchWindow();
+		Assert.assertTrue(commonMethods.getWindowTitle().contains("Notificación previa"));
+		commonMethods.closeWindow();
+		commonMethods.switchWindow();
 	}
 	
 	public void verifyActivityLog() throws IOException {
@@ -310,7 +320,7 @@ public class R1NeccessityPage extends BasePage{
 																 actionLog.get(0).getText().contains("Date/Time"));
 		Assert.assertTrue("Type/Disposition is not matching", actionLog.get(1).getText().contains("Task"));
 		Assert.assertTrue("Task is not matching", actionLog.get(1).getText().contains("R1 Necessity™"));
-		Assert.assertTrue("Updated By is not matching", actionLog.get(1).getText().toLowerCase().contains(CommonMethods.LoadProperties("username").toLowerCase()));
+		Assert.assertTrue("Updated By is not matching", actionLog.get(1).getText().toLowerCase().contains(CommonMethods.loadProperties("username").toLowerCase()));
 		Assert.assertTrue("Type/Disposition is not matching", actionLog.get(1).getText().contains("Completed") || actionLog.get(1).getText().contains("Incomplete") || actionLog.get(1).getText().contains("Assigned") || actionLog.get(1).getText().contains("Redo") || actionLog.get(1).getText().contains("Unassigned"));
 		Assert.assertTrue("Type/Disposition is not matching", actionLog.get(1).getText().contains(new SimpleDateFormat("M/d/yyyy").format(new Date())));
 	}
@@ -325,20 +335,10 @@ public class R1NeccessityPage extends BasePage{
 						  followupHistory.get(0).getText().contains("Next Action Date") &&
 						  followupHistory.get(0).getText().contains("Updated Date"));
 		
-		Assert.assertTrue(followupHistory.get(1).getText().contains(neccessitySteps.getUserDisplayName()) &&
-				followupHistory.get(1).getText().contains("Medical Necessity") &&
-				followupHistory.get(1).getText().contains("ABN Printed") &&
-				followupHistory.get(1).getText().contains("N/A") &&
-				followupHistory.get(1).getText().contains("Medical Necessity") &&
-				followupHistory.get(1).getText().contains(serviceCode) &&
-				followupHistory.get(1).getText().contains(new SimpleDateFormat("MM/d/yyyy").format(new Date())));
+		
 	}
 
-	public void verifyNecessityIncompleteAccounts(String column) throws ClassNotFoundException, IOException, SQLException {
-		for(int i=0;i<necessityAccountUI.size();i++) {
-			Assert.assertTrue("Account--"+necessityAccountUI.get(i).getText()+"--is not matching.",neccessitySteps.getNecessityEncounterID(column).contains(necessityAccountUI.get(i).getText()));
-		}
-	}
+
 	
 	public void clickNecessityRequiredDrillDown() throws InterruptedException {
 		r1AccessCommonMethods.subFolderClick("Necessity Required", "Necessity Incomplete");

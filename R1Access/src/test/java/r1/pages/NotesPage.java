@@ -15,14 +15,14 @@ import r1.commons.BasePage;
 import r1.commons.databaseconnection.DatabaseConn;
 import r1.commons.databaseconnection.QueryExecutor;
 import r1.commons.utilities.CommonMethods;
-import r1.commons.utilities.CommonMethods.common;
-import r1.serenity.steps.NotesSteps;
+
+
 
 
 
 public class NotesPage extends BasePage {
 	
-	common common;
+	CommonMethods commonMethods;
 	
 	@FindBy(xpath = "//span[@class='subHead']/preceding-sibling::span")
 	private WebElementFacade workListTitle;
@@ -89,21 +89,7 @@ public class NotesPage extends BasePage {
 	public List<WebElementFacade> accountDetailMenuLinks() {
 		return accountDetailMenuLinks;
 	}
-	
-	public void clickAccountDetailMenuLink(String menuName) {
-		for(int i=0;i<accountDetailMenuLinks.size();i++) {
-			if(accountDetailMenuLinks.get(i).getText().equals(menuName) || accountDetailMenuLinks.get(i).getText().equalsIgnoreCase(menuName)) {
-				withAction().moveToElement(accountDetailMenuLinks.get(i)).click().build().perform();
-				break;
-			}
-		}
-	}
-	
-	public void clickRecord() {
-		int random = 1+(int)(Math.random() * workListRecord.size());
-		clickOn(workListRecord.get(random-1));
-	}
-	
+					
 	public void clickNotesIcon() {
 		clickOn(notesIcon);
 	}
@@ -124,13 +110,14 @@ public class NotesPage extends BasePage {
 		typeInto(noteTextBox,text);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void verifyPopup(String note) {
 		String name = patientName.getText();
 		String dob = new SimpleDateFormat("M/d/yyyy").format(new Date(patientDob.getText()));
 		String admitdate = new SimpleDateFormat("M/d/yyyy").format(new Date(patientAdmitDate.getText()));
 		String account = patientAccount.getText();		
 		
-		common.switchWindow();
+		commonMethods.switchWindow();
 		Assert.assertTrue("Pop up labels are not matching",popUp.getText().contains("Name:") &&
 				popUp.getText().contains("DOB:") &&
 				popUp.getText().contains("Service Date:") &&
@@ -143,13 +130,19 @@ public class NotesPage extends BasePage {
 		Assert.assertTrue("Patient Account is not matching on pop up",popUp.getText().contains(account));		
 		Assert.assertTrue("Note Note is not matching on pop up",popUp.getText().contains(note));
 		
-		common.closeWindow();
-		common.switchWindow();
+		commonMethods.closeWindow();
+		commonMethods.switchWindow();
 	}
+	
+	public void runQueryTranServer(String queryName)
+			throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		QueryExecutor.runQueryTran(this.getClass().getSimpleName().replace("Page", ""),queryName);
+	}
+
 	
 	public void verifyNotesDateTime() throws IOException {
 		Assert.assertTrue("Note's date and time stamped is not matching",notesDateTime.getText().contains(new SimpleDateFormat("M/d/yyyy").format(new Date()).toString()));
-		Assert.assertTrue("Note's user name is not verified",notesUser.getText().equalsIgnoreCase(CommonMethods.LoadProperties("username")));
+		Assert.assertTrue("Note's user name is not verified",notesUser.getText().equalsIgnoreCase(CommonMethods.loadProperties("username")));
 	}
 	
 	public void verifyBlankNote() {
@@ -164,14 +157,7 @@ public class NotesPage extends BasePage {
 		Assert.assertFalse("Note is matching", noteText.getText().contains(text));
 	}
 	
-	/*public void verifyNoteDB(String column) throws ClassNotFoundException, IOException, SQLException, InterruptedException {
-		Assert.assertTrue("Note is not matching with database",noteText.getText().contains(NotesSteps.verifyNewCreatedScope(encounterID.getText(), column)));
-	}*/
-	/*
-	public void runQuery(String queryName) throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
-		QueryExecutor.runQueryTranParam(queryName,encounterID.getText());
-	}
-	*/
+	
 	public void verifyNoteDB(String col) throws SQLException{
 		while(DatabaseConn.resultSet.next()) {
 			Assert.assertTrue("Note is not matching with database",noteText.getText().contains(DatabaseConn.resultSet.getString(col)));
@@ -197,4 +183,6 @@ public class NotesPage extends BasePage {
 	public void verifyAccountDetailPage() {
 		Assert.assertTrue("Patient Visit and Address".equals(accountDetailPage.getText().trim()));
 	}
+	
+	
 }

@@ -9,10 +9,13 @@ import org.openqa.selenium.support.ui.Select;
 
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.utilities.CommonMethods;
 
 public class R1AccessCommonMethods extends BasePage {
+	
+	
 
 	Select select;
 	String value = "";
@@ -676,7 +679,7 @@ public class R1AccessCommonMethods extends BasePage {
 	}
 
 	public void selectFacility() throws IOException {
-		String facility=CommonMethods.LoadProperties("facility");			
+		String facility=CommonMethods.loadProperties("facility");			
 		String itemxpath="//select[contains(@id,'LocationChooser_ddlLocation')]//option[contains(text(),'"+facility+"')]";				
 	    WebElementFacade selectXPATH = element(By.xpath(itemxpath));
 		selectFromDropdown(facilitylist, selectXPATH.getText());		

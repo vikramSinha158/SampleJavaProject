@@ -202,7 +202,7 @@ public class ServiceAutomationRulePage extends BasePage {
 	}
 
 	public void enterFacilityCode() throws IOException {
-		facilityName = CommonMethods.LoadProperties("facility");
+		facilityName = CommonMethods.loadProperties("facility");
 		typeInto(txtFacilityCode, facilityName);
 
 	}
@@ -324,7 +324,7 @@ public class ServiceAutomationRulePage extends BasePage {
 	}
 
 	public void verifyExport() throws IOException {
-		String downloadpath = CommonMethods.LoadProperties("downloadpath");
+		String downloadpath = CommonMethods.loadProperties("downloadpath");
 		int uiHeadercount = totalHeaderUI.size();
 		Assert.assertTrue("Failed to download Expected document",
 				isFileDownloadedWithContent(downloadpath, uiHeadercount));
