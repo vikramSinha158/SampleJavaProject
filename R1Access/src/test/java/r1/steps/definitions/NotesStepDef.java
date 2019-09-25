@@ -4,10 +4,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import com.openhtmltopdf.css.parser.property.PrimitivePropertyBuilders.Page;
+
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import net.serenitybdd.core.pages.PageObject;
 import r1.pages.Navigation;
 import r1.pages.NotesPage;
 import r1.pages.UserLogin;
@@ -16,7 +19,7 @@ import r1.commons.R1AccessCommonMethods;
 import r1.commons.databaseconnection.DatabaseConn;
 
 
-public class NotesStepDef extends BasePage {
+public class NotesStepDef extends PageObject {
 
 	NotesPage notesPage;
 	UserLogin userLogin;
@@ -26,7 +29,7 @@ public class NotesStepDef extends BasePage {
 
 	@Given("^user is on R1 hub page$")
 	public void user_is_on_R1_hub_page() throws IOException {
-		OpenBrowser();
+		open();
 		userLogin.EnterCredentials();
 		userLogin.ClickLoginButton();
 	}

@@ -8,13 +8,14 @@ import java.util.List;
 import org.junit.Assert;
 import org.openqa.selenium.support.FindBy;
 import net.serenitybdd.core.annotations.findby.By;
+import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
 import r1.commons.databaseconnection.QueryExecutor;
 
 
-public class PFAPage extends BasePage {
+public class PFAPage extends PageObject {
 
 	R1AccessCommonMethods commonMethodsR1Access;
 	

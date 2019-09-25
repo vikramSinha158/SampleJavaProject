@@ -9,11 +9,12 @@ import org.junit.Assert;
 import org.openqa.selenium.support.FindBy;
 
 import cucumber.api.DataTable;
+import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
 
-public class PayorStatusPage extends BasePage {
+public class PayorStatusPage extends PageObject {
 	
 	ArrayList<String> columnValue;
 	R1AccessCommonMethods R1AccessCommonMethodsRef;

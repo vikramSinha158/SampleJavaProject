@@ -6,13 +6,14 @@ import java.util.List;
 import org.junit.Assert;
 import java.util.Random;
 import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
 import r1.commons.utilities.CommonMethods;
 
 
-public class Service2Page extends BasePage {
+public class Service2Page extends PageObject {
 	Random random = new Random();
 	R1AccessCommonMethods r1AccessCommonMethod;
 	boolean flag = false;

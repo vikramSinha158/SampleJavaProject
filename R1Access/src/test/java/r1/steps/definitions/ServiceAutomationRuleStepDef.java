@@ -10,7 +10,7 @@ import r1.pages.Navigation;
 import r1.pages.ServiceAutomationRulePage;
 import r1.pages.UserLogin;
 
-public class ServiceAutomationRuleStepDef extends BasePage {
+public class ServiceAutomationRuleStepDef{
 
 	UserLogin userLogin;
 	Navigation navigation;

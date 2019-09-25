@@ -9,7 +9,7 @@ import cucumber.api.java.en.When;
 import r1.commons.BasePage;
 import r1.pages.PayorStatusPage;
 
-public class PayorStatusStepDef extends BasePage{
+public class PayorStatusStepDef{
 	
 	PayorStatusPage payorStatusPage;
 	

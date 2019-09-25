@@ -2,15 +2,12 @@ package r1.pages;
 
 import java.io.IOException;
 import java.util.List;
-
-import org.junit.Assert;
-
 import net.serenitybdd.core.annotations.findby.FindBy;
+import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
-import r1.commons.BasePage;
 import r1.commons.utilities.CommonMethods;
 
-public class Navigation extends BasePage {
+public class Navigation extends PageObject {
 
 	@FindBy(xpath = "//a[contains(@id,'LocationChooser_hypLoc')]")
 	private WebElementFacade facilityList;

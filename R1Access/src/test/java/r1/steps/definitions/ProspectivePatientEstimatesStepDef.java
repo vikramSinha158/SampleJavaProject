@@ -12,7 +12,7 @@ import r1.pages.Navigation;
 import r1.pages.ProspectivePatientEstimatesPage;
 import r1.pages.UserLogin;
 
-public class ProspectivePatientEstimatesStepDef extends BasePage{
+public class ProspectivePatientEstimatesStepDef{
 	
 	
 	ProspectivePatientEstimatesPage prospectivePatientEstimatesPage;

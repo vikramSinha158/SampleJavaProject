@@ -17,7 +17,7 @@ import r1.commons.databaseconnection.DatabaseConn;
 import r1.pages.Settlement;
 import r1.pages.UserLogin;
 
-public class SettlementStepDef extends BasePage {
+public class SettlementStepDef{
 
 	UserLogin userLogin;
 	R1AccessCommonMethods commonMethods;

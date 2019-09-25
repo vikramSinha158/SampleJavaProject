@@ -14,7 +14,7 @@ import r1.pages.PFAPage;
 import r1.pages.UserLogin;
 
 
-public class PFAStepDef extends BasePage {
+public class PFAStepDef{
 
 	PFAPage pfaPage;
 	UserLogin userLogin;
