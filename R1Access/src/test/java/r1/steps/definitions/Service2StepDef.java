@@ -3,18 +3,9 @@ package r1.steps.definitions;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
-
-import org.junit.Assert;
-import org.openqa.selenium.WebDriver.Navigation;
-
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
-import r1.commons.databaseconnection.QueryExecutor;
-import r1.commons.utilities.CommonMethods;
 import r1.pages.Service2Page;
 import r1.commons.databaseconnection.DatabaseConn;
 
@@ -48,11 +39,11 @@ public class Service2StepDef{
 	public void verify_service_and_residual_settings_has_version_two_by_running_the_query_and(String serviceQuery,
 			String residualQuery)
 			throws ClassNotFoundException, FileNotFoundException, SQLException, IOException, InterruptedException {
-		QueryExecutor.runQueryTran(serviceQuery, service2.getmoduleName());
+		service2.runQueryTranServer(serviceQuery);
 		DatabaseConn.resultSet.next();
 		String serviceSetting = DatabaseConn.resultSet.getString("SettingValue");
-
-		QueryExecutor.runQueryTran(residualQuery, service2.getmoduleName());
+		
+		service2.runQueryTranServer(residualQuery);
 		DatabaseConn.resultSet.next();
 		String residualSetting = DatabaseConn.resultSet.getString("SettingValue");
 		service2.verifyServiceandResidualSettings(serviceSetting, residualSetting);

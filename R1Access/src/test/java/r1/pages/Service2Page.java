@@ -1,5 +1,6 @@
 package r1.pages;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -10,6 +11,7 @@ import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import r1.commons.BasePage;
 import r1.commons.R1AccessCommonMethods;
+import r1.commons.databaseconnection.QueryExecutor;
 import r1.commons.utilities.CommonMethods;
 
 
@@ -147,9 +149,11 @@ public class Service2Page extends PageObject {
 		}
 	}
 
-	public String getmoduleName() {
-		return "Service2";
+	public void runQueryTranServer(String queryName)
+			throws ClassNotFoundException, FileNotFoundException, SQLException, IOException {
+		QueryExecutor.runQueryTran(this.getClass().getSimpleName().replace("Page", ""),queryName);
 	}
+
 
 	/* ............ Service Query .................................. */
 
